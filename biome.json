@@ -17,7 +17,7 @@
       "!coverage",
       "!pnpm-lock.yaml",
       "!next-env.d.ts",
-      "!components/ui"
+      "!components/ui/**/*"
     ]
   },
   "formatter": {
