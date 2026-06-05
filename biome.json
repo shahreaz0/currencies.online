@@ -16,7 +16,8 @@
       "!.turbo",
       "!coverage",
       "!pnpm-lock.yaml",
-      "!next-env.d.ts"
+      "!next-env.d.ts",
+      "!components/ui"
     ]
   },
   "formatter": {
