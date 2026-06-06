@@ -1,18 +1,91 @@
-import { Button } from "@/components/ui/button"
+import { CheckCircle, HelpCircle, Shield, Sparkles } from "lucide-react"
+import Adsense from "@/app/_components/adsense"
+import Hero from "@/app/_components/hero"
+import LatestRates from "@/app/_components/latest-rates"
+import PopularCurrencies from "@/app/_components/popular-currencies"
 
-export default function Page() {
+export default function Home() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex min-w-0 max-w-md flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
+    <div className="flex flex-col gap-6 pb-16">
+      {/* 1. Hero Search Area */}
+      <Hero />
+
+      {/* 2. Adsense Block (Immediately below search area) */}
+      <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Adsense slot="home-top-banner" format="horizontal" />
+      </div>
+
+      {/* 3. Popular Currency Section */}
+      <PopularCurrencies />
+
+      {/* 4. Latest Exchange Rates Section */}
+      <LatestRates />
+
+      {/* 5. Marketing/SEO Pitch & Trust badges */}
+      <section className="border-border/40 border-t border-b bg-muted/40 py-16">
+        <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto mb-12 max-w-3xl text-center">
+            <span className="mb-4 inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary text-xs uppercase tracking-widest">
+              <Sparkles className="h-3 w-3" />
+              Information Engine
+            </span>
+            <h2 className="font-bold text-2xl text-foreground tracking-tight sm:text-3xl">
+              The World's Currency Directory & Exchange Rate Database
+            </h2>
+            <p className="mt-4 text-muted-foreground">
+              Currencies.online delivers comprehensive economic data covering
+              over 195+ countries. Access precise codes, official symbols, and
+              accurate cross-currency rates instantly.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
+            <div className="flex flex-col items-center rounded-2xl border border-border/30 bg-card p-6 text-center">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <Shield className="h-6 w-6" />
+              </div>
+              <h3 className="font-bold text-foreground text-lg">
+                Statically Automated
+              </h3>
+              <p className="mt-2 text-muted-foreground text-sm">
+                Built with static databases to serve pages under 50ms while
+                keeping currency records and country relationships fully
+                verified.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center rounded-2xl border border-border/30 bg-card p-6 text-center">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <CheckCircle className="h-6 w-6" />
+              </div>
+              <h3 className="font-bold text-foreground text-lg">
+                Double-Indexed Structure
+              </h3>
+              <p className="mt-2 text-muted-foreground text-sm">
+                Dedicated directories for both Countries and Currencies. Ideal
+                for resolving complex user search intents.
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center rounded-2xl border border-border/30 bg-card p-6 text-center">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                <HelpCircle className="h-6 w-6" />
+              </div>
+              <h3 className="font-bold text-foreground text-lg">
+                Rich Historical Charts
+              </h3>
+              <p className="mt-2 text-muted-foreground text-sm">
+                Interactive charts detail currency fluctuations over the last 30
+                days, showing historical swings in clean line formats.
+              </p>
+            </div>
+          </div>
         </div>
-        <div className="font-mono text-muted-foreground text-xs">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
+      </section>
+
+      {/* 6. Adsense Bottom Spot */}
+      <div className="container mx-auto mt-6 max-w-7xl px-4 sm:px-6 lg:px-8">
+        <Adsense slot="home-bottom-banner" format="horizontal" />
       </div>
     </div>
   )

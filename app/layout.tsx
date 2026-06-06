@@ -1,6 +1,9 @@
 import { Geist, Geist_Mono } from "next/font/google"
+import { NuqsAdapter } from "nuqs/adapters/next/app"
 
 import "./globals.css"
+import Footer from "@/app/_components/footer"
+import Header from "@/app/_components/header"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
@@ -28,7 +31,15 @@ export default function RootLayout({
       )}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          <NuqsAdapter>
+            <div className="flex min-h-screen flex-col bg-background text-foreground selection:bg-primary/20">
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+          </NuqsAdapter>
+        </ThemeProvider>
       </body>
     </html>
   )
