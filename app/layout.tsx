@@ -4,6 +4,7 @@ import { NuqsAdapter } from "nuqs/adapters/next/app"
 import "./globals.css"
 import Footer from "@/app/_components/footer"
 import Header from "@/app/_components/header"
+import { MobileNav } from "@/app/_components/mobile-nav"
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils"
 
@@ -33,10 +34,11 @@ export default function RootLayout({
       <body>
         <ThemeProvider>
           <NuqsAdapter>
-            <div className="flex min-h-screen flex-col bg-background text-foreground selection:bg-primary/20">
+            <div className="flex min-h-screen flex-col bg-background pb-16 text-foreground selection:bg-primary/20 md:pb-0">
               <Header />
               <main className="flex-1">{children}</main>
               <Footer />
+              <MobileNav />
             </div>
           </NuqsAdapter>
         </ThemeProvider>
