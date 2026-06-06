@@ -10,26 +10,13 @@ import {
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
-import { blogs, countries, currencies } from "@/lib/data"
+import { blogs, countries, currencies, exchangeRatesMatrix } from "@/lib/data"
 
 export const metadata: Metadata = {
   title: "HTML Sitemap | Currencies.online",
   description:
     "Browse the complete sitemap index of Currencies.online to find country directories, currency analyses, exchange rates, calculators, and articles.",
 }
-
-const popularPairs = [
-  "usd-to-eur",
-  "usd-to-jpy",
-  "usd-to-gbp",
-  "usd-to-inr",
-  "usd-to-cad",
-  "eur-to-usd",
-  "gbp-to-usd",
-  "cad-to-usd",
-  "aud-to-usd",
-  "jpy-to-usd",
-]
 
 export default function SitemapPage() {
   return (
@@ -259,16 +246,19 @@ export default function SitemapPage() {
                 Exchange Rate Pairs Pages
               </h2>
               <ul className="grid grid-cols-2 gap-2 text-xs">
-                {popularPairs.map((pair) => (
-                  <li key={pair}>
-                    <Link
-                      href={`/exchange-rates/${pair}`}
-                      className="font-medium font-mono uppercase transition-colors hover:text-primary"
-                    >
-                      {pair.replace("-to-", " / ")}
-                    </Link>
-                  </li>
-                ))}
+                {exchangeRatesMatrix.map((pair) => {
+                  const slug = `${pair.from.toLowerCase()}-to-${pair.to.toLowerCase()}`
+                  return (
+                    <li key={slug}>
+                      <Link
+                        href={`/exchange-rates/${slug}`}
+                        className="font-medium font-mono uppercase transition-colors hover:text-primary"
+                      >
+                        {pair.from} / {pair.to}
+                      </Link>
+                    </li>
+                  )
+                })}
               </ul>
             </CardContent>
           </Card>

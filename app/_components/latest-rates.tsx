@@ -9,11 +9,11 @@ import { exchangeRatesMatrix } from "@/lib/data"
 import { cn } from "@/lib/utils"
 
 export default function LatestRates() {
-  // Grab a slice of rates for clean homepage view
-  const rates = exchangeRatesMatrix.slice(0, 8)
+  // Show a curated selection: first 12 entries gives USD→X pairs + some reverse
+  const rates = exchangeRatesMatrix.slice(0, 12)
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <section className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="mb-8 flex flex-col justify-between md:flex-row md:items-end">
         <div>
           <h2 className="flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">

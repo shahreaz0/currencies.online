@@ -19,7 +19,7 @@ export default function CurrencyRankings() {
     .slice(0, 10)
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+    <section className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="mb-8">
         <h2 className="flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">
           <Trophy className="h-6 w-6 text-primary" />

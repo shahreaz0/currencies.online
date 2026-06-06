@@ -1,25 +1,13 @@
 import { notFound } from "next/navigation"
 import Adsense from "@/app/_components/adsense"
+import { exchangeRatesMatrix } from "@/lib/data"
 import RatePairDetail from "./_components/rate-pair-detail"
 import { parsePair } from "./utils"
 
-const popularPairs = [
-  "usd-to-eur",
-  "usd-to-jpy",
-  "usd-to-gbp",
-  "usd-to-inr",
-  "usd-to-cad",
-  "eur-to-usd",
-  "gbp-to-usd",
-  "cad-to-usd",
-  "aud-to-usd",
-  "jpy-to-usd",
-]
-
-// Pre-render popular exchange rate paths
+// Pre-render all exchange rate pair paths from the full matrix
 export async function generateStaticParams() {
-  return popularPairs.map((pair) => ({
-    pair,
+  return exchangeRatesMatrix.map((pair) => ({
+    pair: `${pair.from.toLowerCase()}-to-${pair.to.toLowerCase()}`,
   }))
 }
 

@@ -1,20 +1,7 @@
 import { NextResponse } from "next/server"
-import { blogs, countries, currencies } from "@/lib/data"
+import { blogs, countries, currencies, exchangeRatesMatrix } from "@/lib/data"
 
 const BASE_URL = "https://currencies.online"
-
-const popularPairs = [
-  "usd-to-eur",
-  "usd-to-jpy",
-  "usd-to-gbp",
-  "usd-to-inr",
-  "usd-to-cad",
-  "eur-to-usd",
-  "gbp-to-usd",
-  "cad-to-usd",
-  "aud-to-usd",
-  "jpy-to-usd",
-]
 
 export async function GET() {
   const xmlUrls: string[] = []
@@ -56,10 +43,11 @@ export async function GET() {
     )
   }
 
-  // 4. Popular exchange rate pairs pages
-  for (const pair of popularPairs) {
+  // 4. Exchange rate pair pages (all pairs in the matrix)
+  for (const pair of exchangeRatesMatrix) {
+    const slug = `${pair.from.toLowerCase()}-to-${pair.to.toLowerCase()}`
     xmlUrls.push(
-      `<url><loc>${BASE_URL}/exchange-rates/${pair}</loc><changefreq>daily</changefreq><priority>0.9</priority></url>`
+      `<url><loc>${BASE_URL}/exchange-rates/${slug}</loc><changefreq>daily</changefreq><priority>0.9</priority></url>`
     )
   }
 
