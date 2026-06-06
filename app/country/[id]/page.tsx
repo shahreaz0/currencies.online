@@ -5,10 +5,6 @@ import { countries } from "@/lib/data"
 import { getCachedCountry } from "@/lib/data-cache"
 import CountryDetail from "./_components/country-detail"
 
-interface PageProps {
-  params: Promise<{ id: string }>
-}
-
 // Statically pre-render all country paths
 export async function generateStaticParams() {
   return countries.map((country) => ({
@@ -17,10 +13,10 @@ export async function generateStaticParams() {
 }
 
 // Generate dynamic metadata for SEO
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const { id } = await params
+export async function generateMetadata(
+  props: PageProps<"/country/[id]">
+): Promise<Metadata> {
+  const { id } = await props.params
   const country = await getCachedCountry(id)
 
   if (!country) {
@@ -37,8 +33,8 @@ export async function generateMetadata({
   }
 }
 
-export default async function CountryPage({ params }: PageProps) {
-  const { id } = await params
+export default async function CountryPage(props: PageProps<"/country/[id]">) {
+  const { id } = await props.params
   const country = await getCachedCountry(id)
 
   if (!country) {

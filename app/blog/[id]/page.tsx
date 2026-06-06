@@ -4,10 +4,6 @@ import Adsense from "@/app/_components/adsense"
 import { blogs } from "@/lib/data"
 import BlogPostContent from "./_components/blog-post-content"
 
-interface PageProps {
-  params: Promise<{ id: string }>
-}
-
 // Pre-render blog routes
 export async function generateStaticParams() {
   return blogs.map((post) => ({
@@ -16,10 +12,10 @@ export async function generateStaticParams() {
 }
 
 // SEO Metadata builder
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const { id } = await params
+export async function generateMetadata(
+  props: PageProps<"/blog/[id]">
+): Promise<Metadata> {
+  const { id } = await props.params
   const post = blogs.find((b) => b.id === id)
 
   if (!post) {
@@ -36,8 +32,8 @@ export async function generateMetadata({
   }
 }
 
-export default async function BlogPostPage({ params }: PageProps) {
-  const { id } = await params
+export default async function BlogPostPage(props: PageProps<"/blog/[id]">) {
+  const { id } = await props.params
   const post = blogs.find((b) => b.id === id)
 
   if (!post) {

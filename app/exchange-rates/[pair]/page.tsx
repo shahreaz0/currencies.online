@@ -1,12 +1,7 @@
-import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Adsense from "@/app/_components/adsense"
-import { currencies } from "@/lib/data"
 import RatePairDetail from "./_components/rate-pair-detail"
-
-interface PageProps {
-  params: Promise<{ pair: string }>
-}
+import { parsePair } from "./utils"
 
 const popularPairs = [
   "usd-to-eur",
@@ -28,28 +23,11 @@ export async function generateStaticParams() {
   }))
 }
 
-// Find currencies from pair slug
-function parsePair(pairSlug: string) {
-  const parts = pairSlug.split("-to-")
-  if (parts.length !== 2) return null
-  const [fromCode, toCode] = parts.map((p) => p.toUpperCase())
-
-  const fromCurrency = currencies.find((c) => c.code === fromCode)
-  const toCurrency = currencies.find((c) => c.code === toCode)
-
-  if (!fromCurrency || !toCurrency) return null
-
-  return {
-    fromCurrency,
-    toCurrency,
-  }
-}
-
 // Build SEO Metadata
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const { pair } = await params
+export async function generateMetadata(
+  props: PageProps<"/exchange-rates/[pair]">
+) {
+  const { pair } = await props.params
   const parsed = parsePair(pair)
 
   if (!parsed) {
@@ -69,8 +47,10 @@ export async function generateMetadata({
   }
 }
 
-export default async function ExchangeRatePairPage({ params }: PageProps) {
-  const { pair } = await params
+export default async function ExchangeRatePairPage(
+  props: PageProps<"/exchange-rates/[pair]">
+) {
+  const { pair } = await props.params
   const parsed = parsePair(pair)
 
   if (!parsed) {

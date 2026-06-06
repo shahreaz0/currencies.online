@@ -4,10 +4,6 @@ import Adsense from "@/app/_components/adsense"
 import { currencies } from "@/lib/data"
 import CurrencyDetail from "./_components/currency-detail"
 
-interface PageProps {
-  params: Promise<{ id: string }>
-}
-
 // Pre-render currency routes
 export async function generateStaticParams() {
   return currencies.map((c) => ({
@@ -16,10 +12,10 @@ export async function generateStaticParams() {
 }
 
 // Metadata builder
-export async function generateMetadata({
-  params,
-}: PageProps): Promise<Metadata> {
-  const { id } = await params
+export async function generateMetadata(
+  props: PageProps<"/currency/[id]">
+): Promise<Metadata> {
+  const { id } = await props.params
   const currency = currencies.find((c) => c.id === id)
 
   if (!currency) {
@@ -36,8 +32,8 @@ export async function generateMetadata({
   }
 }
 
-export default async function CurrencyPage({ params }: PageProps) {
-  const { id } = await params
+export default async function CurrencyPage(props: PageProps<"/currency/[id]">) {
+  const { id } = await props.params
   const currency = currencies.find((c) => c.id === id)
 
   if (!currency) {
