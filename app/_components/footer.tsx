@@ -128,7 +128,7 @@ export default function Footer() {
                 { name: "Privacy Policy", href: "/privacy" },
                 { name: "Terms of Service", href: "/terms" },
                 { name: "Disclaimer", href: "/disclaimer" },
-                { name: "HTML Sitemap", href: "/sitemap" },
+                { name: "Sitemap", href: "/sitemap" },
                 { name: "XML Sitemap", href: "/sitemap.xml" },
               ].map((link) => (
                 <li key={link.name}>

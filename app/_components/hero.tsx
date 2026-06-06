@@ -133,11 +133,29 @@ export default function Hero() {
         </h1>
 
         {/* Subheadline */}
-        <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground leading-relaxed sm:text-lg md:text-xl">
-          Search for a country to instantly unlock official currency names,
-          codes, symbols, conversion rates, and comprehensive country
-          directories.
-        </p>
+        <div className="mx-auto mt-6 max-w-2xl text-center">
+          <p className="text-base text-muted-foreground sm:text-lg">
+            Search for a country and instantly see:
+          </p>
+          <ul className="mt-3 inline-grid grid-cols-2 gap-x-8 gap-y-2 text-left text-muted-foreground text-sm">
+            <li className="flex items-center gap-2">
+              <span className="text-primary">•</span>
+              <span>Official currency</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-primary">•</span>
+              <span>Currency code</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-primary">•</span>
+              <span>Currency symbol</span>
+            </li>
+            <li className="flex items-center gap-2">
+              <span className="text-primary">•</span>
+              <span>Current USD exchange rate</span>
+            </li>
+          </ul>
+        </div>
 
         {/* Search Box */}
         <div ref={containerRef} className="relative mx-auto mt-10 max-w-xl">
@@ -159,9 +177,9 @@ export default function Hero() {
             <Button
               type="submit"
               size="lg"
-              className="h-14 rounded-2xl px-6 font-semibold shadow-lg shadow-primary/15 transition-all duration-300 hover:shadow-primary/25"
+              className="h-14 shrink-0 rounded-2xl px-6 font-semibold shadow-lg shadow-primary/15 transition-all duration-300 hover:shadow-primary/25"
             >
-              Search
+              Search Currency
             </Button>
           </form>
 

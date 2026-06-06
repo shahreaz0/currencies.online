@@ -195,6 +195,29 @@ export default function CalculatorWidget() {
             ))}
           </div>
 
+          {/* Interactive Examples */}
+          <div className="flex flex-wrap items-center gap-1.5 border-border/10 border-t pt-3 text-muted-foreground text-xs">
+            <span className="mr-1 font-semibold">Examples:</span>
+            {[
+              { amount: "100", from: "USD", to: "EUR" },
+              { amount: "500", from: "EUR", to: "GBP" },
+              { amount: "2500", from: "JPY", to: "USD" },
+            ].map((ex) => (
+              <button
+                key={`${ex.amount}-${ex.from}-to-${ex.to}`}
+                type="button"
+                onClick={() => {
+                  setAmount(ex.amount)
+                  setFromCurr(ex.from)
+                  setToCurr(ex.to)
+                }}
+                className="rounded-lg border border-border/60 bg-card px-2.5 py-1 font-medium font-mono text-foreground transition-colors hover:border-primary/40 hover:bg-primary/5"
+              >
+                {ex.amount} {ex.from} &rarr; {ex.to}
+              </button>
+            ))}
+          </div>
+
           {/* Conversion results panel */}
           <div className="flex flex-col justify-between gap-4 border-border/20 border-t pt-6 md:flex-row md:items-center">
             <div>

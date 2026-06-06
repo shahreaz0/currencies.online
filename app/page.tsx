@@ -1,5 +1,6 @@
 import { CheckCircle, HelpCircle, Shield, Sparkles } from "lucide-react"
 import Adsense from "@/app/_components/adsense"
+import CurrencyRankings from "@/app/_components/currency-rankings"
 import Hero from "@/app/_components/hero"
 import LatestRates from "@/app/_components/latest-rates"
 import PopularCurrencies from "@/app/_components/popular-currencies"
@@ -21,7 +22,10 @@ export default function Home() {
       {/* 4. Latest Exchange Rates Section */}
       <LatestRates />
 
-      {/* 5. Marketing/SEO Pitch & Trust badges */}
+      {/* 5. Currency Rankings Section */}
+      <CurrencyRankings />
+
+      {/* 6. Marketing/SEO Pitch & Trust badges */}
       <section className="border-border/40 border-t border-b bg-muted/40 py-16">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
