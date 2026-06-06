@@ -58,14 +58,14 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-border/40 border-b bg-background/80 backdrop-blur-md supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-border/40 border-b bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="group flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-tr from-primary to-emerald-400 text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 group-hover:scale-105">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-tr from-primary to-emerald-400 text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 group-hover:scale-105">
             <Coins className="h-5 w-5 animate-pulse" />
           </div>
-          <span className="bg-gradient-to-r from-foreground via-foreground/90 to-primary bg-clip-text font-bold font-heading text-lg text-transparent tracking-tight transition-colors duration-200 group-hover:text-primary">
+          <span className="bg-linear-to-r from-foreground via-foreground/90 to-primary bg-clip-text font-bold font-heading text-lg text-transparent tracking-tight transition-colors duration-200 group-hover:text-primary">
             Currencies<span className="text-primary">.online</span>
           </span>
         </Link>

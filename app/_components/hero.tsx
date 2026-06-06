@@ -117,7 +117,7 @@ export default function Hero() {
   }
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-primary/5 via-transparent to-transparent px-4 py-20 md:py-28">
+    <section className="relative overflow-hidden bg-linear-to-b from-primary/5 via-transparent to-transparent px-4 py-20 md:py-28">
       {/* Decorative blobs */}
       <div className="absolute top-1/4 left-1/2 -z-10 h-72 w-72 -translate-x-1/2 rounded-full bg-primary/10 blur-[80px]" />
       <div className="absolute top-12 left-10 -z-10 h-32 w-32 rounded-full bg-emerald-500/5 blur-3xl" />
@@ -126,36 +126,18 @@ export default function Hero() {
         {/* Headline */}
         <h1 className="font-extrabold font-heading text-4xl text-foreground tracking-tight sm:text-5xl md:text-6xl">
           Find Any Country's{" "}
-          <span className="bg-gradient-to-r from-primary to-emerald-500 bg-clip-text text-transparent">
+          <span className="bg-linear-to-r from-primary to-emerald-500 bg-clip-text text-transparent">
             Currency
           </span>{" "}
           Instantly
         </h1>
 
         {/* Subheadline */}
-        <div className="mx-auto mt-6 max-w-2xl text-center">
-          <p className="text-base text-muted-foreground sm:text-lg">
-            Search for a country and instantly see:
-          </p>
-          <ul className="mt-3 inline-grid grid-cols-2 gap-x-8 gap-y-2 text-left text-muted-foreground text-sm">
-            <li className="flex items-center gap-2">
-              <span className="text-primary">•</span>
-              <span>Official currency</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-primary">•</span>
-              <span>Currency code</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-primary">•</span>
-              <span>Currency symbol</span>
-            </li>
-            <li className="flex items-center gap-2">
-              <span className="text-primary">•</span>
-              <span>Current USD exchange rate</span>
-            </li>
-          </ul>
-        </div>
+        <p className="mx-auto mt-6 max-w-2xl text-base text-muted-foreground leading-relaxed sm:text-lg md:text-xl">
+          Search for a country to instantly unlock official currency names,
+          codes, symbols, conversion rates, and comprehensive country
+          directories.
+        </p>
 
         {/* Search Box */}
         <div ref={containerRef} className="relative mx-auto mt-10 max-w-xl">
@@ -177,9 +159,9 @@ export default function Hero() {
             <Button
               type="submit"
               size="lg"
-              className="h-14 shrink-0 rounded-2xl px-6 font-semibold shadow-lg shadow-primary/15 transition-all duration-300 hover:shadow-primary/25"
+              className="h-14 rounded-2xl px-6 font-semibold shadow-lg shadow-primary/15 transition-all duration-300 hover:shadow-primary/25"
             >
-              Search Currency
+              Search
             </Button>
           </form>
 

@@ -5,7 +5,7 @@ export default function Footer() {
   return (
     <footer className="relative border-border/40 border-t bg-card/50 text-card-foreground">
       {/* Visual top border line */}
-      <div className="absolute top-0 right-0 left-0 h-[1px] bg-gradient-to-r from-transparent via-primary/20 to-transparent" />
+      <div className="absolute top-0 right-0 left-0 h-px bg-linear-to-r from-transparent via-primary/20 to-transparent" />
 
       <div className="container mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-4 xl:gap-12">
