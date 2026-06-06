@@ -210,32 +210,46 @@ export function Hero() {
         {/* Example Tags */}
         <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-muted-foreground text-sm">
           <span>Try searching for:</span>
-          {["United States", "Japan", "India", "Brazil", "Germany"].map(
-            (name) => {
-              const countryId = name.toLowerCase().replace(/\s+/g, "-")
-              return (
-                <button
-                  key={name}
-                  onClick={() => router.push(`/country/${countryId}`)}
-                  type="button"
-                  className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-3 py-1 font-medium text-foreground text-xs transition-all duration-200 hover:border-primary/40 hover:bg-primary/5"
-                >
-                  <span>
-                    {name === "United States"
-                      ? "🇺🇸"
-                      : name === "Japan"
-                        ? "🇯🇵"
-                        : name === "India"
-                          ? "🇮🇳"
-                          : name === "Brazil"
-                            ? "🇧🇷"
-                            : "🇩🇪"}
-                  </span>
-                  <span>{name}</span>
-                </button>
-              )
-            }
-          )}
+          {[
+            {
+              type: "country",
+              name: "United States",
+              id: "united-states",
+              icon: "🇺🇸",
+            },
+            { type: "country", name: "Japan", id: "japan", icon: "🇯🇵" },
+            { type: "currency", name: "Euro", id: "euro", icon: "€" },
+            {
+              type: "currency",
+              name: "Indian Rupee",
+              id: "indian-rupee",
+              icon: "₹",
+            },
+            { type: "code", name: "USD", id: "us-dollar", icon: "$" },
+            { type: "code", name: "GBP", id: "british-pound", icon: "£" },
+          ].map((item) => (
+            <button
+              key={item.name}
+              onClick={() =>
+                router.push(
+                  item.type === "country"
+                    ? `/country/${item.id}`
+                    : `/currency/${item.id}`
+                )
+              }
+              type="button"
+              className="inline-flex items-center gap-1.5 border border-border bg-card px-3 py-1 font-medium text-foreground text-xs transition-all duration-200 hover:border-primary/40 hover:bg-primary/5"
+            >
+              {item.type === "country" ? (
+                <span className="text-sm leading-none">{item.icon}</span>
+              ) : (
+                <span className="flex h-4 w-4 items-center justify-center bg-primary/10 font-bold text-[10px] text-primary">
+                  {item.icon}
+                </span>
+              )}
+              <span>{item.name}</span>
+            </button>
+          ))}
         </div>
       </div>
     </section>
