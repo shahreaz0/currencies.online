@@ -6,7 +6,7 @@ interface AdsenseProps {
   className?: string
 }
 
-export default function Adsense({
+export function Adsense({
   slot,
   format = "horizontal",
   className,

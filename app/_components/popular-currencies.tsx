@@ -3,7 +3,7 @@ import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { countries, currencies } from "@/lib/data"
 
-export default function PopularCurrencies() {
+export function PopularCurrencies() {
   // Get top currencies from our list to make a gorgeous grid
   const popularList = currencies.slice(0, 30)
 

@@ -1,7 +1,7 @@
 import { TrendingUp } from "lucide-react"
 import type { Metadata } from "next"
-import Adsense from "@/app/_components/adsense"
-import RatesTable from "./_components/rates-table"
+import { Adsense } from "@/app/_components/adsense"
+import { RatesTable } from "./_components/rates-table"
 
 export const metadata: Metadata = {
   title: "Live Foreign Exchange Rates Database | Currencies.online",

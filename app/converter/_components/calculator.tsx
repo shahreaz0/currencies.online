@@ -5,7 +5,7 @@ import Link from "next/link"
 import { parseAsString, useQueryState } from "nuqs"
 import type React from "react"
 import { useMemo, useState } from "react"
-import RateChart from "@/app/exchange-rates/[pair]/_components/rate-chart"
+import { RateChart } from "@/app/exchange-rates/[pair]/_components/rate-chart"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import {
@@ -21,7 +21,7 @@ import { InputGroupAddon } from "@/components/ui/input-group"
 import { countries, currencies } from "@/lib/data"
 import { cn } from "@/lib/utils"
 
-export default function CalculatorWidget() {
+export function CalculatorWidget() {
   const [fromCurr, setFromCurr] = useQueryState(
     "from",
     parseAsString

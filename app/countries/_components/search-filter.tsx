@@ -12,7 +12,7 @@ interface SearchFilterProps {
   regions: string[]
 }
 
-export default function SearchFilter({
+export function SearchFilter({
   searchTerm,
   setSearchTerm,
   selectedRegion,

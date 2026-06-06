@@ -1,9 +1,9 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import Adsense from "@/app/_components/adsense"
+import { Adsense } from "@/app/_components/adsense"
 import { countries } from "@/lib/data"
 import { getCachedCountry } from "@/lib/data-cache"
-import CountryDetail from "./_components/country-detail"
+import { CountryDetail } from "./_components/country-detail"
 
 // Statically pre-render all country paths
 export async function generateStaticParams() {

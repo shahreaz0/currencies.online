@@ -1,7 +1,7 @@
 import { BookOpen } from "lucide-react"
 import type { Metadata } from "next"
-import Adsense from "@/app/_components/adsense"
-import BlogList from "./_components/blog-list"
+import { Adsense } from "@/app/_components/adsense"
+import { BlogList } from "./_components/blog-list"
 
 export const metadata: Metadata = {
   title: "Currency & Economic Blog | Currencies.online",

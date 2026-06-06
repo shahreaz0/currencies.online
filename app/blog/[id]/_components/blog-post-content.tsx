@@ -15,7 +15,7 @@ interface BlogPostContentProps {
   post: BlogPost
 }
 
-export default function BlogPostContent({ post }: BlogPostContentProps) {
+export function BlogPostContent({ post }: BlogPostContentProps) {
   // Find other posts for recommendation
   const otherPosts = blogs.filter((b) => b.id !== post.id).slice(0, 2)
 

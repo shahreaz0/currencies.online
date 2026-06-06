@@ -19,7 +19,7 @@ interface CurrencyChartProps {
   code: string
 }
 
-export default function CurrencyChart({ baseRate, code }: CurrencyChartProps) {
+export function CurrencyChart({ baseRate, code }: CurrencyChartProps) {
   const [mounted, setMounted] = useState(false)
 
   // Generate 30 days historical data deterministically

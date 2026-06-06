@@ -1,8 +1,8 @@
 import { Calculator } from "lucide-react"
 import type { Metadata } from "next"
 import { Suspense } from "react"
-import Adsense from "@/app/_components/adsense"
-import CalculatorWidget from "./_components/calculator"
+import { Adsense } from "@/app/_components/adsense"
+import { CalculatorWidget } from "./_components/calculator"
 
 export const metadata: Metadata = {
   title: "Interactive Currency Converter Calculator | Currencies.online",

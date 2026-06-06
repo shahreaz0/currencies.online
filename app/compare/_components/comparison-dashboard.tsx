@@ -23,7 +23,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { countries, currencies, exchangeRatesMatrix } from "@/lib/data"
 
-export default function ComparisonDashboard() {
+export function ComparisonDashboard() {
   const [tab, setTab] = useQueryState(
     "type",
     parseAsString.withDefault("currencies")

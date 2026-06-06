@@ -1,7 +1,7 @@
 import { Coins } from "lucide-react"
 import type { Metadata } from "next"
-import Adsense from "@/app/_components/adsense"
-import CurrenciesList from "./_components/currencies-list"
+import { Adsense } from "@/app/_components/adsense"
+import { CurrenciesList } from "./_components/currencies-list"
 
 export const metadata: Metadata = {
   title: "World Currencies Directory and Codes | Currencies.online",

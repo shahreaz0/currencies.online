@@ -20,7 +20,7 @@ interface RateChartProps {
   toCode: string
 }
 
-export default function RateChart({ rate, fromCode, toCode }: RateChartProps) {
+export function RateChart({ rate, fromCode, toCode }: RateChartProps) {
   const [mounted, setMounted] = useState(false)
 
   // Generate 30 days historical data based on this rate

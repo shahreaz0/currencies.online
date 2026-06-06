@@ -43,7 +43,7 @@ const navItems: NavItem[] = [
   { name: "Blog", href: "/blog", icon: BookOpen },
 ]
 
-export default function Header() {
+export function Header() {
   const pathname = usePathname()
   const { theme, setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)

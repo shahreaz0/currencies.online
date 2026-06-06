@@ -4,8 +4,8 @@ import { Globe } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 import { useMemo, useState } from "react"
 import type { Country } from "@/lib/data"
-import CountryCard from "./country-card"
-import SearchFilter from "./search-filter"
+import { CountryCard } from "./country-card"
+import { SearchFilter } from "./search-filter"
 
 interface CountriesListProps {
   countries: Country[]

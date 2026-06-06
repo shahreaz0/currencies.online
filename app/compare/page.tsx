@@ -1,8 +1,8 @@
 import { ArrowLeftRight } from "lucide-react"
 import type { Metadata } from "next"
 import { Suspense } from "react"
-import Adsense from "@/app/_components/adsense"
-import ComparisonDashboard from "./_components/comparison-dashboard"
+import { Adsense } from "@/app/_components/adsense"
+import { ComparisonDashboard } from "./_components/comparison-dashboard"
 
 export const metadata: Metadata = {
   title:

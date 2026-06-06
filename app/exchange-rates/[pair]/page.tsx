@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation"
-import Adsense from "@/app/_components/adsense"
+import { Adsense } from "@/app/_components/adsense"
 import { exchangeRatesMatrix } from "@/lib/data"
-import RatePairDetail from "./_components/rate-pair-detail"
+import { RatePairDetail } from "./_components/rate-pair-detail"
 import { parsePair } from "./utils"
 
 // Pre-render all exchange rate pair paths from the full matrix

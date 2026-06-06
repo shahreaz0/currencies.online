@@ -9,7 +9,7 @@ interface CountryCardProps {
   country: Country
 }
 
-export default function CountryCard({ country }: CountryCardProps) {
+export function CountryCard({ country }: CountryCardProps) {
   return (
     <Link href={`/country/${country.id}`} className="group block">
       <Card className="h-full border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">

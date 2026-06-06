@@ -7,7 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input as UiInput } from "@/components/ui/input"
 import { countries, currencies } from "@/lib/data"
 
-export default function CurrenciesList() {
+export function CurrenciesList() {
   const [searchTerm, setSearchTerm] = useState("")
 
   const filteredCurrencies = useMemo(() => {

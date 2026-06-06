@@ -18,7 +18,7 @@ interface CountryDetailProps {
   country: Country
 }
 
-export default function CountryDetail({ country }: CountryDetailProps) {
+export function CountryDetail({ country }: CountryDetailProps) {
   // Find related country details from static database
   const relatedList = country.relatedCountries
     .map((id) => countries.find((c) => c.id === id))

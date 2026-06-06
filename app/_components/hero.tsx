@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { countries, currencies } from "@/lib/data"
 
-export default function Hero() {
+export function Hero() {
   const router = useRouter()
   const [query, setQuery] = useState("")
   const [suggestions, setSuggestions] = useState<

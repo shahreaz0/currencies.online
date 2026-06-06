@@ -1,7 +1,7 @@
 import { Globe } from "lucide-react"
 import type { Metadata } from "next"
 import { Suspense } from "react"
-import Adsense from "@/app/_components/adsense"
+import { Adsense } from "@/app/_components/adsense"
 import { getCachedCountries } from "@/lib/data-cache"
 import { CountriesList } from "./_components/countries-list"
 import { CountriesListSkeleton } from "./_components/countries-list-skelenton"

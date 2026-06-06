@@ -14,7 +14,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import RateChart from "./rate-chart"
+import { RateChart } from "./rate-chart"
 
 interface RatePairDetailProps {
   fromCode: string
@@ -24,7 +24,7 @@ interface RatePairDetailProps {
   rate: number
 }
 
-export default function RatePairDetail({
+export function RatePairDetail({
   fromCode,
   toCode,
   fromName,

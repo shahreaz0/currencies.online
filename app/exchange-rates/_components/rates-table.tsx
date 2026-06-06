@@ -15,7 +15,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input as UiInput } from "@/components/ui/input"
 import { currencies } from "@/lib/data"
 
-export default function RatesTable() {
+export function RatesTable() {
   const [baseCurrency, setBaseCurrency] = useState("USD")
   const [searchQuery, setSearchQuery] = useState("")
 

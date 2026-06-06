@@ -1,8 +1,8 @@
 import { Activity, Coins, DollarSign, Globe, Heart } from "lucide-react"
 import Link from "next/link"
-import Copyright from "./copyright"
+import { Copyright } from "./copyright"
 
-export default function Footer() {
+export function Footer() {
   return (
     <footer className="relative border-border border-t bg-card/50 text-card-foreground">
       {/* Visual top border line */}

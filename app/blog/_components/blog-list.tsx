@@ -15,7 +15,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input as UiInput } from "@/components/ui/input"
 import { blogs } from "@/lib/data"
 
-export default function BlogList() {
+export function BlogList() {
   const [searchTerm, setSearchTerm] = useState("")
   const [activeCategory, setActiveCategory] = useState("All")
 

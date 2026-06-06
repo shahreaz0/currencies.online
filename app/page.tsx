@@ -1,9 +1,9 @@
 import { CheckCircle, HelpCircle, Shield, Sparkles } from "lucide-react"
-import Adsense from "@/app/_components/adsense"
-import CurrencyRankings from "@/app/_components/currency-rankings"
-import Hero from "@/app/_components/hero"
-import LatestRates from "@/app/_components/latest-rates"
-import PopularCurrencies from "@/app/_components/popular-currencies"
+import { Adsense } from "@/app/_components/adsense"
+import { CurrencyRankings } from "@/app/_components/currency-rankings"
+import { Hero } from "@/app/_components/hero"
+import { LatestRates } from "@/app/_components/latest-rates"
+import { PopularCurrencies } from "@/app/_components/popular-currencies"
 
 export default function Home() {
   return (

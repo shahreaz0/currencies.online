@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import Adsense from "@/app/_components/adsense"
+import { Adsense } from "@/app/_components/adsense"
 import { currencies } from "@/lib/data"
-import CurrencyDetail from "./_components/currency-detail"
+import { CurrencyDetail } from "./_components/currency-detail"
 
 // Pre-render currency routes
 export async function generateStaticParams() {

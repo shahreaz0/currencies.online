@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 
-export default function Copyright() {
+export function Copyright() {
   const [year, setYear] = useState<number>(2026) // Default fallback matching current year
 
   useEffect(() => {

@@ -1,8 +1,8 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
-import Adsense from "@/app/_components/adsense"
+import { Adsense } from "@/app/_components/adsense"
 import { blogs } from "@/lib/data"
-import BlogPostContent from "./_components/blog-post-content"
+import { BlogPostContent } from "./_components/blog-post-content"
 
 // Pre-render blog routes
 export async function generateStaticParams() {

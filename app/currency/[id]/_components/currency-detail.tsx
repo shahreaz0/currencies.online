@@ -17,13 +17,13 @@ import {
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { type Currency, countries } from "@/lib/data"
-import CurrencyChart from "./currency-chart"
+import { CurrencyChart } from "./currency-chart"
 
 interface CurrencyDetailProps {
   currency: Currency
 }
 
-export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
+export function CurrencyDetail({ currency }: CurrencyDetailProps) {
   // Find countries using this currency from our static database
   const usingCountries = countries.filter(
     (c) => c.currencyCode === currency.code

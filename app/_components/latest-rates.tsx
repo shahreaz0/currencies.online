@@ -8,7 +8,7 @@ import Link from "next/link"
 import { exchangeRatesMatrix } from "@/lib/data"
 import { cn } from "@/lib/utils"
 
-export default function LatestRates() {
+export function LatestRates() {
   // Show a curated selection: first 12 entries gives USD→X pairs + some reverse
   const rates = exchangeRatesMatrix.slice(0, 12)
 

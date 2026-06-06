@@ -3,7 +3,7 @@ import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
 import { countries } from "@/lib/data"
 
-export default function CurrencyRankings() {
+export function CurrencyRankings() {
   // Compute rankings statically from data
   const strengthRankings = [...countries]
     .sort(
