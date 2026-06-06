@@ -55,7 +55,7 @@ export default function BlogList() {
         </div>
 
         {/* Categories List */}
-        <div className="flex flex-wrap gap-1.5 overflow-x-auto pb-1 md:pb-0">
+        <div className="no-scrollbar flex flex-nowrap gap-1.5 overflow-x-auto pb-1 md:pb-0">
           {categories.map((cat) => (
             <Button
               key={cat}

@@ -34,7 +34,7 @@ export default function SearchFilter({
       </div>
 
       {/* Region Tabs */}
-      <div className="flex flex-wrap gap-1.5 overflow-x-auto pb-1 md:pb-0">
+      <div className="no-scrollbar flex flex-nowrap gap-1.5 overflow-x-auto pb-1 md:pb-0">
         {regions.map((region) => (
           <Button
             key={region}
