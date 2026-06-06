@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Adsense from "@/app/_components/adsense"
 import { countries } from "@/lib/data"
+import { getCachedCountry } from "@/lib/data-cache"
 import CountryDetail from "./_components/country-detail"
 
 interface PageProps {
@@ -20,7 +21,7 @@ export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { id } = await params
-  const country = countries.find((c) => c.id === id)
+  const country = await getCachedCountry(id)
 
   if (!country) {
     return {
@@ -38,7 +39,7 @@ export async function generateMetadata({
 
 export default async function CountryPage({ params }: PageProps) {
   const { id } = await params
-  const country = countries.find((c) => c.id === id)
+  const country = await getCachedCountry(id)
 
   if (!country) {
     notFound()

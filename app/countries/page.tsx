@@ -1,7 +1,10 @@
 import { Globe } from "lucide-react"
 import type { Metadata } from "next"
+import { Suspense } from "react"
 import Adsense from "@/app/_components/adsense"
-import CountriesList from "./_components/countries-list"
+import { getCachedCountries } from "@/lib/data-cache"
+import { CountriesList } from "./_components/countries-list"
+import { CountriesListSkeleton } from "./_components/countries-list-skelenton"
 
 export const metadata: Metadata = {
   title: "World Countries and Currencies Directory | Currencies.online",
@@ -9,12 +12,8 @@ export const metadata: Metadata = {
     "Browse the complete directory of global countries. Find capital cities, population figures, official flags, currency codes, and live exchange rates.",
 }
 
-interface PageProps {
-  searchParams: Promise<{ search?: string }>
-}
-
-export default async function CountriesPage({ searchParams }: PageProps) {
-  const { search } = await searchParams
+export default async function CountriesPage() {
+  const countries = await getCachedCountries()
 
   return (
     <div className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
@@ -41,8 +40,10 @@ export default async function CountriesPage({ searchParams }: PageProps) {
         <Adsense slot="countries-top-ad" format="horizontal" />
       </div>
 
-      {/* Main interactive countries engine */}
-      <CountriesList initialSearch={search} />
+      {/* Main interactive countries engine (Suspended for PPR streaming) */}
+      <Suspense fallback={<CountriesListSkeleton />}>
+        <CountriesList countries={countries} />
+      </Suspense>
 
       {/* Bottom Ad Spot */}
       <div className="mt-12">

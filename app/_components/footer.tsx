@@ -1,5 +1,6 @@
 import { Activity, Coins, DollarSign, Globe, Heart } from "lucide-react"
 import Link from "next/link"
+import Copyright from "./copyright"
 
 export default function Footer() {
   return (
@@ -157,10 +158,7 @@ export default function Footer() {
           </div>
 
           <div className="flex items-center gap-1.5 text-muted-foreground text-xs">
-            <span>
-              &copy; {new Date().getFullYear()} Currencies.online. All rights
-              reserved.
-            </span>
+            <Copyright />
             <span className="hidden sm:inline">Made with</span>
             <Heart className="hidden h-3 w-3 fill-red-500 text-red-500 sm:inline" />
             <span className="hidden sm:inline">for global finance.</span>
