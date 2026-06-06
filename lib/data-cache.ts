@@ -1,16 +1,17 @@
 import { cacheLife, cacheTag } from "next/cache"
-import { countries } from "./data"
+import { getCountriesFromApi } from "./countries-api"
 
 export async function getCachedCountries() {
   "use cache"
   cacheLife("hours")
   cacheTag("countries")
-  return countries
+  return getCountriesFromApi()
 }
 
 export async function getCachedCountry(id: string) {
   "use cache"
   cacheLife("hours")
   cacheTag("countries", `country-${id}`)
-  return countries.find((c) => c.id === id)
+  const allCountries = await getCachedCountries()
+  return allCountries.find((c) => c.id === id)
 }

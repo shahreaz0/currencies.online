@@ -10,7 +10,8 @@ import {
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
-import { blogs, countries, currencies } from "@/lib/data"
+import { blogs, currencies } from "@/lib/data"
+import { getCachedCountries } from "@/lib/data-cache"
 
 export const metadata: Metadata = {
   title: "HTML Sitemap | Currencies.online",
@@ -31,7 +32,8 @@ const popularPairs = [
   "jpy-to-usd",
 ]
 
-export default function SitemapPage() {
+export default async function SitemapPage() {
+  const countries = await getCachedCountries()
   return (
     <div className="container mx-auto max-w-5xl space-y-10 px-4 py-12 sm:px-6 lg:px-8">
       {/* Header */}
