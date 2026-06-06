@@ -49,7 +49,7 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Contact Info column */}
         <div className="space-y-6">
-          <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+          <Card className="border border-border bg-card shadow-sm">
             <CardContent className="space-y-6 p-6">
               <h2 className="flex items-center gap-2 font-bold text-base text-foreground">
                 Contact Details
@@ -67,7 +67,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 border-border/20 border-t pt-4">
+                <div className="flex items-start gap-3 border-border border-t pt-4">
                   <MessageSquare className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                   <div>
                     <h4 className="font-bold text-foreground">
@@ -77,7 +77,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 border-border/20 border-t pt-4">
+                <div className="flex items-start gap-3 border-border border-t pt-4">
                   <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
                   <div>
                     <h4 className="font-bold text-foreground">
@@ -93,7 +93,7 @@ export default function ContactPage() {
 
         {/* Contact Form column */}
         <div className="lg:col-span-2">
-          <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+          <Card className="border border-border bg-card shadow-sm">
             <CardContent className="p-6 sm:p-8">
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="space-y-4">
@@ -111,7 +111,7 @@ export default function ContactPage() {
                         placeholder="John Doe"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="rounded-xl border-border/60"
+                        className="rounded-none border-border"
                         required
                       />
                     </div>
@@ -129,7 +129,7 @@ export default function ContactPage() {
                         placeholder="john@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="rounded-xl border-border/60"
+                        className="rounded-none border-border"
                         required
                       />
                     </div>
@@ -148,7 +148,7 @@ export default function ContactPage() {
                       placeholder="Feedback, Ad enquiry, Database request..."
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
-                      className="rounded-xl border-border/60"
+                      className="rounded-none border-border"
                     />
                   </div>
 
@@ -164,14 +164,14 @@ export default function ContactPage() {
                       placeholder="Write your query details here..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="min-h-[120px] rounded-xl border-border/60"
+                      className="min-h-[120px] rounded-none border-border"
                       required
                     />
                   </div>
 
                   <Button
                     type="submit"
-                    className="w-full gap-2 rounded-xl px-5 py-4 font-semibold shadow-sm sm:w-auto"
+                    className="w-full gap-2 rounded-none px-5 py-4 font-semibold shadow-sm sm:w-auto"
                   >
                     <Send className="h-4 w-4" />
                     Send Message
@@ -193,7 +193,7 @@ export default function ContactPage() {
                   <Button
                     variant="outline"
                     onClick={() => setSubmitted(false)}
-                    className="rounded-xl border-border/60"
+                    className="rounded-none border-border"
                   >
                     Send Another Message
                   </Button>

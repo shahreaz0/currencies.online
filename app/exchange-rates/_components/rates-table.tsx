@@ -72,7 +72,7 @@ export default function RatesTable() {
   return (
     <div className="space-y-10">
       {/* Base Selector and Search */}
-      <div className="flex flex-col items-stretch justify-between gap-6 rounded-2xl border border-border/40 bg-card p-5 lg:flex-row">
+      <div className="flex flex-col items-stretch justify-between gap-6 border border-border bg-card p-5 lg:flex-row">
         {/* Base Currency Select Tabs */}
         <div>
           <span className="mb-2.5 block font-bold text-muted-foreground text-xs uppercase tracking-wider">
@@ -85,7 +85,7 @@ export default function RatesTable() {
                 variant={baseCurrency === code ? "default" : "outline"}
                 size="sm"
                 onClick={() => setBaseCurrency(code)}
-                className="rounded-xl border-border/60 px-4 font-bold font-mono"
+                className="border-border px-4 font-bold font-mono"
               >
                 {code}
               </Button>
@@ -105,7 +105,7 @@ export default function RatesTable() {
               placeholder={`Search (e.g. ${baseCurrency} to EUR, JPY)...`}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="rounded-xl border-border/60 bg-background/50 pl-9"
+              className="border-border bg-background/50 pl-9"
             />
           </div>
         </div>
@@ -120,11 +120,11 @@ export default function RatesTable() {
             Live Currency Pairs (Base: {baseCurrency})
           </h2>
 
-          <div className="overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm">
+          <div className="overflow-hidden border border-border bg-card shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-left text-muted-foreground text-sm">
                 <thead>
-                  <tr className="border-border/40 border-b bg-muted/30 font-medium text-foreground">
+                  <tr className="border-border border-b bg-muted/30 font-medium text-foreground">
                     <th className="px-6 py-4">Currency Pair</th>
                     <th className="px-6 py-4">Exchange Rate</th>
                     <th className="px-6 py-4">Daily Change</th>
@@ -205,11 +205,11 @@ export default function RatesTable() {
             Cross Rates Matrix
           </h2>
 
-          <Card className="overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm">
+          <Card className="overflow-hidden border border-border bg-card shadow-sm">
             <CardContent className="overflow-x-auto p-4">
               <table className="w-full border-collapse text-center text-xs">
                 <thead>
-                  <tr className="border-border/30 border-b bg-muted/40 font-bold text-foreground">
+                  <tr className="border-border border-b bg-muted/40 font-bold text-foreground">
                     <th className="p-2.5 text-left font-bold text-muted-foreground uppercase">
                       Base
                     </th>
@@ -258,7 +258,7 @@ export default function RatesTable() {
             </CardContent>
           </Card>
 
-          <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+          <Card className="border border-border bg-card shadow-sm">
             <CardContent className="flex items-start gap-3.5 p-5">
               <HelpCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
               <div>

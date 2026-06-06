@@ -37,7 +37,7 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
           <Button
             variant="ghost"
             size="sm"
-            className="gap-2 rounded-xl text-muted-foreground hover:text-foreground"
+            className="gap-2 text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Currencies Directory
@@ -50,11 +50,11 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
         {/* Left / Center content: overview, chart, and countries */}
         <div className="space-y-8 lg:col-span-2">
           {/* 1. Header & Overview Card */}
-          <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+          <Card className="border border-border bg-card shadow-sm">
             <CardContent className="space-y-5 p-6 sm:p-8">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3.5">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-primary/10 bg-primary/10 font-bold text-primary text-xl">
+                  <div className="flex h-12 w-12 items-center justify-center border border-primary/10 bg-primary/10 font-bold text-primary text-xl">
                     {currency.symbol}
                   </div>
                   <div>
@@ -86,7 +86,7 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {usingCountries.map((c) => (
                 <Link key={c.id} href={`/country/${c.id}`} className="group">
-                  <Card className="rounded-xl border border-border/40 bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
+                  <Card className="border border-border bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
                     <CardContent className="flex items-center justify-between p-4">
                       <div className="flex items-center gap-3">
                         <span className="text-3xl leading-none">{c.flag}</span>
@@ -112,7 +112,7 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
         {/* Right content: Statistics & FAQs */}
         <div className="space-y-6">
           {/* Quick Rates Card */}
-          <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+          <Card className="border border-border bg-card shadow-sm">
             <CardContent className="space-y-6 p-6">
               <h2 className="flex items-center gap-2 font-bold text-foreground text-lg">
                 <Activity className="h-5 w-5 text-primary" />
@@ -134,7 +134,7 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
                   </div>
                 </div>
 
-                <div className="border-border/20 border-t pt-4">
+                <div className="border-border border-t pt-4">
                   <span className="text-muted-foreground text-xs">
                     Average Global Value
                   </span>
@@ -146,12 +146,12 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
                 </div>
               </div>
 
-              <div className="space-y-2 border-border/20 border-t pt-4">
+              <div className="space-y-2 border-border border-t pt-4">
                 <Link
                   href={`/converter?from=USD&to=${currency.code}`}
                   className="block w-full"
                 >
-                  <Button className="w-full gap-2 rounded-xl py-4 text-xs shadow-sm">
+                  <Button className="w-full gap-2 py-4 text-xs shadow-sm">
                     <Calculator className="h-4 w-4" />
                     Interactive Calculator
                   </Button>
@@ -163,7 +163,7 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
                 >
                   <Button
                     variant="outline"
-                    className="w-full gap-2 rounded-xl border-border/60 py-4 text-xs"
+                    className="w-full gap-2 border-border py-4 text-xs"
                   >
                     Compare with other currencies
                   </Button>
@@ -184,7 +184,7 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
                 <AccordionItem
                   key={faq.question}
                   value={`faq-${faq.question}`}
-                  className="overflow-hidden rounded-xl border border-border/40 bg-card px-4"
+                  className="overflow-hidden border border-border bg-card px-4"
                 >
                   <AccordionTrigger className="py-3.5 text-left font-semibold text-foreground text-xs hover:no-underline">
                     {faq.question}
@@ -197,7 +197,7 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
 
               <AccordionItem
                 value="general-faq"
-                className="overflow-hidden rounded-xl border border-border/40 bg-card px-4"
+                className="overflow-hidden border border-border bg-card px-4"
               >
                 <AccordionTrigger className="py-3.5 text-left font-semibold text-foreground text-xs hover:no-underline">
                   How accurate are the exchange rates listed?

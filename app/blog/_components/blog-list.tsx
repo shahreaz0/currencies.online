@@ -41,7 +41,7 @@ export default function BlogList() {
   return (
     <div className="space-y-8">
       {/* Category selector and Search bar */}
-      <div className="flex flex-col items-stretch justify-between gap-4 rounded-2xl border border-border/40 bg-card p-4 md:flex-row md:items-center">
+      <div className="flex flex-col items-stretch justify-between gap-4 border border-border bg-card p-4 md:flex-row md:items-center">
         {/* Search */}
         <div className="relative max-w-md flex-1">
           <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -50,7 +50,7 @@ export default function BlogList() {
             placeholder="Search blog articles..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="rounded-xl border-border/60 bg-background/50 pl-9"
+            className="border-border bg-background/50 pl-9"
           />
         </div>
 
@@ -62,7 +62,7 @@ export default function BlogList() {
               variant={activeCategory === cat ? "default" : "ghost"}
               size="sm"
               onClick={() => setActiveCategory(cat)}
-              className="rounded-xl px-4 py-1.5 font-semibold text-xs"
+              className="px-4 py-1.5 font-semibold text-xs"
             >
               {cat}
             </Button>
@@ -79,11 +79,11 @@ export default function BlogList() {
               href={`/blog/${post.id}`}
               className="group block"
             >
-              <Card className="h-full overflow-hidden rounded-2xl border border-border/40 bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
+              <Card className="h-full overflow-hidden border border-border bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
                 <CardContent className="flex h-full flex-col justify-between gap-5 p-6">
                   {/* Category & Read time */}
                   <div className="flex items-center justify-between">
-                    <span className="inline-flex items-center rounded-xl bg-primary/10 px-3 py-1 font-semibold text-primary text-xs">
+                    <span className="inline-flex items-center bg-primary/10 px-3 py-1 font-semibold text-primary text-xs">
                       {post.category}
                     </span>
                     <span className="flex items-center gap-1 font-medium text-muted-foreground text-xs">
@@ -103,7 +103,7 @@ export default function BlogList() {
                   </div>
 
                   {/* Footer details: Date & Author */}
-                  <div className="flex items-center justify-between border-border/20 border-t pt-4 text-muted-foreground text-xs">
+                  <div className="flex items-center justify-between border-border border-t pt-4 text-muted-foreground text-xs">
                     <div className="flex items-center gap-4">
                       <span className="flex items-center gap-1">
                         <Calendar className="h-3.5 w-3.5 text-muted-foreground/60" />
@@ -126,7 +126,7 @@ export default function BlogList() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-border/30 bg-card py-20 text-center">
+        <div className="flex flex-col items-center justify-center border border-border bg-card py-20 text-center">
           <BookOpen className="mb-4 h-12 w-12 animate-bounce text-muted-foreground/40" />
           <h3 className="font-bold text-foreground text-lg">
             No Articles Found

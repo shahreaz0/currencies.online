@@ -26,7 +26,7 @@ export default function Home() {
       <CurrencyRankings />
 
       {/* 6. Marketing/SEO Pitch & Trust badges */}
-      <section className="border-border/40 border-t border-b bg-muted/40 py-16">
+      <section className="border-border border-t border-b bg-muted/40 py-16">
         <div className="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-12 max-w-3xl text-center">
             <span className="mb-4 inline-flex items-center gap-1 rounded-full bg-primary/10 px-3 py-1 font-semibold text-primary text-xs uppercase tracking-widest">
@@ -44,8 +44,8 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
-            <div className="flex flex-col items-center rounded-2xl border border-border/30 bg-card p-6 text-center">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <div className="flex flex-col items-center rounded-none border border-border bg-card p-6 text-center">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-none bg-primary/10 text-primary">
                 <Shield className="h-6 w-6" />
               </div>
               <h3 className="font-bold text-foreground text-lg">
@@ -58,8 +58,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex flex-col items-center rounded-2xl border border-border/30 bg-card p-6 text-center">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <div className="flex flex-col items-center rounded-none border border-border bg-card p-6 text-center">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-none bg-primary/10 text-primary">
                 <CheckCircle className="h-6 w-6" />
               </div>
               <h3 className="font-bold text-foreground text-lg">
@@ -71,8 +71,8 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="flex flex-col items-center rounded-2xl border border-border/30 bg-card p-6 text-center">
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <div className="flex flex-col items-center rounded-none border border-border bg-card p-6 text-center">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-none bg-primary/10 text-primary">
                 <HelpCircle className="h-6 w-6" />
               </div>
               <h3 className="font-bold text-foreground text-lg">

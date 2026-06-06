@@ -4,7 +4,7 @@ import { AlertCircle, ArrowLeftRight, Sparkles, TrendingUp } from "lucide-react"
 import Link from "next/link"
 import { parseAsString, useQueryState } from "nuqs"
 import type React from "react"
-import { useMemo } from "react"
+import { useMemo, useState } from "react"
 import RateChart from "@/app/exchange-rates/[pair]/_components/rate-chart"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { countries, currencies } from "@/lib/data"
+import { cn } from "@/lib/utils"
 
 export default function CalculatorWidget() {
   const [fromCurr, setFromCurr] = useQueryState(
@@ -37,6 +38,8 @@ export default function CalculatorWidget() {
       .withDefault("100")
       .withOptions({ shallow: true, throttleMs: 300 })
   )
+
+  const [isRotated, setIsRotated] = useState(false)
 
   // Fetch currency details
   const fromData = useMemo(() => {
@@ -62,27 +65,28 @@ export default function CalculatorWidget() {
     return num * exchangeRate
   }, [amount, exchangeRate])
 
-  const handleSwap = () => {
+  function handleSwap() {
+    setIsRotated((prev) => !prev)
     setFromCurr(activeTo)
     setToCurr(activeFrom)
   }
 
-  const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  function handleAmountChange(e: React.ChangeEvent<HTMLInputElement>) {
     const val = e.target.value
     if (val === "" || /^\d*\.?\d*$/.test(val)) {
       setAmount(val)
     }
   }
 
-  const setQuickAmount = (val: number) => {
+  function setQuickAmount(val: number) {
     setAmount(val.toString())
   }
 
-  const handleFromChange = (val: string | null) => {
+  function handleFromChange(val: string | null) {
     if (val) setFromCurr(val)
   }
 
-  const handleToChange = (val: string | null) => {
+  function handleToChange(val: string | null) {
     if (val) setToCurr(val)
   }
 
@@ -94,7 +98,7 @@ export default function CalculatorWidget() {
   return (
     <div className="space-y-8">
       {/* 1. Main Conversion Card */}
-      <Card className="relative overflow-hidden rounded-2xl border border-border/40 bg-card shadow-lg">
+      <Card className="relative overflow-hidden border border-border bg-card shadow-lg">
         {/* Background gradient line */}
         <div className="absolute top-0 right-0 left-0 h-1 bg-linear-to-r from-primary via-emerald-400 to-primary" />
 
@@ -114,7 +118,7 @@ export default function CalculatorWidget() {
                 value={amount || ""}
                 onChange={handleAmountChange}
                 placeholder="Enter conversion amount..."
-                className="h-14 rounded-2xl border-border/60 font-bold font-mono text-base"
+                className="h-14 font-bold font-mono text-base"
               />
             </div>
 
@@ -123,10 +127,15 @@ export default function CalculatorWidget() {
               <span className="block font-semibold text-muted-foreground text-xs uppercase tracking-wider">
                 From Currency
               </span>
-              <div className="relative">
+              <div>
                 <Select value={activeFrom} onValueChange={handleFromChange}>
-                  <SelectTrigger className="h-14 w-full rounded-2xl border-border/60 bg-background pr-12 pl-4 font-semibold text-sm">
-                    <SelectValue placeholder="Select Currency" />
+                  <SelectTrigger className="h-14! w-full font-semibold text-sm">
+                    <span className="flex min-w-0 items-center gap-2">
+                      <span className="shrink-0 text-lg leading-none">
+                        {fromFlag}
+                      </span>
+                      <SelectValue placeholder="Select Currency" />
+                    </span>
                   </SelectTrigger>
                   <SelectContent className="max-h-[280px]">
                     {currencies.map((c) => (
@@ -136,9 +145,6 @@ export default function CalculatorWidget() {
                     ))}
                   </SelectContent>
                 </Select>
-                <div className="pointer-events-none absolute top-1/2 right-9 z-10 -translate-y-1/2 font-mono font-semibold text-muted-foreground text-xs">
-                  {fromFlag}
-                </div>
               </div>
             </div>
 
@@ -149,8 +155,13 @@ export default function CalculatorWidget() {
                 variant="outline"
                 size="icon"
                 onClick={handleSwap}
-                className="h-12 w-12 transform rounded-full border-border/60 bg-background transition-all duration-300 hover:scale-105 hover:bg-primary/5 hover:text-primary active:rotate-180"
-                title="Swap Currencies"
+                className={cn(
+                  "h-14 w-14 transform rounded-full transition-transform duration-500",
+                  "hover:scale-105 hover:bg-primary/5 hover:text-primary",
+                  // The rotation class is cleanly injected here based on state
+                  isRotated ? "rotate-180" : "rotate-0"
+                )}
+                title="Swap Currencies."
               >
                 <ArrowLeftRight className="h-4 w-4" />
               </Button>
@@ -161,10 +172,15 @@ export default function CalculatorWidget() {
               <span className="block font-semibold text-muted-foreground text-xs uppercase tracking-wider">
                 To Currency
               </span>
-              <div className="relative">
+              <div>
                 <Select value={activeTo} onValueChange={handleToChange}>
-                  <SelectTrigger className="h-14 w-full rounded-2xl border-border/60 bg-background pr-12 pl-4 font-semibold text-sm">
-                    <SelectValue placeholder="Select Currency" />
+                  <SelectTrigger className="h-14! w-full font-semibold text-sm">
+                    <span className="flex min-w-0 items-center gap-2">
+                      <span className="shrink-0 text-lg leading-none">
+                        {toFlag}
+                      </span>
+                      <SelectValue placeholder="Select Currency" />
+                    </span>
                   </SelectTrigger>
                   <SelectContent className="max-h-[280px]">
                     {currencies.map((c) => (
@@ -174,9 +190,6 @@ export default function CalculatorWidget() {
                     ))}
                   </SelectContent>
                 </Select>
-                <div className="pointer-events-none absolute top-1/2 right-9 z-10 -translate-y-1/2 font-mono font-semibold text-muted-foreground text-xs">
-                  {toFlag}
-                </div>
               </div>
             </div>
           </div>
@@ -188,7 +201,7 @@ export default function CalculatorWidget() {
                 key={val}
                 type="button"
                 onClick={() => setQuickAmount(val)}
-                className="rounded-lg border border-border/60 bg-card px-2.5 py-1 font-medium font-mono text-foreground transition-colors hover:border-primary/40 hover:bg-primary/5"
+                className="border border-border bg-card px-2.5 py-1 font-medium font-mono text-foreground transition-colors hover:border-primary/40 hover:bg-primary/5"
               >
                 {val.toLocaleString()} {activeFrom}
               </button>
@@ -196,7 +209,7 @@ export default function CalculatorWidget() {
           </div>
 
           {/* Interactive Examples */}
-          <div className="flex flex-wrap items-center gap-1.5 border-border/10 border-t pt-3 text-muted-foreground text-xs">
+          <div className="flex flex-wrap items-center gap-1.5 border-border border-t pt-3 text-muted-foreground text-xs">
             <span className="mr-1 font-semibold">Examples:</span>
             {[
               { amount: "100", from: "USD", to: "EUR" },
@@ -211,7 +224,7 @@ export default function CalculatorWidget() {
                   setFromCurr(ex.from)
                   setToCurr(ex.to)
                 }}
-                className="rounded-lg border border-border/60 bg-card px-2.5 py-1 font-medium font-mono text-foreground transition-colors hover:border-primary/40 hover:bg-primary/5"
+                className="border border-border bg-card px-2.5 py-1 font-medium font-mono text-foreground transition-colors hover:border-primary/40 hover:bg-primary/5"
               >
                 {ex.amount} {ex.from} &rarr; {ex.to}
               </button>
@@ -219,7 +232,7 @@ export default function CalculatorWidget() {
           </div>
 
           {/* Conversion results panel */}
-          <div className="flex flex-col justify-between gap-4 border-border/20 border-t pt-6 md:flex-row md:items-center">
+          <div className="flex flex-col justify-between gap-4 border-border border-t pt-6 md:flex-row md:items-center">
             <div>
               <div className="font-bold text-muted-foreground text-xs uppercase tracking-wider">
                 Calculated Value
@@ -248,7 +261,7 @@ export default function CalculatorWidget() {
                 <Button
                   size="sm"
                   variant="outline"
-                  className="rounded-xl border-border/60 px-4 py-4 font-semibold text-xs"
+                  className="border-border px-4 py-4 font-semibold text-xs"
                 >
                   <TrendingUp className="mr-1.5 h-4 w-4" />
                   View Historical Trend
@@ -263,7 +276,7 @@ export default function CalculatorWidget() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Left: SEO explanation card */}
         <div className="space-y-6">
-          <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+          <Card className="border border-border bg-card shadow-sm">
             <CardContent className="space-y-4 p-6">
               <h3 className="flex items-center gap-1.5 font-bold text-foreground text-sm uppercase tracking-wider">
                 <Sparkles className="h-4 w-4 text-primary" />
@@ -277,7 +290,7 @@ export default function CalculatorWidget() {
                 to {toData.name} using mid-market values.
               </p>
 
-              <div className="space-y-3.5 border-border/20 border-t pt-3 text-xs">
+              <div className="space-y-3.5 border-border border-t pt-3 text-xs">
                 <div>
                   <h4 className="font-bold text-foreground">
                     From Currency profile:
@@ -312,7 +325,7 @@ export default function CalculatorWidget() {
           </Card>
 
           {/* Alert */}
-          <div className="flex items-start gap-3 rounded-2xl border border-border/30 bg-muted/20 p-4 text-xs">
+          <div className="flex items-start gap-3 border border-border bg-muted/20 p-4 text-xs">
             <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
             <div>
               <h4 className="font-bold text-foreground">Commercial Rates</h4>

@@ -153,13 +153,13 @@ export default function Hero() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onFocus={() => query.trim().length >= 2 && setIsOpen(true)}
-                className="h-14 w-full rounded-2xl border border-border/80 bg-background/95 pr-4 pl-12 text-base shadow-lg ring-offset-background transition-all duration-200 placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
+                className="h-14 w-full border border-border bg-background/95 pr-4 pl-12 text-base shadow-lg ring-offset-background transition-all duration-200 placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40"
               />
             </div>
             <Button
               type="submit"
               size="lg"
-              className="h-14 rounded-2xl px-6 font-semibold shadow-lg shadow-primary/15 transition-all duration-300 hover:shadow-primary/25"
+              className="h-14 px-6 font-semibold shadow-lg shadow-primary/15 transition-all duration-300 hover:shadow-primary/25"
             >
               Search
             </Button>
@@ -167,7 +167,7 @@ export default function Hero() {
 
           {/* Suggestions Dropdown */}
           {isOpen && suggestions.length > 0 && (
-            <div className="fade-in slide-in-from-top-2 absolute right-0 left-0 z-50 mt-2 animate-in rounded-2xl border border-border/50 bg-background/95 p-2 shadow-2xl backdrop-blur-md duration-150">
+            <div className="fade-in slide-in-from-top-2 absolute right-0 left-0 z-50 mt-2 animate-in border border-border bg-background/95 p-2 shadow-2xl backdrop-blur-md duration-150">
               <div className="px-3 py-1.5 font-semibold text-muted-foreground/70 text-xs uppercase tracking-wider">
                 Suggestions
               </div>
@@ -177,7 +177,7 @@ export default function Hero() {
                     key={item.id}
                     onClick={() => handleSelect(item)}
                     type="button"
-                    className="flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm transition-colors duration-150 hover:bg-accent hover:text-accent-foreground"
+                    className="flex w-full items-center justify-between px-3 py-2.5 text-left text-sm transition-colors duration-150 hover:bg-accent hover:text-accent-foreground"
                   >
                     <div className="flex items-center gap-2.5">
                       {item.type === "country" ? (
@@ -185,7 +185,7 @@ export default function Hero() {
                           {item.flagOrSymbol}
                         </span>
                       ) : (
-                        <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 font-bold text-primary text-xs">
+                        <div className="flex h-6 w-6 items-center justify-center bg-primary/10 font-bold text-primary text-xs">
                           {item.flagOrSymbol}
                         </div>
                       )}
@@ -218,7 +218,7 @@ export default function Hero() {
                   key={name}
                   onClick={() => router.push(`/country/${countryId}`)}
                   type="button"
-                  className="inline-flex items-center gap-1 rounded-full border border-border/80 bg-card px-3 py-1 font-medium text-foreground text-xs transition-all duration-200 hover:border-primary/40 hover:bg-primary/5"
+                  className="inline-flex items-center gap-1 rounded-full border border-border bg-card px-3 py-1 font-medium text-foreground text-xs transition-all duration-200 hover:border-primary/40 hover:bg-primary/5"
                 >
                   <span>
                     {name === "United States"

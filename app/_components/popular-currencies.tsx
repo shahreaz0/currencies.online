@@ -44,7 +44,7 @@ export default function PopularCurrencies() {
               href={`/currency/${currency.id}`}
               className="group block"
             >
-              <Card className="h-full overflow-hidden rounded-2xl border border-border/40 bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
+              <Card className="h-full overflow-hidden border border-border bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
                 <CardContent className="flex h-full flex-col justify-between gap-4 p-5">
                   {/* Top Row: Name, Flag, Code */}
                   <div className="flex items-start justify-between">
@@ -65,7 +65,7 @@ export default function PopularCurrencies() {
                         </p>
                       </div>
                     </div>
-                    <span className="inline-flex items-center justify-center rounded-xl bg-muted px-2.5 py-1 font-bold font-mono text-muted-foreground text-xs transition-colors group-hover:bg-primary/10 group-hover:text-primary">
+                    <span className="inline-flex items-center justify-center rounded-none bg-muted px-2.5 py-1 font-bold font-mono text-muted-foreground text-xs transition-colors group-hover:bg-primary/10 group-hover:text-primary">
                       {currency.code}
                     </span>
                   </div>
@@ -76,7 +76,7 @@ export default function PopularCurrencies() {
                   </p>
 
                   {/* Bottom Row: Exchange rate vs USD */}
-                  <div className="flex items-center justify-between border-border/20 border-t pt-3">
+                  <div className="flex items-center justify-between border-border border-t pt-3">
                     <div className="text-muted-foreground text-xs">
                       Value vs USD
                     </div>

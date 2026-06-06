@@ -34,7 +34,7 @@ export default function CurrencyChart({ baseRate, code }: CurrencyChartProps) {
 
   if (!mounted) {
     return (
-      <div className="flex h-[300px] w-full items-center justify-center rounded-2xl border border-border/40 bg-muted/20">
+      <div className="flex h-[300px] w-full items-center justify-center rounded-none border border-border bg-muted/20">
         <div className="animate-pulse text-muted-foreground text-sm">
           Loading Historical Trend...
         </div>
@@ -53,7 +53,7 @@ export default function CurrencyChart({ baseRate, code }: CurrencyChartProps) {
   const percentChange = ((rateDiff / startRate) * 100).toFixed(2)
 
   return (
-    <Card className="overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm">
+    <Card className="overflow-hidden border border-border bg-card shadow-sm">
       <CardContent className="p-6">
         {/* Chart Header Info */}
         <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
@@ -68,7 +68,7 @@ export default function CurrencyChart({ baseRate, code }: CurrencyChartProps) {
 
           <div className="flex items-center gap-2">
             <span
-              className={`inline-flex items-center gap-1 rounded-xl px-2.5 py-1 font-semibold text-xs ${isUp ? "bg-emerald-500/10 text-emerald-500" : "bg-destructive/10 text-destructive"}`}
+              className={`inline-flex items-center gap-1 rounded-none px-2.5 py-1 font-semibold text-xs ${isUp ? "bg-emerald-500/10 text-emerald-500" : "bg-destructive/10 text-destructive"}`}
             >
               {isUp ? (
                 <ArrowUpRight className="h-3.5 w-3.5" />
@@ -134,7 +134,7 @@ export default function CurrencyChart({ baseRate, code }: CurrencyChartProps) {
                   if (active && payload?.length) {
                     const data = payload[0].payload
                     return (
-                      <div className="rounded-xl border border-border bg-popover p-3 shadow-xl backdrop-blur-md">
+                      <div className="rounded-none border border-border bg-popover p-3 shadow-xl backdrop-blur-md">
                         <p className="font-bold text-[10px] text-muted-foreground uppercase">
                           {data.date}
                         </p>

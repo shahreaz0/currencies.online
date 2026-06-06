@@ -64,7 +64,7 @@ export default function RatePairDetail({
           <Button
             variant="ghost"
             size="sm"
-            className="gap-2 rounded-xl text-muted-foreground hover:text-foreground"
+            className="gap-2 text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Exchange Rates Directory
@@ -73,7 +73,7 @@ export default function RatePairDetail({
       </div>
 
       {/* Main Title Banner */}
-      <div className="flex flex-col justify-between gap-6 rounded-2xl border border-border/40 bg-card p-6 shadow-sm sm:p-8 md:flex-row md:items-center">
+      <div className="flex flex-col justify-between gap-6 border border-border bg-card p-6 shadow-sm sm:p-8 md:flex-row md:items-center">
         <div className="space-y-1.5">
           <span className="rounded-full bg-primary/10 px-2.5 py-1 font-semibold text-primary text-xs uppercase tracking-widest">
             Exchange Rate Analysis
@@ -147,7 +147,7 @@ export default function RatePairDetail({
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Left Side: Calculator Widget */}
         <div className="space-y-6">
-          <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+          <Card className="border border-border bg-card shadow-sm">
             <CardContent className="space-y-5 p-6">
               <h2 className="flex items-center gap-2 font-bold text-base text-foreground">
                 <Calculator className="h-4.5 w-4.5 text-primary" />
@@ -168,7 +168,7 @@ export default function RatePairDetail({
                     type="text"
                     value={amount}
                     onChange={handleAmountChange}
-                    className="h-12 rounded-xl border-border/60 pr-16 font-bold font-mono"
+                    className="h-12 border-border pr-16 font-bold font-mono"
                   />
                   <div className="absolute top-1/2 right-3 -translate-y-1/2 font-bold font-mono text-muted-foreground text-sm">
                     {fromCode}
@@ -177,7 +177,7 @@ export default function RatePairDetail({
               </div>
 
               {/* Output to */}
-              <div className="space-y-2 rounded-xl border border-border/10 bg-muted/30 p-4">
+              <div className="space-y-2 border border-border bg-muted/30 p-4">
                 <div className="font-semibold text-muted-foreground text-xs uppercase">
                   To Amount ({toCode})
                 </div>
@@ -193,13 +193,13 @@ export default function RatePairDetail({
               </div>
 
               {/* Inverse conversion view */}
-              <div className="space-y-2 border-border/20 border-t pt-3 text-xs">
+              <div className="space-y-2 border-border border-t pt-3 text-xs">
                 <div className="flex justify-between text-muted-foreground">
                   <span>
                     Inverse converter ({toCode} to {fromCode}):
                   </span>
                 </div>
-                <div className="rounded-lg border border-border/20 bg-muted/20 p-2.5 font-mono font-semibold text-foreground">
+                <div className="border border-border bg-muted/20 p-2.5 font-mono font-semibold text-foreground">
                   {numericAmount} {toCode} ={" "}
                   {inverseConvertedAmount.toLocaleString(undefined, {
                     minimumFractionDigits: 2,
@@ -217,7 +217,7 @@ export default function RatePairDetail({
                 >
                   <Button
                     variant="outline"
-                    className="w-full gap-2 rounded-xl border-border/60 py-4 text-xs"
+                    className="w-full gap-2 border-border py-4 text-xs"
                   >
                     <ArrowLeftRight className="h-3.5 w-3.5" />
                     Switch Conversion Direction
@@ -228,7 +228,7 @@ export default function RatePairDetail({
           </Card>
 
           {/* Verification Box */}
-          <div className="flex items-start gap-3 rounded-2xl border border-border/30 bg-muted/20 p-4">
+          <div className="flex items-start gap-3 border border-border bg-muted/20 p-4">
             <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
             <div>
               <h4 className="font-bold text-foreground text-xs">
@@ -255,10 +255,10 @@ export default function RatePairDetail({
           <h3 className="font-bold text-muted-foreground text-sm uppercase tracking-wider">
             {fromCode} to {toCode} Quick Conversion Table
           </h3>
-          <div className="overflow-hidden rounded-xl border border-border/40 bg-card">
+          <div className="overflow-hidden border border-border bg-card">
             <table className="w-full border-collapse text-left text-xs">
               <thead>
-                <tr className="border-border/40 border-b bg-muted/40 font-bold text-foreground">
+                <tr className="border-border border-b bg-muted/40 font-bold text-foreground">
                   <th className="p-3">{fromCode} Amount</th>
                   <th className="p-3">{toCode} Equivalent</th>
                 </tr>
@@ -288,10 +288,10 @@ export default function RatePairDetail({
           <h3 className="font-bold text-muted-foreground text-sm uppercase tracking-wider">
             {toCode} to {fromCode} Quick Conversion Table
           </h3>
-          <div className="overflow-hidden rounded-xl border border-border/40 bg-card">
+          <div className="overflow-hidden border border-border bg-card">
             <table className="w-full border-collapse text-left text-xs">
               <thead>
-                <tr className="border-border/40 border-b bg-muted/40 font-bold text-foreground">
+                <tr className="border-border border-b bg-muted/40 font-bold text-foreground">
                   <th className="p-3">{toCode} Amount</th>
                   <th className="p-3">{fromCode} Equivalent</th>
                 </tr>

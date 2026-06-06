@@ -58,11 +58,11 @@ export default function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-border/40 border-b bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-border border-b bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="group flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-linear-to-tr from-primary to-emerald-400 text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 group-hover:scale-105">
+          <div className="flex h-9 w-9 items-center justify-center bg-linear-to-tr from-primary to-emerald-400 text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 group-hover:scale-105">
             <Coins className="h-5 w-5 animate-pulse" />
           </div>
           <span className="bg-linear-to-r from-foreground via-foreground/90 to-primary bg-clip-text font-bold font-heading text-lg text-transparent tracking-tight transition-colors duration-200 group-hover:text-primary">
@@ -82,7 +82,7 @@ export default function Header() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  "relative flex items-center gap-1.5 rounded-lg px-3 py-2 font-medium text-sm transition-all duration-200 hover:bg-accent hover:text-accent-foreground",
+                  "relative flex items-center gap-1.5 px-3 py-2 font-medium text-sm transition-all duration-200 hover:bg-accent hover:text-accent-foreground",
                   isActive
                     ? "bg-primary/5 font-semibold text-primary"
                     : "text-muted-foreground"
@@ -109,7 +109,7 @@ export default function Header() {
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9 rounded-lg text-muted-foreground hover:text-foreground"
+            className="h-9 w-9 text-muted-foreground hover:text-foreground"
             onClick={toggleTheme}
             aria-label="Toggle theme"
           >
@@ -124,7 +124,7 @@ export default function Header() {
           <Link href="/converter" className="hidden sm:inline-block">
             <Button
               size="sm"
-              className="gap-1.5 rounded-xl px-4 font-medium shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
+              className="gap-1.5 px-4 font-medium shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
             >
               <Sparkles className="h-3.5 w-3.5" />
               Convert Now
@@ -136,22 +136,18 @@ export default function Header() {
             <Sheet>
               <SheetTrigger
                 render={
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-9 w-9 rounded-lg"
-                  >
+                  <Button variant="ghost" size="icon" className="h-9 w-9">
                     <Menu className="h-5 w-5" />
                   </Button>
                 }
               />
               <SheetContent
                 side="right"
-                className="w-[300px] border-border/50 border-l bg-background px-4 py-6"
+                className="w-[300px] border-border border-l bg-background px-4 py-6"
               >
-                <SheetHeader className="border-border/40 border-b pb-4 text-left">
+                <SheetHeader className="border-border border-b pb-4 text-left">
                   <SheetTitle className="flex items-center gap-2">
-                    <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                    <div className="flex h-8 w-8 items-center justify-center bg-primary text-primary-foreground">
                       <Coins className="h-4 w-4" />
                     </div>
                     <span className="font-bold">Currencies.online</span>
@@ -168,7 +164,7 @@ export default function Header() {
                         key={item.name}
                         href={item.href}
                         className={cn(
-                          "flex items-center gap-3 rounded-xl px-4 py-3 font-medium text-base transition-colors hover:bg-accent",
+                          "flex items-center gap-3 px-4 py-3 font-medium text-base transition-colors hover:bg-accent",
                           isActive
                             ? "bg-primary/10 text-primary"
                             : "text-muted-foreground"
@@ -182,7 +178,7 @@ export default function Header() {
                 </div>
                 <div className="absolute right-4 bottom-8 left-4 flex flex-col gap-3">
                   <Link href="/converter" className="w-full">
-                    <Button className="w-full gap-2 rounded-xl py-5 shadow-lg shadow-primary/15">
+                    <Button className="w-full gap-2 py-5 shadow-lg shadow-primary/15">
                       <Calculator className="h-4 w-4" />
                       Quick Converter
                     </Button>

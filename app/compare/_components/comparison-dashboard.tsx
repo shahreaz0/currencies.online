@@ -170,28 +170,28 @@ export default function ComparisonDashboard() {
       <Tabs value={tab} onValueChange={handleTabChange} className="w-full">
         {/* Navigation Tabs List */}
         <div className="mb-8 flex justify-center">
-          <TabsList className="!h-11 !rounded-2xl grid w-full max-w-2xl grid-cols-4 border border-border/40 bg-muted/60 p-1">
+          <TabsList className="grid h-12! w-full max-w-2xl grid-cols-4 bg-muted/60 p-1">
             <TabsTrigger
               value="currencies"
-              className="!rounded-xl py-2 font-semibold text-xs data-active:bg-background data-active:shadow-sm"
+              className="py-2 font-semibold text-xs data-active:bg-background data-active:shadow-sm"
             >
               Currencies
             </TabsTrigger>
             <TabsTrigger
               value="countries"
-              className="!rounded-xl py-2 font-semibold text-xs data-active:bg-background data-active:shadow-sm"
+              className="py-2 font-semibold text-xs data-active:bg-background data-active:shadow-sm"
             >
               Countries
             </TabsTrigger>
             <TabsTrigger
               value="rates"
-              className="!rounded-xl py-2 font-semibold text-xs data-active:bg-background data-active:shadow-sm"
+              className="py-2 font-semibold text-xs data-active:bg-background data-active:shadow-sm"
             >
               Rates
             </TabsTrigger>
             <TabsTrigger
               value="strength"
-              className="!rounded-xl py-2 font-semibold text-xs data-active:bg-background data-active:shadow-sm"
+              className="py-2 font-semibold text-xs data-active:bg-background data-active:shadow-sm"
             >
               Strength & Power
             </TabsTrigger>
@@ -203,11 +203,11 @@ export default function ComparisonDashboard() {
           value="currencies"
           className="fade-in-50 animate-in space-y-6 duration-200"
         >
-          <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-border/40 bg-card p-5 md:flex-row">
+          <div className="flex flex-col items-center justify-center gap-4 border border-border bg-card p-5 md:flex-row">
             <div className="flex w-full max-w-xs items-center gap-3">
               <Coins className="h-5 w-5 shrink-0 text-primary" />
               <Select value={activeCurr1} onValueChange={handleCurr1Change}>
-                <SelectTrigger className="h-11 w-full rounded-xl border-border/60 bg-background px-3 font-semibold text-xs">
+                <SelectTrigger className="w-full border-border bg-background px-3 font-semibold text-xs">
                   <SelectValue placeholder="Select Currency" />
                 </SelectTrigger>
                 <SelectContent className="max-h-[280px]">
@@ -225,7 +225,7 @@ export default function ComparisonDashboard() {
             <div className="flex w-full max-w-xs items-center gap-3">
               <Coins className="h-5 w-5 shrink-0 text-primary" />
               <Select value={activeCurr2} onValueChange={handleCurr2Change}>
-                <SelectTrigger className="h-11 w-full rounded-xl border-border/60 bg-background px-3 font-semibold text-xs">
+                <SelectTrigger className="w-full border-border bg-background px-3 font-semibold text-xs">
                   <SelectValue placeholder="Select Currency" />
                 </SelectTrigger>
                 <SelectContent className="max-h-[280px]">
@@ -241,7 +241,7 @@ export default function ComparisonDashboard() {
 
           {/* Comparison results */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+            <Card className="border border-border bg-card shadow-sm">
               <CardContent className="space-y-4 p-6">
                 <div className="flex items-center gap-2">
                   <span className="font-bold font-mono text-primary text-sm">
@@ -284,7 +284,7 @@ export default function ComparisonDashboard() {
               </CardContent>
             </Card>
 
-            <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+            <Card className="border border-border bg-card shadow-sm">
               <CardContent className="space-y-4 p-6">
                 <div className="flex items-center gap-2">
                   <span className="font-bold font-mono text-primary text-sm">
@@ -334,14 +334,14 @@ export default function ComparisonDashboard() {
           value="countries"
           className="fade-in-50 animate-in space-y-6 duration-200"
         >
-          <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-border/40 bg-card p-5 md:flex-row">
+          <div className="flex flex-col items-center justify-center gap-4 border border-border bg-card p-5 md:flex-row">
             <div className="flex w-full max-w-xs items-center gap-3">
               <Globe className="h-5 w-5 shrink-0 text-primary" />
               <Select
                 value={activeCountry1}
                 onValueChange={handleCountry1Change}
               >
-                <SelectTrigger className="h-11 w-full rounded-xl border-border/60 bg-background px-3 font-semibold text-xs">
+                <SelectTrigger className="w-full border-border bg-background px-3 font-semibold text-xs">
                   <SelectValue placeholder="Select Country" />
                 </SelectTrigger>
                 <SelectContent className="max-h-[280px]">
@@ -362,7 +362,7 @@ export default function ComparisonDashboard() {
                 value={activeCountry2}
                 onValueChange={handleCountry2Change}
               >
-                <SelectTrigger className="h-11 w-full rounded-xl border-border/60 bg-background px-3 font-semibold text-xs">
+                <SelectTrigger className="w-full border-border bg-background px-3 font-semibold text-xs">
                   <SelectValue placeholder="Select Country" />
                 </SelectTrigger>
                 <SelectContent className="max-h-[280px]">
@@ -378,7 +378,7 @@ export default function ComparisonDashboard() {
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* Country 1 */}
-            <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+            <Card className="border border-border bg-card shadow-sm">
               <CardContent className="space-y-4 p-6">
                 <div className="flex items-center gap-3">
                   <span className="text-4xl leading-none">{co1Data.flag}</span>
@@ -436,7 +436,7 @@ export default function ComparisonDashboard() {
             </Card>
 
             {/* Country 2 */}
-            <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+            <Card className="border border-border bg-card shadow-sm">
               <CardContent className="space-y-4 p-6">
                 <div className="flex items-center gap-3">
                   <span className="text-4xl leading-none">{co2Data.flag}</span>
@@ -500,11 +500,11 @@ export default function ComparisonDashboard() {
           value="rates"
           className="fade-in-50 animate-in space-y-6 duration-200"
         >
-          <div className="flex flex-col items-center justify-center gap-4 rounded-2xl border border-border/40 bg-card p-5 md:flex-row">
+          <div className="flex flex-col items-center justify-center gap-4 border border-border bg-card p-5 md:flex-row">
             <div className="flex w-full max-w-xs items-center gap-3">
               <TrendingUp className="h-5 w-5 shrink-0 text-primary" />
               <Select value={activeRate1} onValueChange={handleRate1Change}>
-                <SelectTrigger className="h-11 w-full rounded-xl border-border/60 bg-background px-3 font-mono font-semibold text-xs">
+                <SelectTrigger className="w-full border-border bg-background px-3 font-mono font-semibold text-xs">
                   <SelectValue placeholder="Select Pair 1" />
                 </SelectTrigger>
                 <SelectContent className="max-h-[280px]">
@@ -525,7 +525,7 @@ export default function ComparisonDashboard() {
             <div className="flex w-full max-w-xs items-center gap-3">
               <TrendingUp className="h-5 w-5 shrink-0 text-primary" />
               <Select value={activeRate2} onValueChange={handleRate2Change}>
-                <SelectTrigger className="h-11 w-full rounded-xl border-border/60 bg-background px-3 font-mono font-semibold text-xs">
+                <SelectTrigger className="w-full border-border bg-background px-3 font-mono font-semibold text-xs">
                   <SelectValue placeholder="Select Pair 2" />
                 </SelectTrigger>
                 <SelectContent className="max-h-[280px]">
@@ -544,9 +544,9 @@ export default function ComparisonDashboard() {
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* Rate 1 */}
-            <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+            <Card className="border border-border bg-card shadow-sm">
               <CardContent className="space-y-4 p-6">
-                <h3 className="inline-block rounded-lg bg-primary/10 px-3.5 py-1 font-bold font-mono text-base text-primary">
+                <h3 className="inline-block bg-primary/10 px-3.5 py-1 font-bold font-mono text-base text-primary">
                   {rateComparison.r1.from} / {rateComparison.r1.to}
                 </h3>
                 <div className="divide-y divide-border/20 text-xs">
@@ -587,9 +587,9 @@ export default function ComparisonDashboard() {
             </Card>
 
             {/* Rate 2 */}
-            <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+            <Card className="border border-border bg-card shadow-sm">
               <CardContent className="space-y-4 p-6">
-                <h3 className="inline-block rounded-lg bg-primary/10 px-3.5 py-1 font-bold font-mono text-base text-primary">
+                <h3 className="inline-block bg-primary/10 px-3.5 py-1 font-bold font-mono text-base text-primary">
                   {rateComparison.r2.from} / {rateComparison.r2.to}
                 </h3>
                 <div className="divide-y divide-border/20 text-xs">
@@ -644,10 +644,10 @@ export default function ComparisonDashboard() {
                 Top 10 Strongest Currencies
               </h3>
 
-              <div className="overflow-hidden rounded-xl border border-border/40 bg-card">
+              <div className="overflow-hidden border border-border bg-card">
                 <table className="w-full border-collapse text-left text-xs">
                   <thead>
-                    <tr className="border-border/40 border-b bg-muted/40 font-bold text-foreground">
+                    <tr className="border-border border-b bg-muted/40 font-bold text-foreground">
                       <th className="p-3">Rank</th>
                       <th className="p-3">Country / Currency</th>
                       <th className="p-3 text-right">Power Index</th>
@@ -686,10 +686,10 @@ export default function ComparisonDashboard() {
                 Top 10 Purchasing Power Index
               </h3>
 
-              <div className="overflow-hidden rounded-xl border border-border/40 bg-card">
+              <div className="overflow-hidden border border-border bg-card">
                 <table className="w-full border-collapse text-left text-xs">
                   <thead>
-                    <tr className="border-border/40 border-b bg-muted/40 font-bold text-foreground">
+                    <tr className="border-border border-b bg-muted/40 font-bold text-foreground">
                       <th className="p-3">Rank</th>
                       <th className="p-3">Country</th>
                       <th className="p-3 text-right">Index Score</th>
@@ -716,7 +716,7 @@ export default function ComparisonDashboard() {
             </div>
           </div>
 
-          <Card className="rounded-xl border border-border/40 bg-muted/20">
+          <Card className="border border-border bg-muted/20">
             <CardContent className="flex items-start gap-3 p-4">
               <Info className="mt-0.5 h-4.5 w-4.5 shrink-0 text-primary" />
               <p className="text-[11px] text-muted-foreground leading-normal">

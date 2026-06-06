@@ -42,7 +42,7 @@ export default function CountriesList({
   return (
     <div className="space-y-8">
       {/* Search and Filter Controls */}
-      <div className="flex flex-col items-stretch justify-between gap-4 rounded-2xl border border-border/40 bg-card p-4 md:flex-row md:items-center">
+      <div className="flex flex-col items-stretch justify-between gap-4 border border-border bg-card p-4 md:flex-row md:items-center">
         {/* Search */}
         <div className="relative max-w-md flex-1">
           <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -51,7 +51,7 @@ export default function CountriesList({
             placeholder="Search by country, capital, currency..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="rounded-xl border-border/60 bg-background/50 pl-9"
+            className="border-border bg-background/50 pl-9"
           />
         </div>
 
@@ -63,7 +63,7 @@ export default function CountriesList({
               variant={selectedRegion === region ? "default" : "ghost"}
               size="sm"
               onClick={() => setSelectedRegion(region)}
-              className="rounded-xl px-4 py-1.5 font-semibold text-xs"
+              className="px-4 py-1.5 font-semibold text-xs"
             >
               {region}
             </Button>
@@ -80,7 +80,7 @@ export default function CountriesList({
               href={`/country/${country.id}`}
               className="group block"
             >
-              <Card className="h-full rounded-2xl border border-border/40 bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
+              <Card className="h-full border border-border bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
                 <CardContent className="flex h-full flex-col justify-between gap-5 p-6">
                   {/* Top: Flag and Name */}
                   <div className="flex items-start justify-between">
@@ -105,7 +105,7 @@ export default function CountriesList({
                   </div>
 
                   {/* Mid details */}
-                  <div className="grid grid-cols-2 gap-4 border-border/20 border-t border-b py-3 text-xs">
+                  <div className="grid grid-cols-2 gap-4 border-border border-t border-b py-3 text-xs">
                     <div>
                       <div className="mb-1 flex items-center gap-1 font-medium text-muted-foreground">
                         <Users className="h-3.5 w-3.5 text-muted-foreground/80" />
@@ -144,7 +144,7 @@ export default function CountriesList({
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-border/30 bg-card py-20 text-center">
+        <div className="flex flex-col items-center justify-center border border-border bg-card py-20 text-center">
           <Globe className="mb-4 h-12 w-12 animate-bounce text-muted-foreground/40" />
           <h3 className="font-bold text-foreground text-lg">
             No Countries Found

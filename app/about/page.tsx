@@ -26,7 +26,7 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+      <Card className="border border-border bg-card shadow-sm">
         <CardContent className="space-y-6 p-6 sm:p-8">
           <h2 className="font-bold text-foreground text-lg">Our Mission</h2>
           <p className="text-muted-foreground text-sm leading-relaxed">
@@ -38,7 +38,7 @@ export default function AboutPage() {
             milliseconds.
           </p>
 
-          <h2 className="border-border/20 border-t pt-4 font-bold text-foreground text-lg">
+          <h2 className="border-border border-t pt-4 font-bold text-foreground text-lg">
             Data Integrity
           </h2>
           <p className="text-muted-foreground text-sm leading-relaxed">
@@ -53,8 +53,8 @@ export default function AboutPage() {
 
       {/* Grid statistics */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
-        <div className="space-y-2 rounded-2xl border border-border/40 bg-card p-6 text-center">
-          <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        <div className="space-y-2 rounded-none border border-border bg-card p-6 text-center">
+          <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-none bg-primary/10 text-primary">
             <Database className="h-5 w-5" />
           </div>
           <div className="font-bold font-mono text-2xl text-foreground">
@@ -65,8 +65,8 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="space-y-2 rounded-2xl border border-border/40 bg-card p-6 text-center">
-          <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        <div className="space-y-2 rounded-none border border-border bg-card p-6 text-center">
+          <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-none bg-primary/10 text-primary">
             <ShieldCheck className="h-5 w-5" />
           </div>
           <div className="font-bold font-mono text-2xl text-foreground">
@@ -77,8 +77,8 @@ export default function AboutPage() {
           </div>
         </div>
 
-        <div className="space-y-2 rounded-2xl border border-border/40 bg-card p-6 text-center">
-          <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+        <div className="space-y-2 rounded-none border border-border bg-card p-6 text-center">
+          <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-none bg-primary/10 text-primary">
             <Award className="h-5 w-5" />
           </div>
           <div className="font-bold font-mono text-2xl text-foreground">

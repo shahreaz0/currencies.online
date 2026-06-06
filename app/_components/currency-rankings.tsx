@@ -39,11 +39,11 @@ export default function CurrencyRankings() {
             Top 10 Strongest Currencies
           </h3>
 
-          <div className="overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm">
+          <div className="overflow-hidden rounded-none border border-border bg-card shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-left text-xs">
                 <thead>
-                  <tr className="border-border/40 border-b bg-muted/40 font-bold text-foreground">
+                  <tr className="border-border border-b bg-muted/40 font-bold text-foreground">
                     <th className="w-12 p-4">Rank</th>
                     <th className="p-4">Country / Currency</th>
                     <th className="p-4 text-right">Power Index</th>
@@ -93,11 +93,11 @@ export default function CurrencyRankings() {
             Top 10 Purchasing Power Index
           </h3>
 
-          <div className="overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm">
+          <div className="overflow-hidden rounded-none border border-border bg-card shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-left text-xs">
                 <thead>
-                  <tr className="border-border/40 border-b bg-muted/40 font-bold text-foreground">
+                  <tr className="border-border border-b bg-muted/40 font-bold text-foreground">
                     <th className="w-12 p-4">Rank</th>
                     <th className="p-4">Country</th>
                     <th className="p-4 text-right">Index Score</th>
@@ -136,7 +136,7 @@ export default function CurrencyRankings() {
       </div>
 
       {/* Info Card */}
-      <Card className="mt-8 rounded-2xl border border-border/40 bg-muted/20">
+      <Card className="mt-8 border border-border bg-muted/20">
         <CardContent className="flex items-start gap-3 p-4">
           <Info className="mt-0.5 h-4.5 w-4.5 shrink-0 text-primary" />
           <p className="text-[11px] text-muted-foreground leading-normal">

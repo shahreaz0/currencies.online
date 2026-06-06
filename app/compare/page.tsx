@@ -40,7 +40,7 @@ export default function ComparePage() {
       {/* Comparison Dashboard */}
       <Suspense
         fallback={
-          <div className="flex h-[200px] w-full items-center justify-center rounded-2xl border border-border/40 bg-card">
+          <div className="flex h-[200px] w-full items-center justify-center rounded-none border border-border bg-card">
             <div className="animate-pulse text-muted-foreground text-sm">
               Initializing Comparison Dashboard...
             </div>

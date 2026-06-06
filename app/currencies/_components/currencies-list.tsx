@@ -25,7 +25,7 @@ export default function CurrenciesList() {
   return (
     <div className="space-y-8">
       {/* Search Bar */}
-      <div className="flex flex-col items-stretch justify-between gap-4 rounded-2xl border border-border/40 bg-card p-4 md:flex-row md:items-center">
+      <div className="flex flex-col items-stretch justify-between gap-4 border border-border bg-card p-4 md:flex-row md:items-center">
         <div className="relative max-w-md flex-1">
           <Search className="absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <UiInput
@@ -33,7 +33,7 @@ export default function CurrenciesList() {
             placeholder="Search by currency name, code, symbol..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            className="rounded-xl border-border/60 bg-background/50 pl-9"
+            className="border-border bg-background/50 pl-9"
           />
         </div>
         <div className="font-medium text-muted-foreground text-xs">
@@ -56,12 +56,12 @@ export default function CurrenciesList() {
                 href={`/currency/${curr.id}`}
                 className="group block"
               >
-                <Card className="h-full rounded-2xl border border-border/40 bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
+                <Card className="h-full border border-border bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
                   <CardContent className="flex h-full flex-col justify-between gap-5 p-6">
                     {/* Top row: Symbol and Code */}
                     <div className="flex items-start justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-primary/10 bg-primary/10 font-bold text-lg text-primary shadow-sm transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
+                        <div className="flex h-11 w-11 items-center justify-center border border-primary/10 bg-primary/10 font-bold text-lg text-primary shadow-sm transition-colors duration-300 group-hover:bg-primary group-hover:text-primary-foreground">
                           {curr.symbol}
                         </div>
                         <div>
@@ -89,14 +89,14 @@ export default function CurrenciesList() {
                         {usingCountries.slice(0, 3).map((country) => (
                           <span
                             key={country.id}
-                            className="inline-flex items-center gap-1 rounded-lg bg-muted px-2 py-0.5 font-medium text-foreground text-xs"
+                            className="inline-flex items-center gap-1 bg-muted px-2 py-0.5 font-medium text-foreground text-xs"
                           >
                             <span>{country.flag}</span>
                             <span>{country.name}</span>
                           </span>
                         ))}
                         {usingCountries.length > 3 && (
-                          <span className="inline-flex items-center rounded-lg bg-muted px-2 py-0.5 font-bold text-[10px] text-muted-foreground">
+                          <span className="inline-flex items-center bg-muted px-2 py-0.5 font-bold text-[10px] text-muted-foreground">
                             +{usingCountries.length - 3} more
                           </span>
                         )}
@@ -104,7 +104,7 @@ export default function CurrenciesList() {
                     </div>
 
                     {/* Bottom stats */}
-                    <div className="flex items-center justify-between border-border/20 border-t pt-3 text-xs">
+                    <div className="flex items-center justify-between border-border border-t pt-3 text-xs">
                       <span className="text-muted-foreground">
                         Value vs USD
                       </span>
@@ -119,7 +119,7 @@ export default function CurrenciesList() {
           })}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center rounded-2xl border border-border/30 bg-card py-20 text-center">
+        <div className="flex flex-col items-center justify-center border border-border bg-card py-20 text-center">
           <Coins className="mb-4 h-12 w-12 animate-bounce text-muted-foreground/40" />
           <h3 className="font-bold text-foreground text-lg">
             No Currencies Found

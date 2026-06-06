@@ -35,11 +35,11 @@ export default function LatestRates() {
       </div>
 
       {/* Rates Table / List */}
-      <div className="overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm">
+      <div className="overflow-hidden rounded-none border border-border bg-card shadow-sm">
         <div className="overflow-x-auto">
           <table className="w-full border-collapse text-left text-muted-foreground text-sm">
             <thead>
-              <tr className="border-border/40 border-b bg-muted/30 font-medium text-foreground">
+              <tr className="border-border border-b bg-muted/30 font-medium text-foreground">
                 <th className="px-6 py-4">Currency Pair</th>
                 <th className="px-6 py-4">Live Rate</th>
                 <th className="px-6 py-4">Daily Change</th>

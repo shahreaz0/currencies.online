@@ -3,7 +3,7 @@ import Link from "next/link"
 
 export default function Footer() {
   return (
-    <footer className="relative border-border/40 border-t bg-card/50 text-card-foreground">
+    <footer className="relative border-border border-t bg-card/50 text-card-foreground">
       {/* Visual top border line */}
       <div className="absolute top-0 right-0 left-0 h-px bg-linear-to-r from-transparent via-primary/20 to-transparent" />
 
@@ -145,9 +145,9 @@ export default function Footer() {
         </div>
 
         {/* Footer Brand & copyright bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-border/20 border-t pt-8 md:flex-row">
+        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-border border-t pt-8 md:flex-row">
           <div className="flex items-center gap-2">
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary/10 text-primary">
+            <div className="flex h-6 w-6 items-center justify-center rounded-none bg-primary/10 text-primary">
               <Coins className="h-3.5 w-3.5" />
             </div>
             <span className="font-semibold text-sm">Currencies.online</span>

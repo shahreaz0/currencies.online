@@ -34,7 +34,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
           <Button
             variant="ghost"
             size="sm"
-            className="gap-2 rounded-xl text-muted-foreground hover:text-foreground"
+            className="gap-2 text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-4 w-4" />
             Back to Countries Directory
@@ -46,7 +46,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Left Side: General Profile Card */}
         <div className="space-y-6 lg:col-span-2">
-          <Card className="overflow-hidden rounded-2xl border border-border/40 bg-card shadow-sm">
+          <Card className="overflow-hidden border border-border bg-card shadow-sm">
             <CardContent className="space-y-6 p-6 sm:p-8">
               {/* Profile Header */}
               <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
@@ -76,8 +76,8 @@ export default function CountryDetail({ country }: CountryDetailProps) {
               </p>
 
               {/* Core Metrics Grid */}
-              <div className="grid grid-cols-2 gap-4 border-border/20 border-t pt-4 sm:grid-cols-3">
-                <div className="rounded-xl border border-border/20 bg-muted/30 p-4">
+              <div className="grid grid-cols-2 gap-4 border-border border-t pt-4 sm:grid-cols-3">
+                <div className="border border-border bg-muted/30 p-4">
                   <span className="mb-1.5 flex items-center gap-1.5 font-medium text-muted-foreground text-xs">
                     <MapPin className="h-3.5 w-3.5 text-primary" />
                     Capital City
@@ -87,7 +87,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
                   </div>
                 </div>
 
-                <div className="rounded-xl border border-border/20 bg-muted/30 p-4">
+                <div className="border border-border bg-muted/30 p-4">
                   <span className="mb-1.5 flex items-center gap-1.5 font-medium text-muted-foreground text-xs">
                     <Users className="h-3.5 w-3.5 text-primary" />
                     Population
@@ -97,7 +97,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
                   </div>
                 </div>
 
-                <div className="col-span-2 rounded-xl border border-border/20 bg-muted/30 p-4 sm:col-span-1">
+                <div className="col-span-2 border border-border bg-muted/30 p-4 sm:col-span-1">
                   <span className="mb-1.5 flex items-center gap-1.5 font-medium text-muted-foreground text-xs">
                     <Coins className="h-3.5 w-3.5 text-primary" />
                     Official Currency
@@ -125,7 +125,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
                   href={`/country/${rel.id}`}
                   className="group"
                 >
-                  <Card className="rounded-xl border border-border/40 bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
+                  <Card className="border border-border bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
                     <CardContent className="flex items-center justify-between p-4">
                       <div className="flex items-center gap-3">
                         <span className="text-3xl leading-none">
@@ -151,7 +151,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
 
         {/* Right Side: Currency Exchange Rates stats Card */}
         <div className="space-y-6">
-          <Card className="rounded-2xl border border-border/40 bg-card shadow-sm">
+          <Card className="border border-border bg-card shadow-sm">
             <CardContent className="space-y-6 p-6">
               <h2 className="flex items-center gap-2 font-bold text-foreground text-lg">
                 <TrendingUp className="h-5 w-5 text-primary" />
@@ -181,7 +181,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
                   </div>
                 </div>
 
-                <div className="border-border/20 border-t pt-4">
+                <div className="border-border border-t pt-4">
                   <div className="text-muted-foreground text-xs">
                     Live Exchange Rate vs USD
                   </div>
@@ -196,7 +196,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-4 border-border/20 border-t pt-4">
+                <div className="grid grid-cols-2 gap-4 border-border border-t pt-4">
                   <div>
                     <div className="text-[11px] text-muted-foreground">
                       Purchasing Power
@@ -223,13 +223,13 @@ export default function CountryDetail({ country }: CountryDetailProps) {
                 </div>
               </div>
 
-              <div className="space-y-2 border-border/20 border-t pt-4">
+              <div className="space-y-2 border-border border-t pt-4">
                 {/* Convert link */}
                 <Link
                   href={`/converter?from=USD&to=${country.currencyCode}`}
                   className="block w-full"
                 >
-                  <Button className="w-full gap-2 rounded-xl py-4 text-xs">
+                  <Button className="w-full gap-2 py-4 text-xs">
                     Convert USD to {country.currencyCode}
                   </Button>
                 </Link>
@@ -247,7 +247,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
                     >
                       <Button
                         variant="outline"
-                        className="w-full gap-2 rounded-xl border-border/60 py-4 text-xs"
+                        className="w-full gap-2 border-border py-4 text-xs"
                       >
                         View {country.currencyCode} Analysis
                       </Button>
@@ -262,7 +262,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
                 >
                   <Button
                     variant="outline"
-                    className="w-full gap-2 rounded-xl border-border/60 py-4 text-xs"
+                    className="w-full gap-2 border-border py-4 text-xs"
                   >
                     Compare {country.name} with others
                   </Button>
@@ -272,7 +272,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
           </Card>
 
           {/* Verification Badge */}
-          <div className="flex items-start gap-3 rounded-2xl border border-border/30 bg-muted/20 p-4">
+          <div className="flex items-start gap-3 border border-border bg-muted/20 p-4">
             <ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
             <div>
               <h4 className="font-bold text-foreground text-xs">
