@@ -8,14 +8,16 @@ import { useMemo, useState } from "react"
 import RateChart from "@/app/exchange-rates/[pair]/_components/rate-chart"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@/components/ui/combobox"
+import { Input } from "@/components/ui/input"
+import { InputGroupAddon } from "@/components/ui/input-group"
 import { countries, currencies } from "@/lib/data"
 import { cn } from "@/lib/utils"
 
@@ -128,23 +130,50 @@ export default function CalculatorWidget() {
                 From Currency
               </span>
               <div>
-                <Select value={activeFrom} onValueChange={handleFromChange}>
-                  <SelectTrigger className="h-14! w-full font-semibold text-sm">
-                    <span className="flex min-w-0 items-center gap-2">
-                      <span className="shrink-0 text-lg leading-none">
-                        {fromFlag}
-                      </span>
-                      <SelectValue placeholder="Select Currency" />
-                    </span>
-                  </SelectTrigger>
-                  <SelectContent className="max-h-[280px]">
-                    {currencies.map((c) => (
-                      <SelectItem key={c.code} value={c.code}>
-                        {c.code} - {c.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Combobox
+                  value={activeFrom}
+                  onValueChange={handleFromChange}
+                  items={currencies.map((c) => c.code)}
+                  itemToStringLabel={(code) => {
+                    const c = currencies.find((curr) => curr.code === code)
+                    return c ? `${c.code} - ${c.name}` : code || ""
+                  }}
+                  filter={(itemValue, query) => {
+                    const c = currencies.find((curr) => curr.code === itemValue)
+                    if (!c) return false
+                    return (
+                      c.code.toLowerCase().includes(query.toLowerCase()) ||
+                      c.name.toLowerCase().includes(query.toLowerCase())
+                    )
+                  }}
+                >
+                  <ComboboxInput
+                    placeholder="Select Currency"
+                    className="h-14! w-full font-semibold text-sm"
+                  >
+                    <InputGroupAddon
+                      align="inline-start"
+                      className="shrink-0 text-lg leading-none"
+                    >
+                      {fromFlag}
+                    </InputGroupAddon>
+                  </ComboboxInput>
+                  <ComboboxContent className="max-h-[280px]">
+                    <ComboboxEmpty>No currencies found</ComboboxEmpty>
+                    <ComboboxList>
+                      {(itemValue) => {
+                        const c =
+                          currencies.find((curr) => curr.code === itemValue) ||
+                          currencies[0]
+                        return (
+                          <ComboboxItem key={c.code} value={c.code}>
+                            {c.code} - {c.name}
+                          </ComboboxItem>
+                        )
+                      }}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
               </div>
             </div>
 
@@ -173,23 +202,50 @@ export default function CalculatorWidget() {
                 To Currency
               </span>
               <div>
-                <Select value={activeTo} onValueChange={handleToChange}>
-                  <SelectTrigger className="h-14! w-full font-semibold text-sm">
-                    <span className="flex min-w-0 items-center gap-2">
-                      <span className="shrink-0 text-lg leading-none">
-                        {toFlag}
-                      </span>
-                      <SelectValue placeholder="Select Currency" />
-                    </span>
-                  </SelectTrigger>
-                  <SelectContent className="max-h-[280px]">
-                    {currencies.map((c) => (
-                      <SelectItem key={c.code} value={c.code}>
-                        {c.code} - {c.name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
+                <Combobox
+                  value={activeTo}
+                  onValueChange={handleToChange}
+                  items={currencies.map((c) => c.code)}
+                  itemToStringLabel={(code) => {
+                    const c = currencies.find((curr) => curr.code === code)
+                    return c ? `${c.code} - ${c.name}` : code || ""
+                  }}
+                  filter={(itemValue, query) => {
+                    const c = currencies.find((curr) => curr.code === itemValue)
+                    if (!c) return false
+                    return (
+                      c.code.toLowerCase().includes(query.toLowerCase()) ||
+                      c.name.toLowerCase().includes(query.toLowerCase())
+                    )
+                  }}
+                >
+                  <ComboboxInput
+                    placeholder="Select Currency"
+                    className="h-14! w-full font-semibold text-sm"
+                  >
+                    <InputGroupAddon
+                      align="inline-start"
+                      className="shrink-0 text-lg leading-none"
+                    >
+                      {toFlag}
+                    </InputGroupAddon>
+                  </ComboboxInput>
+                  <ComboboxContent className="max-h-[280px]">
+                    <ComboboxEmpty>No currencies found</ComboboxEmpty>
+                    <ComboboxList>
+                      {(itemValue) => {
+                        const c =
+                          currencies.find((curr) => curr.code === itemValue) ||
+                          currencies[0]
+                        return (
+                          <ComboboxItem key={c.code} value={c.code}>
+                            {c.code} - {c.name}
+                          </ComboboxItem>
+                        )
+                      }}
+                    </ComboboxList>
+                  </ComboboxContent>
+                </Combobox>
               </div>
             </div>
           </div>

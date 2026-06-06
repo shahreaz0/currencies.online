@@ -13,12 +13,13 @@ import { parseAsString, useQueryState } from "nuqs"
 import { useMemo } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
+  Combobox,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+} from "@/components/ui/combobox"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { countries, currencies, exchangeRatesMatrix } from "@/lib/data"
 
@@ -206,36 +207,86 @@ export default function ComparisonDashboard() {
           <div className="flex flex-col items-center justify-center gap-4 border border-border bg-card p-5 md:flex-row">
             <div className="flex w-full max-w-xs items-center gap-3">
               <Coins className="h-5 w-5 shrink-0 text-primary" />
-              <Select value={activeCurr1} onValueChange={handleCurr1Change}>
-                <SelectTrigger className="w-full border-border bg-background px-3 font-semibold text-xs">
-                  <SelectValue placeholder="Select Currency" />
-                </SelectTrigger>
-                <SelectContent className="max-h-[280px]">
-                  {currencies.map((c) => (
-                    <SelectItem key={c.code} value={c.code}>
-                      {c.code} - {c.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Combobox
+                value={activeCurr1}
+                onValueChange={handleCurr1Change}
+                items={currencies.map((c) => c.code)}
+                itemToStringLabel={(code) => {
+                  const c = currencies.find((curr) => curr.code === code)
+                  return c ? `${c.code} - ${c.name}` : code || ""
+                }}
+                filter={(itemValue, query) => {
+                  const c = currencies.find((curr) => curr.code === itemValue)
+                  if (!c) return false
+                  return (
+                    c.code.toLowerCase().includes(query.toLowerCase()) ||
+                    c.name.toLowerCase().includes(query.toLowerCase())
+                  )
+                }}
+              >
+                <ComboboxInput
+                  placeholder="Select Currency"
+                  className="w-full border-border bg-background font-semibold text-xs"
+                />
+                <ComboboxContent className="max-h-[280px]">
+                  <ComboboxEmpty>No currencies found</ComboboxEmpty>
+                  <ComboboxList>
+                    {(itemValue) => {
+                      const c =
+                        currencies.find((curr) => curr.code === itemValue) ||
+                        currencies[0]
+                      return (
+                        <ComboboxItem key={c.code} value={c.code}>
+                          {c.code} - {c.name}
+                        </ComboboxItem>
+                      )
+                    }}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
             </div>
 
             <ArrowLeftRight className="hidden h-5 w-5 text-muted-foreground md:block" />
 
             <div className="flex w-full max-w-xs items-center gap-3">
               <Coins className="h-5 w-5 shrink-0 text-primary" />
-              <Select value={activeCurr2} onValueChange={handleCurr2Change}>
-                <SelectTrigger className="w-full border-border bg-background px-3 font-semibold text-xs">
-                  <SelectValue placeholder="Select Currency" />
-                </SelectTrigger>
-                <SelectContent className="max-h-[280px]">
-                  {currencies.map((c) => (
-                    <SelectItem key={c.code} value={c.code}>
-                      {c.code} - {c.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Combobox
+                value={activeCurr2}
+                onValueChange={handleCurr2Change}
+                items={currencies.map((c) => c.code)}
+                itemToStringLabel={(code) => {
+                  const c = currencies.find((curr) => curr.code === code)
+                  return c ? `${c.code} - ${c.name}` : code || ""
+                }}
+                filter={(itemValue, query) => {
+                  const c = currencies.find((curr) => curr.code === itemValue)
+                  if (!c) return false
+                  return (
+                    c.code.toLowerCase().includes(query.toLowerCase()) ||
+                    c.name.toLowerCase().includes(query.toLowerCase())
+                  )
+                }}
+              >
+                <ComboboxInput
+                  placeholder="Select Currency"
+                  className="w-full border-border bg-background font-semibold text-xs"
+                />
+                <ComboboxContent className="max-h-[280px]">
+                  <ComboboxEmpty>No currencies found</ComboboxEmpty>
+                  <ComboboxList>
+                    {(itemValue) => {
+                      const c =
+                        currencies.find((curr) => curr.code === itemValue) ||
+                        currencies[0]
+                      return (
+                        <ComboboxItem key={c.code} value={c.code}>
+                          {c.code} - {c.name}
+                        </ComboboxItem>
+                      )
+                    }}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
             </div>
           </div>
 
@@ -337,42 +388,86 @@ export default function ComparisonDashboard() {
           <div className="flex flex-col items-center justify-center gap-4 border border-border bg-card p-5 md:flex-row">
             <div className="flex w-full max-w-xs items-center gap-3">
               <Globe className="h-5 w-5 shrink-0 text-primary" />
-              <Select
+              <Combobox
                 value={activeCountry1}
                 onValueChange={handleCountry1Change}
+                items={countries.map((c) => c.id)}
+                itemToStringLabel={(id) => {
+                  const c = countries.find((curr) => curr.id === id)
+                  return c ? `${c.flag} ${c.name}` : id || ""
+                }}
+                filter={(itemValue, query) => {
+                  const c = countries.find((curr) => curr.id === itemValue)
+                  if (!c) return false
+                  return (
+                    c.name.toLowerCase().includes(query.toLowerCase()) ||
+                    c.currencyCode.toLowerCase().includes(query.toLowerCase())
+                  )
+                }}
               >
-                <SelectTrigger className="w-full border-border bg-background px-3 font-semibold text-xs">
-                  <SelectValue placeholder="Select Country" />
-                </SelectTrigger>
-                <SelectContent className="max-h-[280px]">
-                  {countries.map((c) => (
-                    <SelectItem key={c.id} value={c.id}>
-                      <span className="mr-1">{c.flag}</span> {c.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                <ComboboxInput
+                  placeholder="Select Country"
+                  className="w-full border-border bg-background font-semibold text-xs"
+                />
+                <ComboboxContent className="max-h-[280px]">
+                  <ComboboxEmpty>No countries found</ComboboxEmpty>
+                  <ComboboxList>
+                    {(itemValue) => {
+                      const c =
+                        countries.find((curr) => curr.id === itemValue) ||
+                        countries[0]
+                      return (
+                        <ComboboxItem key={c.id} value={c.id}>
+                          <span className="mr-1">{c.flag}</span> {c.name}
+                        </ComboboxItem>
+                      )
+                    }}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
             </div>
 
             <ArrowLeftRight className="hidden h-5 w-5 text-muted-foreground md:block" />
 
             <div className="flex w-full max-w-xs items-center gap-3">
               <Globe className="h-5 w-5 shrink-0 text-primary" />
-              <Select
+              <Combobox
                 value={activeCountry2}
                 onValueChange={handleCountry2Change}
+                items={countries.map((c) => c.id)}
+                itemToStringLabel={(id) => {
+                  const c = countries.find((curr) => curr.id === id)
+                  return c ? `${c.flag} ${c.name}` : id || ""
+                }}
+                filter={(itemValue, query) => {
+                  const c = countries.find((curr) => curr.id === itemValue)
+                  if (!c) return false
+                  return (
+                    c.name.toLowerCase().includes(query.toLowerCase()) ||
+                    c.currencyCode.toLowerCase().includes(query.toLowerCase())
+                  )
+                }}
               >
-                <SelectTrigger className="w-full border-border bg-background px-3 font-semibold text-xs">
-                  <SelectValue placeholder="Select Country" />
-                </SelectTrigger>
-                <SelectContent className="max-h-[280px]">
-                  {countries.map((c) => (
-                    <SelectItem key={c.id} value={c.id}>
-                      <span className="mr-1">{c.flag}</span> {c.name}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+                <ComboboxInput
+                  placeholder="Select Country"
+                  className="w-full border-border bg-background font-semibold text-xs"
+                />
+                <ComboboxContent className="max-h-[280px]">
+                  <ComboboxEmpty>No countries found</ComboboxEmpty>
+                  <ComboboxList>
+                    {(itemValue) => {
+                      const c =
+                        countries.find((curr) => curr.id === itemValue) ||
+                        countries[0]
+                      return (
+                        <ComboboxItem key={c.id} value={c.id}>
+                          <span className="mr-1">{c.flag}</span> {c.name}
+                        </ComboboxItem>
+                      )
+                    }}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
             </div>
           </div>
 
@@ -503,42 +598,90 @@ export default function ComparisonDashboard() {
           <div className="flex flex-col items-center justify-center gap-4 border border-border bg-card p-5 md:flex-row">
             <div className="flex w-full max-w-xs items-center gap-3">
               <TrendingUp className="h-5 w-5 shrink-0 text-primary" />
-              <Select value={activeRate1} onValueChange={handleRate1Change}>
-                <SelectTrigger className="w-full border-border bg-background px-3 font-mono font-semibold text-xs">
-                  <SelectValue placeholder="Select Pair 1" />
-                </SelectTrigger>
-                <SelectContent className="max-h-[280px]">
-                  {exchangeRatesMatrix.map((r) => (
-                    <SelectItem
-                      key={`${r.from}-to-${r.to}`}
-                      value={`${r.from}-to-${r.to}`}
-                    >
-                      {r.from} to {r.to}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Combobox
+                value={activeRate1}
+                onValueChange={handleRate1Change}
+                items={exchangeRatesMatrix.map((r) => `${r.from}-to-${r.to}`)}
+                itemToStringLabel={(val) => {
+                  const r = exchangeRatesMatrix.find(
+                    (curr) => `${curr.from}-to-${curr.to}` === val
+                  )
+                  return r ? `${r.from} to ${r.to}` : val || ""
+                }}
+                filter={(itemValue, query) => {
+                  const pairStr = itemValue.replace("-to-", " ")
+                  return pairStr.toLowerCase().includes(query.toLowerCase())
+                }}
+              >
+                <ComboboxInput
+                  placeholder="Select Pair 1"
+                  className="w-full border-border bg-background font-mono font-semibold text-xs"
+                />
+                <ComboboxContent className="max-h-[280px]">
+                  <ComboboxEmpty>No pairs found</ComboboxEmpty>
+                  <ComboboxList>
+                    {(itemValue) => {
+                      const r =
+                        exchangeRatesMatrix.find(
+                          (curr) => `${curr.from}-to-${curr.to}` === itemValue
+                        ) || exchangeRatesMatrix[0]
+                      return (
+                        <ComboboxItem
+                          key={`${r.from}-to-${r.to}`}
+                          value={`${r.from}-to-${r.to}`}
+                        >
+                          {r.from} to {r.to}
+                        </ComboboxItem>
+                      )
+                    }}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
             </div>
 
             <ArrowLeftRight className="hidden h-5 w-5 text-muted-foreground md:block" />
 
             <div className="flex w-full max-w-xs items-center gap-3">
               <TrendingUp className="h-5 w-5 shrink-0 text-primary" />
-              <Select value={activeRate2} onValueChange={handleRate2Change}>
-                <SelectTrigger className="w-full border-border bg-background px-3 font-mono font-semibold text-xs">
-                  <SelectValue placeholder="Select Pair 2" />
-                </SelectTrigger>
-                <SelectContent className="max-h-[280px]">
-                  {exchangeRatesMatrix.map((r) => (
-                    <SelectItem
-                      key={`${r.from}-to-${r.to}`}
-                      value={`${r.from}-to-${r.to}`}
-                    >
-                      {r.from} to {r.to}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Combobox
+                value={activeRate2}
+                onValueChange={handleRate2Change}
+                items={exchangeRatesMatrix.map((r) => `${r.from}-to-${r.to}`)}
+                itemToStringLabel={(val) => {
+                  const r = exchangeRatesMatrix.find(
+                    (curr) => `${curr.from}-to-${curr.to}` === val
+                  )
+                  return r ? `${r.from} to ${r.to}` : val || ""
+                }}
+                filter={(itemValue, query) => {
+                  const pairStr = itemValue.replace("-to-", " ")
+                  return pairStr.toLowerCase().includes(query.toLowerCase())
+                }}
+              >
+                <ComboboxInput
+                  placeholder="Select Pair 2"
+                  className="w-full border-border bg-background font-mono font-semibold text-xs"
+                />
+                <ComboboxContent className="max-h-[280px]">
+                  <ComboboxEmpty>No pairs found</ComboboxEmpty>
+                  <ComboboxList>
+                    {(itemValue) => {
+                      const r =
+                        exchangeRatesMatrix.find(
+                          (curr) => `${curr.from}-to-${curr.to}` === itemValue
+                        ) || exchangeRatesMatrix[0]
+                      return (
+                        <ComboboxItem
+                          key={`${r.from}-to-${r.to}`}
+                          value={`${r.from}-to-${r.to}`}
+                        >
+                          {r.from} to {r.to}
+                        </ComboboxItem>
+                      )
+                    }}
+                  </ComboboxList>
+                </ComboboxContent>
+              </Combobox>
             </div>
           </div>
 
