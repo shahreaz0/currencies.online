@@ -56,7 +56,7 @@ export default function CurrenciesList() {
                 href={`/currency/${curr.id}`}
                 className="group block"
               >
-                <Card className="h-full border border-border bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
+                <Card className="h-full border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
                   <CardContent className="flex h-full flex-col justify-between gap-5 p-6">
                     {/* Top row: Symbol and Code */}
                     <div className="flex items-start justify-between">

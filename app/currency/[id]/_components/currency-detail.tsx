@@ -50,7 +50,7 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
         {/* Left / Center content: overview, chart, and countries */}
         <div className="space-y-8 lg:col-span-2">
           {/* 1. Header & Overview Card */}
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-5 p-6 sm:p-8">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3.5">
@@ -86,7 +86,7 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {usingCountries.map((c) => (
                 <Link key={c.id} href={`/country/${c.id}`} className="group">
-                  <Card className="border border-border bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
+                  <Card className="border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
                     <CardContent className="flex items-center justify-between p-4">
                       <div className="flex items-center gap-3">
                         <span className="text-3xl leading-none">{c.flag}</span>
@@ -112,7 +112,7 @@ export default function CurrencyDetail({ currency }: CurrencyDetailProps) {
         {/* Right content: Statistics & FAQs */}
         <div className="space-y-6">
           {/* Quick Rates Card */}
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-6 p-6">
               <h2 className="flex items-center gap-2 font-bold text-foreground text-lg">
                 <Activity className="h-5 w-5 text-primary" />

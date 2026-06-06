@@ -53,7 +53,7 @@ export default function CurrencyChart({ baseRate, code }: CurrencyChartProps) {
   const percentChange = ((rateDiff / startRate) * 100).toFixed(2)
 
   return (
-    <Card className="overflow-hidden border border-border bg-card shadow-sm">
+    <Card className="border border-border shadow-sm">
       <CardContent className="p-6">
         {/* Chart Header Info */}
         <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">

@@ -19,7 +19,7 @@ export default function DisclaimerPage() {
         </p>
       </div>
 
-      <Card className="border border-border bg-card shadow-sm">
+      <Card className="border border-border shadow-sm">
         <CardContent className="prose dark:prose-invert max-w-none space-y-6 p-6 text-muted-foreground text-sm leading-relaxed sm:p-8">
           <h2 className="font-bold text-base text-foreground">
             1. Financial Information Disclaimer

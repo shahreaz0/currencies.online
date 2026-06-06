@@ -241,7 +241,7 @@ export default function ComparisonDashboard() {
 
           {/* Comparison results */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <Card className="border border-border bg-card shadow-sm">
+            <Card className="border border-border shadow-sm">
               <CardContent className="space-y-4 p-6">
                 <div className="flex items-center gap-2">
                   <span className="font-bold font-mono text-primary text-sm">
@@ -284,7 +284,7 @@ export default function ComparisonDashboard() {
               </CardContent>
             </Card>
 
-            <Card className="border border-border bg-card shadow-sm">
+            <Card className="border border-border shadow-sm">
               <CardContent className="space-y-4 p-6">
                 <div className="flex items-center gap-2">
                   <span className="font-bold font-mono text-primary text-sm">
@@ -378,7 +378,7 @@ export default function ComparisonDashboard() {
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* Country 1 */}
-            <Card className="border border-border bg-card shadow-sm">
+            <Card className="border border-border shadow-sm">
               <CardContent className="space-y-4 p-6">
                 <div className="flex items-center gap-3">
                   <span className="text-4xl leading-none">{co1Data.flag}</span>
@@ -436,7 +436,7 @@ export default function ComparisonDashboard() {
             </Card>
 
             {/* Country 2 */}
-            <Card className="border border-border bg-card shadow-sm">
+            <Card className="border border-border shadow-sm">
               <CardContent className="space-y-4 p-6">
                 <div className="flex items-center gap-3">
                   <span className="text-4xl leading-none">{co2Data.flag}</span>
@@ -544,7 +544,7 @@ export default function ComparisonDashboard() {
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             {/* Rate 1 */}
-            <Card className="border border-border bg-card shadow-sm">
+            <Card className="border border-border shadow-sm">
               <CardContent className="space-y-4 p-6">
                 <h3 className="inline-block bg-primary/10 px-3.5 py-1 font-bold font-mono text-base text-primary">
                   {rateComparison.r1.from} / {rateComparison.r1.to}
@@ -587,7 +587,7 @@ export default function ComparisonDashboard() {
             </Card>
 
             {/* Rate 2 */}
-            <Card className="border border-border bg-card shadow-sm">
+            <Card className="border border-border shadow-sm">
               <CardContent className="space-y-4 p-6">
                 <h3 className="inline-block bg-primary/10 px-3.5 py-1 font-bold font-mono text-base text-primary">
                   {rateComparison.r2.from} / {rateComparison.r2.to}

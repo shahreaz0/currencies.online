@@ -52,7 +52,7 @@ export default function SitemapPage() {
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {/* Section 1: Main Pages & Legal */}
         <div className="space-y-6">
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-4 p-6">
               <h2 className="flex items-center gap-2 font-bold text-base text-foreground">
                 <Globe className="h-4.5 w-4.5 text-primary" />
@@ -183,7 +183,7 @@ export default function SitemapPage() {
           </Card>
 
           {/* Section 2: Blog Posts */}
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-4 p-6">
               <h2 className="flex items-center gap-2 font-bold text-base text-foreground">
                 <BookOpen className="h-4.5 w-4.5 text-primary" />
@@ -209,7 +209,7 @@ export default function SitemapPage() {
         {/* Section 3: Countries and Currencies Directory */}
         <div className="space-y-6">
           {/* Countries Detail Pages */}
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-4 p-6">
               <h2 className="flex items-center gap-2 font-bold text-base text-foreground">
                 <Globe className="h-4.5 w-4.5 text-primary" />
@@ -232,7 +232,7 @@ export default function SitemapPage() {
           </Card>
 
           {/* Currencies & Rates Detail Pages */}
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-4 p-6">
               <h2 className="flex items-center gap-2 font-bold text-base text-foreground">
                 <Coins className="h-4.5 w-4.5 text-primary" />

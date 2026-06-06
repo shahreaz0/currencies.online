@@ -38,7 +38,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Left Side: Article Body */}
         <div className="space-y-6 lg:col-span-2">
-          <Card className="overflow-hidden border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-6 p-6 sm:p-8">
               {/* Meta information */}
               <div className="flex flex-wrap items-center gap-3.5 text-muted-foreground text-xs">
@@ -91,7 +91,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
         {/* Right Side: Recommendations & Sidebar widgets */}
         <div className="space-y-6">
           {/* Quick Tools Box */}
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-6 p-6">
               <h2 className="flex items-center gap-2 font-bold text-base text-foreground">
                 <TrendingUp className="h-4.5 w-4.5 text-primary" />
@@ -136,7 +136,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                   href={`/blog/${post.id}`}
                   className="group block"
                 >
-                  <Card className="border border-border bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
+                  <Card className="border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
                     <CardContent className="space-y-2 p-4">
                       <span className="inline-flex items-center bg-primary/10 px-2 py-0.5 font-semibold text-[10px] text-primary">
                         {post.category}

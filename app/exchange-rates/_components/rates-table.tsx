@@ -205,7 +205,7 @@ export default function RatesTable() {
             Cross Rates Matrix
           </h2>
 
-          <Card className="overflow-hidden border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="overflow-x-auto p-4">
               <table className="w-full border-collapse text-center text-xs">
                 <thead>
@@ -258,7 +258,7 @@ export default function RatesTable() {
             </CardContent>
           </Card>
 
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="flex items-start gap-3.5 p-5">
               <HelpCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
               <div>

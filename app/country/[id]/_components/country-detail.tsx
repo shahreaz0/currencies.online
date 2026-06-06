@@ -46,7 +46,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Left Side: General Profile Card */}
         <div className="space-y-6 lg:col-span-2">
-          <Card className="overflow-hidden border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-6 p-6 sm:p-8">
               {/* Profile Header */}
               <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
@@ -125,7 +125,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
                   href={`/country/${rel.id}`}
                   className="group"
                 >
-                  <Card className="border border-border bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
+                  <Card className="border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/40 hover:shadow-sm">
                     <CardContent className="flex items-center justify-between p-4">
                       <div className="flex items-center gap-3">
                         <span className="text-3xl leading-none">
@@ -151,7 +151,7 @@ export default function CountryDetail({ country }: CountryDetailProps) {
 
         {/* Right Side: Currency Exchange Rates stats Card */}
         <div className="space-y-6">
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-6 p-6">
               <h2 className="flex items-center gap-2 font-bold text-foreground text-lg">
                 <TrendingUp className="h-5 w-5 text-primary" />

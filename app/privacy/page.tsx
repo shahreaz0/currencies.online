@@ -19,7 +19,7 @@ export default function PrivacyPage() {
         </p>
       </div>
 
-      <Card className="border border-border bg-card shadow-sm">
+      <Card className="border border-border shadow-sm">
         <CardContent className="prose dark:prose-invert max-w-none space-y-6 p-6 text-muted-foreground text-sm leading-relaxed sm:p-8">
           <p>
             At Currencies.online, we prioritize the privacy of our visitors.

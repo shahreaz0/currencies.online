@@ -79,7 +79,7 @@ export default function BlogList() {
               href={`/blog/${post.id}`}
               className="group block"
             >
-              <Card className="h-full overflow-hidden border border-border bg-card transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
+              <Card className="h-full border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
                 <CardContent className="flex h-full flex-col justify-between gap-5 p-6">
                   {/* Category & Read time */}
                   <div className="flex items-center justify-between">

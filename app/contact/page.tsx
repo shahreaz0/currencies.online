@@ -49,7 +49,7 @@ export default function ContactPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Contact Info column */}
         <div className="space-y-6">
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-6 p-6">
               <h2 className="flex items-center gap-2 font-bold text-base text-foreground">
                 Contact Details
@@ -93,7 +93,7 @@ export default function ContactPage() {
 
         {/* Contact Form column */}
         <div className="lg:col-span-2">
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="p-6 sm:p-8">
               {!submitted ? (
                 <form onSubmit={handleSubmit} className="space-y-4">

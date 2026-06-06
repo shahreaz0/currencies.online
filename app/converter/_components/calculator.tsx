@@ -98,7 +98,7 @@ export default function CalculatorWidget() {
   return (
     <div className="space-y-8">
       {/* 1. Main Conversion Card */}
-      <Card className="relative overflow-hidden border border-border bg-card shadow-lg">
+      <Card className="relative border border-border shadow-lg">
         {/* Background gradient line */}
         <div className="absolute top-0 right-0 left-0 h-1 bg-linear-to-r from-primary via-emerald-400 to-primary" />
 
@@ -276,7 +276,7 @@ export default function CalculatorWidget() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Left: SEO explanation card */}
         <div className="space-y-6">
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-4 p-6">
               <h3 className="flex items-center gap-1.5 font-bold text-foreground text-sm uppercase tracking-wider">
                 <Sparkles className="h-4 w-4 text-primary" />

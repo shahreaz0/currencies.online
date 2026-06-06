@@ -26,7 +26,7 @@ export default function AboutPage() {
         </p>
       </div>
 
-      <Card className="border border-border bg-card shadow-sm">
+      <Card className="border border-border shadow-sm">
         <CardContent className="space-y-6 p-6 sm:p-8">
           <h2 className="font-bold text-foreground text-lg">Our Mission</h2>
           <p className="text-muted-foreground text-sm leading-relaxed">

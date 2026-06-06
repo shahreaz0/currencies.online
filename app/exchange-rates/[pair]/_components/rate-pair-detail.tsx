@@ -147,7 +147,7 @@ export default function RatePairDetail({
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
         {/* Left Side: Calculator Widget */}
         <div className="space-y-6">
-          <Card className="border border-border bg-card shadow-sm">
+          <Card className="border border-border shadow-sm">
             <CardContent className="space-y-5 p-6">
               <h2 className="flex items-center gap-2 font-bold text-base text-foreground">
                 <Calculator className="h-4.5 w-4.5 text-primary" />
