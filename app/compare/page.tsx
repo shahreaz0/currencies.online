@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     "Compare Countries, Currencies, and Exchange Rates | Currencies.online",
   description:
     "Compare world currencies, countries, and exchange rates side-by-side. Analyze currency strength, purchasing power indices, and inflation rates.",
+  alternates: {
+    canonical: "https://currencies.online/compare",
+  },
 }
 
 export default async function ComparePage() {

@@ -34,6 +34,9 @@ export async function generateMetadata(
   return {
     title: `${currency.name} (${currency.code}) Overview and Exchange Rates | Currencies.online`,
     description: `Official currency overview for ${currency.name} (${currency.code}). See active symbol (${currency.symbol}), countries using it, live USD conversion rates, 30-day historical chart, and detailed FAQs.`,
+    alternates: {
+      canonical: `https://currencies.online/currency/${currency.id}`,
+    },
   }
 }
 

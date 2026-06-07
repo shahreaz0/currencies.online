@@ -9,6 +9,9 @@ export const metadata: Metadata = {
   title: "Interactive Currency Converter Calculator | Currencies.online",
   description:
     "Convert any global currency instantly with our interactive calculator. Pre-fill conversion values, check daily rate fluctuations, and analyze trends.",
+  alternates: {
+    canonical: "https://currencies.online/converter",
+  },
 }
 
 export default async function ConverterPage() {

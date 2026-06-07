@@ -8,6 +8,9 @@ export const metadata: Metadata = {
   title: "Live Foreign Exchange Rates Database | Currencies.online",
   description:
     "Access live interbank foreign exchange rates. Calculate dynamic cross rates and view daily percentage fluctuations for major global currencies.",
+  alternates: {
+    canonical: "https://currencies.online/exchange-rates",
+  },
 }
 
 export default async function ExchangeRatesPage() {
