@@ -2,6 +2,7 @@ import { Calculator } from "lucide-react"
 import type { Metadata } from "next"
 import { Suspense } from "react"
 import { Adsense } from "@/app/_components/adsense"
+import { getCachedCountries, getCachedCurrencies } from "@/lib/data-cache"
 import { CalculatorWidget } from "./_components/calculator"
 
 export const metadata: Metadata = {
@@ -10,7 +11,11 @@ export const metadata: Metadata = {
     "Convert any global currency instantly with our interactive calculator. Pre-fill conversion values, check daily rate fluctuations, and analyze trends.",
 }
 
-export default function ConverterPage() {
+export default async function ConverterPage() {
+  const [countries, currencies] = await Promise.all([
+    getCachedCountries(),
+    getCachedCurrencies(),
+  ])
   return (
     <div className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Page Header */}
@@ -46,7 +51,10 @@ export default function ConverterPage() {
           </div>
         }
       >
-        <CalculatorWidget />
+        <CalculatorWidget
+          initialCountries={countries}
+          initialCurrencies={currencies}
+        />
       </Suspense>
 
       {/* Bottom Ad Spot */}

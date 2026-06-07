@@ -18,10 +18,25 @@ import {
 } from "@/components/ui/combobox"
 import { Input } from "@/components/ui/input"
 import { InputGroupAddon } from "@/components/ui/input-group"
-import { countries, currencies } from "@/lib/data"
+import {
+  type Country,
+  type Currency,
+  countries as staticCountries,
+  currencies as staticCurrencies,
+} from "@/lib/data"
 import { cn } from "@/lib/utils"
 
-export function CalculatorWidget() {
+interface CalculatorWidgetProps {
+  initialCurrencies?: Currency[]
+  initialCountries?: Country[]
+}
+
+export function CalculatorWidget({
+  initialCurrencies,
+  initialCountries,
+}: CalculatorWidgetProps = {}) {
+  const currencies = initialCurrencies || staticCurrencies
+  const countries = initialCountries || staticCountries
   const [fromCurr, setFromCurr] = useQueryState(
     "from",
     parseAsString
@@ -47,12 +62,12 @@ export function CalculatorWidget() {
   const fromData = useMemo(() => {
     const code = (fromCurr || "USD").toUpperCase()
     return currencies.find((c) => c.code === code) || currencies[0]
-  }, [fromCurr])
+  }, [fromCurr, currencies])
 
   const toData = useMemo(() => {
     const code = (toCurr || "EUR").toUpperCase()
     return currencies.find((c) => c.code === code) || currencies[1]
-  }, [toCurr])
+  }, [toCurr, currencies])
 
   const activeFrom = fromData.code
   const activeTo = toData.code

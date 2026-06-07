@@ -21,9 +21,28 @@ import {
   ComboboxList,
 } from "@/components/ui/combobox"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { countries, currencies, exchangeRatesMatrix } from "@/lib/data"
+import {
+  type Country,
+  type Currency,
+  countries as staticCountries,
+  currencies as staticCurrencies,
+  exchangeRatesMatrix as staticMatrix,
+} from "@/lib/data"
 
-export function ComparisonDashboard() {
+interface ComparisonDashboardProps {
+  initialCurrencies?: Currency[]
+  initialCountries?: Country[]
+  initialExchangeRates?: typeof staticMatrix
+}
+
+export function ComparisonDashboard({
+  initialCurrencies,
+  initialCountries,
+  initialExchangeRates,
+}: ComparisonDashboardProps) {
+  const currencies = initialCurrencies || staticCurrencies
+  const countries = initialCountries || staticCountries
+  const exchangeRatesMatrix = initialExchangeRates || staticMatrix
   const [tab, setTab] = useQueryState(
     "type",
     parseAsString.withDefault("currencies")
@@ -40,7 +59,7 @@ export function ComparisonDashboard() {
         c.id.toLowerCase() === c1Param.toLowerCase()
     )
     return found ? found.code : currencies[0].code
-  }, [c1Param])
+  }, [c1Param, currencies])
 
   const activeCurr2 = useMemo(() => {
     if (!c2Param) return currencies[1].code
@@ -50,20 +69,20 @@ export function ComparisonDashboard() {
         c.id.toLowerCase() === c2Param.toLowerCase()
     )
     return found ? found.code : currencies[1].code
-  }, [c2Param])
+  }, [c2Param, currencies])
 
   // 2. Country vs Country Selection
   const activeCountry1 = useMemo(() => {
     if (!c1Param) return countries[0].id
     const found = countries.find((c) => c.id === c1Param)
     return found ? found.id : countries[0].id
-  }, [c1Param])
+  }, [c1Param, countries])
 
   const activeCountry2 = useMemo(() => {
     if (!c2Param) return countries[1].id
     const found = countries.find((c) => c.id === c2Param)
     return found ? found.id : countries[1].id
-  }, [c2Param])
+  }, [c2Param, countries])
 
   // 3. Exchange Rate vs Exchange Rate Selection
   const activeRate1 = useMemo(() => {
@@ -72,7 +91,7 @@ export function ComparisonDashboard() {
       (r) => `${r.from}-to-${r.to}` === c1Param
     )
     return found ? `${found.from}-to-${found.to}` : "USD-to-EUR"
-  }, [c1Param])
+  }, [c1Param, exchangeRatesMatrix])
 
   const activeRate2 = useMemo(() => {
     if (!c2Param) return "USD-to-JPY"
@@ -80,25 +99,25 @@ export function ComparisonDashboard() {
       (r) => `${r.from}-to-${r.to}` === c2Param
     )
     return found ? `${found.from}-to-${found.to}` : "USD-to-JPY"
-  }, [c2Param])
+  }, [c2Param, exchangeRatesMatrix])
 
   // Fetch selections for rendering
   const c1Data = useMemo(
     () => currencies.find((c) => c.code === activeCurr1) || currencies[0],
-    [activeCurr1]
+    [activeCurr1, currencies]
   )
   const c2Data = useMemo(
     () => currencies.find((c) => c.code === activeCurr2) || currencies[1],
-    [activeCurr2]
+    [activeCurr2, currencies]
   )
 
   const co1Data = useMemo(
     () => countries.find((c) => c.id === activeCountry1) || countries[0],
-    [activeCountry1]
+    [activeCountry1, countries]
   )
   const co2Data = useMemo(
     () => countries.find((c) => c.id === activeCountry2) || countries[1],
-    [activeCountry2]
+    [activeCountry2, countries]
   )
 
   const rateComparison = useMemo(() => {
@@ -109,7 +128,7 @@ export function ComparisonDashboard() {
       exchangeRatesMatrix.find((r) => `${r.from}-to-${r.to}` === activeRate2) ||
       exchangeRatesMatrix[1]
     return { r1, r2 }
-  }, [activeRate1, activeRate2])
+  }, [activeRate1, activeRate2, exchangeRatesMatrix])
 
   // Rank currencies by Strength (lowest inflation combined with highest purchasing power)
   const strengthRankings = useMemo(() => {
@@ -121,14 +140,14 @@ export function ComparisonDashboard() {
           (a.purchasingPowerIndex - a.inflationRate)
       )
       .slice(0, 10)
-  }, [])
+  }, [countries])
 
   // Rank currencies by Purchasing Power Index
   const purchasingPowerRankings = useMemo(() => {
     return [...countries]
       .sort((a, b) => b.purchasingPowerIndex - a.purchasingPowerIndex)
       .slice(0, 10)
-  }, [])
+  }, [countries])
 
   const handleCurr1Change = (val: string | null) => {
     if (!val) return

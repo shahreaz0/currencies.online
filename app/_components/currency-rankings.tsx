@@ -1,9 +1,10 @@
 import { Info, Scale, Sparkles, Trophy } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
-import { countries } from "@/lib/data"
+import { getCachedCountries } from "@/lib/data-cache"
 
-export function CurrencyRankings() {
+export async function CurrencyRankings() {
+  const countries = await getCachedCountries()
   // Compute rankings statically from data
   const strengthRankings = [...countries]
     .sort(

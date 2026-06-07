@@ -13,9 +13,14 @@ import { useMemo, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input as UiInput } from "@/components/ui/input"
-import { currencies } from "@/lib/data"
+import { type Currency, currencies as staticCurrencies } from "@/lib/data"
 
-export function RatesTable() {
+interface RatesTableProps {
+  initialCurrencies?: Currency[]
+}
+
+export function RatesTable({ initialCurrencies }: RatesTableProps) {
+  const currencies = initialCurrencies || staticCurrencies
   const [baseCurrency, setBaseCurrency] = useState("USD")
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -34,7 +39,7 @@ export function RatesTable() {
 
   const baseRateData = useMemo(() => {
     return currencies.find((c) => c.code === baseCurrency) || { usdRate: 1.0 }
-  }, [baseCurrency])
+  }, [baseCurrency, currencies])
 
   // Compute exchange rates for all currencies relative to selected base currency
   const calculatedRates = useMemo(() => {
@@ -57,7 +62,7 @@ export function RatesTable() {
         monthlyChange,
       }
     })
-  }, [baseRateData])
+  }, [baseRateData, currencies])
 
   // Filter based on search query
   const filteredRates = useMemo(() => {

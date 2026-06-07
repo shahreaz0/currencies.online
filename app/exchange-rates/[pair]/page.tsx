@@ -1,11 +1,12 @@
 import { notFound } from "next/navigation"
 import { Adsense } from "@/app/_components/adsense"
-import { exchangeRatesMatrix } from "@/lib/data"
+import { getCachedCurrencies, getCachedExchangeRates } from "@/lib/data-cache"
 import { RatePairDetail } from "./_components/rate-pair-detail"
 import { parsePair } from "./utils"
 
 // Pre-render all exchange rate pair paths from the full matrix
 export async function generateStaticParams() {
+  const exchangeRatesMatrix = await getCachedExchangeRates()
   return exchangeRatesMatrix.map((pair) => ({
     pair: `${pair.from.toLowerCase()}-to-${pair.to.toLowerCase()}`,
   }))
@@ -16,7 +17,8 @@ export async function generateMetadata(
   props: PageProps<"/exchange-rates/[pair]">
 ) {
   const { pair } = await props.params
-  const parsed = parsePair(pair)
+  const currencies = await getCachedCurrencies()
+  const parsed = parsePair(pair, currencies)
 
   if (!parsed) {
     return {
@@ -39,7 +41,8 @@ export default async function ExchangeRatePairPage(
   props: PageProps<"/exchange-rates/[pair]">
 ) {
   const { pair } = await props.params
-  const parsed = parsePair(pair)
+  const currencies = await getCachedCurrencies()
+  const parsed = parsePair(pair, currencies)
 
   if (!parsed) {
     notFound()

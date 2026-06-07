@@ -5,9 +5,21 @@ import { useRouter } from "next/navigation"
 import type React from "react"
 import { useEffect, useRef, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { countries, currencies } from "@/lib/data"
+import {
+  type Country,
+  type Currency,
+  countries as staticCountries,
+  currencies as staticCurrencies,
+} from "@/lib/data"
 
-export function Hero() {
+interface HeroProps {
+  initialCountries?: Country[]
+  initialCurrencies?: Currency[]
+}
+
+export function Hero({ initialCountries, initialCurrencies }: HeroProps) {
+  const countries = initialCountries || staticCountries
+  const currencies = initialCurrencies || staticCurrencies
   const router = useRouter()
   const [query, setQuery] = useState("")
   const [suggestions, setSuggestions] = useState<
@@ -75,7 +87,7 @@ export function Hero() {
 
     setSuggestions([...filteredCountries, ...filteredCurrencies])
     setIsOpen(true)
-  }, [query])
+  }, [query, currencies, countries])
 
   const handleSelect = (item: (typeof suggestions)[0]) => {
     setQuery("")

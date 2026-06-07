@@ -1,6 +1,6 @@
 import { type Country, countries as staticCountries } from "./data"
 
-function slugify(name: string): string {
+function slugify(name: string) {
   let slug = name
     .toLowerCase()
     .normalize("NFD") // Split accented characters into base and accent
@@ -17,7 +17,7 @@ function slugify(name: string): string {
   return slug
 }
 
-function formatPopulation(pop: number): string {
+function formatPopulation(pop: number) {
   if (pop >= 1_000_000_000) {
     return `${(pop / 1_000_000_000).toFixed(1)} billion`
   }
@@ -27,7 +27,7 @@ function formatPopulation(pop: number): string {
   return pop.toLocaleString()
 }
 
-async function fetchWithTimeout(
+export async function fetchWithTimeout(
   url: string,
   options: RequestInit = {},
   timeoutMs = 15000
@@ -45,6 +45,23 @@ async function fetchWithTimeout(
   }
 }
 
+export async function getLiveRates(): Promise<Record<string, number>> {
+  try {
+    const ratesResponse = await fetchWithTimeout(
+      "https://open.er-api.com/v6/latest/USD",
+      {},
+      15000
+    )
+    if (ratesResponse.ok) {
+      const ratesData = await ratesResponse.json()
+      return ratesData.rates || {}
+    }
+  } catch (e) {
+    console.warn("Failed to fetch live exchange rates:", e)
+  }
+  return {}
+}
+
 let countriesPromise: Promise<Country[]> | null = null
 let lastFetched = 0
 const CACHE_TTL = 5 * 60 * 1000 // 5 minutes
@@ -59,23 +76,7 @@ export function getCountriesFromApi(): Promise<Country[]> {
   countriesPromise = (async () => {
     try {
       // 1. Fetch live exchange rates from Open Exchange Rates API
-      let rates: Record<string, number> = {}
-      try {
-        const ratesResponse = await fetchWithTimeout(
-          "https://open.er-api.com/v6/latest/USD",
-          {},
-          15000
-        )
-        if (ratesResponse.ok) {
-          const ratesData = await ratesResponse.json()
-          rates = ratesData.rates || {}
-        }
-      } catch (e) {
-        console.warn(
-          "Failed to fetch live exchange rates, falling back to static rates:",
-          e
-        )
-      }
+      const rates = await getLiveRates()
 
       // 2. Fetch countries from REST Countries API
       // Requesting specific fields to minimize payload size and improve speed

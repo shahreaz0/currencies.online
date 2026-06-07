@@ -5,9 +5,24 @@ import Link from "next/link"
 import { useMemo, useState } from "react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input as UiInput } from "@/components/ui/input"
-import { countries, currencies } from "@/lib/data"
+import {
+  type Country,
+  type Currency,
+  countries as staticCountries,
+  currencies as staticCurrencies,
+} from "@/lib/data"
 
-export function CurrenciesList() {
+interface CurrenciesListProps {
+  initialCurrencies?: Currency[]
+  initialCountries?: Country[]
+}
+
+export function CurrenciesList({
+  initialCurrencies,
+  initialCountries,
+}: CurrenciesListProps) {
+  const currencies = initialCurrencies || staticCurrencies
+  const countries = initialCountries || staticCountries
   const [searchTerm, setSearchTerm] = useState("")
 
   const filteredCurrencies = useMemo(() => {
@@ -20,7 +35,7 @@ export function CurrenciesList() {
 
       return matchesSearch
     })
-  }, [searchTerm])
+  }, [searchTerm, currencies])
 
   return (
     <div className="space-y-8">

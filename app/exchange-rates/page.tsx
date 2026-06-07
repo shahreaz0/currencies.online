@@ -1,6 +1,7 @@
 import { TrendingUp } from "lucide-react"
 import type { Metadata } from "next"
 import { Adsense } from "@/app/_components/adsense"
+import { getCachedCurrencies } from "@/lib/data-cache"
 import { RatesTable } from "./_components/rates-table"
 
 export const metadata: Metadata = {
@@ -9,7 +10,8 @@ export const metadata: Metadata = {
     "Access live interbank foreign exchange rates. Calculate dynamic cross rates and view daily percentage fluctuations for major global currencies.",
 }
 
-export default function ExchangeRatesPage() {
+export default async function ExchangeRatesPage() {
+  const currencies = await getCachedCurrencies()
   return (
     <div className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Page Header */}
@@ -36,7 +38,7 @@ export default function ExchangeRatesPage() {
       </div>
 
       {/* Main interactive rates matrix */}
-      <RatesTable />
+      <RatesTable initialCurrencies={currencies} />
 
       {/* Bottom Ad Spot */}
       <div className="mt-12">

@@ -16,15 +16,24 @@ import {
 } from "@/components/ui/accordion"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { type Currency, countries } from "@/lib/data"
+import {
+  type Country,
+  type Currency,
+  countries as staticCountries,
+} from "@/lib/data"
 import { CurrencyChart } from "./currency-chart"
 
 interface CurrencyDetailProps {
   currency: Currency
+  initialCountries?: Country[]
 }
 
-export function CurrencyDetail({ currency }: CurrencyDetailProps) {
-  // Find countries using this currency from our static database
+export function CurrencyDetail({
+  currency,
+  initialCountries,
+}: CurrencyDetailProps) {
+  const countries = initialCountries || staticCountries
+  // Find countries using this currency from our database
   const usingCountries = countries.filter(
     (c) => c.currencyCode === currency.code
   )

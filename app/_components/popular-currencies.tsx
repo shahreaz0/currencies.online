@@ -1,9 +1,13 @@
 import { ArrowRight, Coins } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
-import { countries, currencies } from "@/lib/data"
+import { getCachedCountries, getCachedCurrencies } from "@/lib/data-cache"
 
-export function PopularCurrencies() {
+export async function PopularCurrencies() {
+  const [countries, currencies] = await Promise.all([
+    getCachedCountries(),
+    getCachedCurrencies(),
+  ])
   // Get top currencies from our list to make a gorgeous grid
   const popularList = currencies.slice(0, 30)
 

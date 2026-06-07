@@ -10,8 +10,12 @@ import {
 import type { Metadata } from "next"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
-import { blogs, currencies, exchangeRatesMatrix } from "@/lib/data"
-import { getCachedCountries } from "@/lib/data-cache"
+import { blogs } from "@/lib/data"
+import {
+  getCachedCountries,
+  getCachedCurrencies,
+  getCachedExchangeRates,
+} from "@/lib/data-cache"
 
 export const metadata: Metadata = {
   title: "HTML Sitemap | Currencies.online",
@@ -20,7 +24,11 @@ export const metadata: Metadata = {
 }
 
 export default async function SitemapPage() {
-  const countries = await getCachedCountries()
+  const [countries, currencies, exchangeRatesMatrix] = await Promise.all([
+    getCachedCountries(),
+    getCachedCurrencies(),
+    getCachedExchangeRates(),
+  ])
   return (
     <div className="container mx-auto max-w-5xl space-y-10 px-4 py-12 sm:px-6 lg:px-8">
       {/* Header */}

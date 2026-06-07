@@ -1,6 +1,7 @@
 import { Coins } from "lucide-react"
 import type { Metadata } from "next"
 import { Adsense } from "@/app/_components/adsense"
+import { getCachedCountries, getCachedCurrencies } from "@/lib/data-cache"
 import { CurrenciesList } from "./_components/currencies-list"
 
 export const metadata: Metadata = {
@@ -9,7 +10,11 @@ export const metadata: Metadata = {
     "Browse the complete database of world currencies. Access official ISO currency codes, symbols, countries using them, and live exchange rates.",
 }
 
-export default function CurrenciesPage() {
+export default async function CurrenciesPage() {
+  const [countries, currencies] = await Promise.all([
+    getCachedCountries(),
+    getCachedCurrencies(),
+  ])
   return (
     <div className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Page Header */}
@@ -36,7 +41,10 @@ export default function CurrenciesPage() {
       </div>
 
       {/* Main interactive currencies directory */}
-      <CurrenciesList />
+      <CurrenciesList
+        initialCurrencies={currencies}
+        initialCountries={countries}
+      />
 
       {/* Bottom Ad Spot */}
       <div className="mt-12">

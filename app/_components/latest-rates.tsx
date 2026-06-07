@@ -5,10 +5,11 @@ import {
   TrendingUp,
 } from "lucide-react"
 import Link from "next/link"
-import { exchangeRatesMatrix } from "@/lib/data"
+import { getCachedExchangeRates } from "@/lib/data-cache"
 import { cn } from "@/lib/utils"
 
-export function LatestRates() {
+export async function LatestRates() {
+  const exchangeRatesMatrix = await getCachedExchangeRates()
   // Show a curated selection: first 12 entries gives USD→X pairs + some reverse
   const rates = exchangeRatesMatrix.slice(0, 12)
 

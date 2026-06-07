@@ -1,11 +1,16 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { Adsense } from "@/app/_components/adsense"
-import { currencies } from "@/lib/data"
+import {
+  getCachedCountries,
+  getCachedCurrencies,
+  getCachedCurrency,
+} from "@/lib/data-cache"
 import { CurrencyDetail } from "./_components/currency-detail"
 
 // Pre-render currency routes
 export async function generateStaticParams() {
+  const currencies = await getCachedCurrencies()
   return currencies.map((c) => ({
     id: c.id,
   }))
@@ -16,7 +21,7 @@ export async function generateMetadata(
   props: PageProps<"/currency/[id]">
 ): Promise<Metadata> {
   const { id } = await props.params
-  const currency = currencies.find((c) => c.id === id)
+  const currency = await getCachedCurrency(id)
 
   if (!currency) {
     return {
@@ -34,7 +39,10 @@ export async function generateMetadata(
 
 export default async function CurrencyPage(props: PageProps<"/currency/[id]">) {
   const { id } = await props.params
-  const currency = currencies.find((c) => c.id === id)
+  const [currency, countries] = await Promise.all([
+    getCachedCurrency(id),
+    getCachedCountries(),
+  ])
 
   if (!currency) {
     notFound()
@@ -48,7 +56,7 @@ export default async function CurrencyPage(props: PageProps<"/currency/[id]">) {
       </div>
 
       {/* Detail Block */}
-      <CurrencyDetail currency={currency} />
+      <CurrencyDetail currency={currency} initialCountries={countries} />
 
       {/* Bottom Banner */}
       <div className="mt-12">

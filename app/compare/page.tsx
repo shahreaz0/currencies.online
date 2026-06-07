@@ -2,6 +2,11 @@ import { ArrowLeftRight } from "lucide-react"
 import type { Metadata } from "next"
 import { Suspense } from "react"
 import { Adsense } from "@/app/_components/adsense"
+import {
+  getCachedCountries,
+  getCachedCurrencies,
+  getCachedExchangeRates,
+} from "@/lib/data-cache"
 import { ComparisonDashboard } from "./_components/comparison-dashboard"
 
 export const metadata: Metadata = {
@@ -11,7 +16,12 @@ export const metadata: Metadata = {
     "Compare world currencies, countries, and exchange rates side-by-side. Analyze currency strength, purchasing power indices, and inflation rates.",
 }
 
-export default function ComparePage() {
+export default async function ComparePage() {
+  const [countries, currencies, rates] = await Promise.all([
+    getCachedCountries(),
+    getCachedCurrencies(),
+    getCachedExchangeRates(),
+  ])
   return (
     <div className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Page Header */}
@@ -47,7 +57,11 @@ export default function ComparePage() {
           </div>
         }
       >
-        <ComparisonDashboard />
+        <ComparisonDashboard
+          initialCountries={countries}
+          initialCurrencies={currencies}
+          initialExchangeRates={rates}
+        />
       </Suspense>
 
       {/* Bottom Ad Spot */}
