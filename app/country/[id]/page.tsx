@@ -30,6 +30,9 @@ export async function generateMetadata(
   return {
     title: `${country.name} Currency, Flag, and USD Exchange Rate | Currencies.online`,
     description: `Official currency information for ${country.name}. Find capital city (${country.capital}), population (${country.population}), flag (${country.flag}), official currency code (${country.currencyCode}), and live USD exchange rates.`,
+    alternates: {
+      canonical: `https://currencies.online/country/${country.id}`,
+    },
   }
 }
 

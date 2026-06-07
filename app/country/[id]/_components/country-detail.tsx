@@ -13,19 +13,26 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import type { Country } from "@/lib/data"
-import { getCachedCountries } from "@/lib/data-cache"
+import { getCachedCountries, getCachedCurrencies } from "@/lib/data-cache"
 
 interface CountryDetailProps {
   country: Country
 }
 
 export async function CountryDetail({ country }: CountryDetailProps) {
-  const allCountries = await getCachedCountries()
+  const [allCountries, allCurrencies] = await Promise.all([
+    getCachedCountries(),
+    getCachedCurrencies(),
+  ])
 
   // Find related country details from dynamic database
   const relatedList = country.relatedCountries
     .map((id) => allCountries.find((c) => c.id === id))
     .filter((c): c is Country => !!c)
+
+  const matchingCurrency = allCurrencies.find(
+    (c) => c.code.toUpperCase() === country.currencyCode.toUpperCase()
+  )
 
   const isInflationHigh = country.inflationRate > 5.0
 
@@ -238,25 +245,19 @@ export async function CountryDetail({ country }: CountryDetailProps) {
                 </Link>
 
                 {/* Currency Detail Link */}
-                {/* Find currency slug matching currencyCode */}
-                {(() => {
-                  const currencySlug = country.currencyName
-                    .toLowerCase()
-                    .replace(/\s+/g, "-")
-                  return (
-                    <Link
-                      href={`/currency/${currencySlug}`}
-                      className="block w-full"
+                {matchingCurrency && (
+                  <Link
+                    href={`/currency/${matchingCurrency.id}`}
+                    className="block w-full"
+                  >
+                    <Button
+                      variant="outline"
+                      className="w-full gap-2 border-border py-4 text-xs"
                     >
-                      <Button
-                        variant="outline"
-                        className="w-full gap-2 border-border py-4 text-xs"
-                      >
-                        View {country.currencyCode} Analysis
-                      </Button>
-                    </Link>
-                  )
-                })()}
+                      View {country.currencyCode} Analysis
+                    </Button>
+                  </Link>
+                )}
 
                 {/* Compare Country Link */}
                 <Link

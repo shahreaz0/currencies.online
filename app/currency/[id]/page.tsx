@@ -5,6 +5,7 @@ import {
   getCachedCountries,
   getCachedCurrencies,
   getCachedCurrency,
+  getCachedHistoricalRates,
 } from "@/lib/data-cache"
 import { CurrencyDetail } from "./_components/currency-detail"
 
@@ -51,6 +52,13 @@ export default async function CurrencyPage(props: PageProps<"/currency/[id]">) {
     notFound()
   }
 
+  // Fetch real 30-day history (frankfurter.app for supported pairs, generated fallback otherwise)
+  const historyData = await getCachedHistoricalRates(
+    "USD",
+    currency.code,
+    currency.usdRate
+  )
+
   return (
     <div className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Top Banner */}
@@ -59,7 +67,11 @@ export default async function CurrencyPage(props: PageProps<"/currency/[id]">) {
       </div>
 
       {/* Detail Block */}
-      <CurrencyDetail currency={currency} initialCountries={countries} />
+      <CurrencyDetail
+        currency={currency}
+        initialCountries={countries}
+        historyData={historyData}
+      />
 
       {/* Bottom Banner */}
       <div className="mt-12">

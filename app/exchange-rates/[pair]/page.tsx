@@ -1,6 +1,10 @@
 import { notFound } from "next/navigation"
 import { Adsense } from "@/app/_components/adsense"
-import { getCachedCurrencies, getCachedExchangeRates } from "@/lib/data-cache"
+import {
+  getCachedCurrencies,
+  getCachedExchangeRates,
+  getCachedHistoricalRates,
+} from "@/lib/data-cache"
 import { RatePairDetail } from "./_components/rate-pair-detail"
 import { parsePair } from "./utils"
 
@@ -34,6 +38,9 @@ export async function generateMetadata(
   return {
     title: `${fromCurrency.code} to ${toCurrency.code} Exchange Rate - Live Chart | Currencies.online`,
     description: `Analyze ${fromCurrency.name} to ${toCurrency.name} (${fromCurrency.code} to ${toCurrency.code}) conversion rates. View current rate of ${rate.toFixed(4)}, daily percent trends, interactive 30-day line graphs, and conversion lookup tables.`,
+    alternates: {
+      canonical: `https://currencies.online/exchange-rates/${pair}`,
+    },
   }
 }
 
@@ -51,6 +58,13 @@ export default async function ExchangeRatePairPage(
   const { fromCurrency, toCurrency } = parsed
   const rate = toCurrency.usdRate / fromCurrency.usdRate
 
+  // Fetch real 30-day history server-side
+  const historyData = await getCachedHistoricalRates(
+    fromCurrency.code,
+    toCurrency.code,
+    rate
+  )
+
   return (
     <div className="container mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
       {/* Top Banner */}
@@ -65,6 +79,7 @@ export default async function ExchangeRatePairPage(
         fromName={fromCurrency.name}
         toName={toCurrency.name}
         rate={rate}
+        historyData={historyData}
       />
 
       {/* Bottom Banner */}

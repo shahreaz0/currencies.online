@@ -13,28 +13,74 @@ import {
 } from "recharts"
 import { Card, CardContent } from "@/components/ui/card"
 import { generateHistory } from "@/lib/data"
+import type { HistoryPoint } from "@/lib/historical-rates"
 
 interface RateChartProps {
   rate: number
   fromCode: string
   toCode: string
+  /** Pre-fetched server-side history. When omitted the chart fetches from /api/historical-rates. */
+  historyData?: HistoryPoint[]
 }
 
-export function RateChart({ rate, fromCode, toCode }: RateChartProps) {
+export function RateChart({
+  rate,
+  fromCode,
+  toCode,
+  historyData,
+}: RateChartProps) {
   const [mounted, setMounted] = useState(false)
+  const [fetchedData, setFetchedData] = useState<HistoryPoint[] | null>(null)
+  const [isFetching, setIsFetching] = useState(false)
 
-  // Generate 30 days historical data based on this rate
-  const chartData = React.useMemo(() => generateHistory(rate, 30), [rate])
+  // When server-side data is NOT provided (converter context), fetch client-side
+  useEffect(() => {
+    if (historyData && historyData.length > 0) return // already have data
+    if (!fromCode || !toCode) return
+
+    setIsFetching(true)
+    setFetchedData(null)
+
+    const url = `/api/historical-rates?from=${fromCode}&to=${toCode}&fallback=${rate}`
+    fetch(url)
+      .then((r) => r.json())
+      .then((data: HistoryPoint[]) => {
+        if (Array.isArray(data) && data.length > 0) {
+          setFetchedData(data)
+        }
+      })
+      .catch(() => {
+        // silently fall back to generated data
+      })
+      .finally(() => setIsFetching(false))
+  }, [fromCode, toCode, rate, historyData])
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  // Resolve which data to show (priority: server-side → client-fetched → generated)
+  const chartData = React.useMemo(() => {
+    if (historyData && historyData.length > 0) return historyData
+    if (fetchedData && fetchedData.length > 0) return fetchedData
+    return generateHistory(rate, 30)
+  }, [historyData, fetchedData, rate])
 
   if (!mounted) {
     return (
       <div className="flex h-[300px] w-full items-center justify-center rounded-none border border-border bg-muted/20">
         <div className="animate-pulse text-muted-foreground text-sm">
           Loading Historical Chart...
+        </div>
+      </div>
+    )
+  }
+
+  if (isFetching && !fetchedData) {
+    return (
+      <div className="flex h-[300px] w-full items-center justify-center rounded-none border border-border bg-muted/20">
+        <div className="animate-pulse text-muted-foreground text-sm">
+          Fetching Historical Data...
         </div>
       </div>
     )

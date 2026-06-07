@@ -21,16 +21,19 @@ import {
   type Currency,
   countries as staticCountries,
 } from "@/lib/data"
+import type { HistoryPoint } from "@/lib/historical-rates"
 import { CurrencyChart } from "./currency-chart"
 
 interface CurrencyDetailProps {
   currency: Currency
   initialCountries?: Country[]
+  historyData?: HistoryPoint[]
 }
 
 export function CurrencyDetail({
   currency,
   initialCountries,
+  historyData,
 }: CurrencyDetailProps) {
   const countries = initialCountries || staticCountries
   // Find countries using this currency from our database
@@ -84,7 +87,11 @@ export function CurrencyDetail({
           </Card>
 
           {/* 2. Historical Chart */}
-          <CurrencyChart baseRate={currency.usdRate} code={currency.code} />
+          <CurrencyChart
+            baseRate={currency.usdRate}
+            code={currency.code}
+            historyData={historyData}
+          />
 
           {/* 3. Countries Using It */}
           <div className="space-y-4">

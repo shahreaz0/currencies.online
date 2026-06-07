@@ -4,6 +4,7 @@ import {
   getCurrenciesFromApi,
   getExchangeRatesMatrixFromApi,
 } from "./currencies-api"
+import { getHistoricalRates } from "./historical-rates"
 
 export async function getCachedCountries() {
   "use cache"
@@ -40,4 +41,15 @@ export async function getCachedExchangeRates() {
   cacheLife("hours")
   cacheTag("exchange-rates")
   return getExchangeRatesMatrixFromApi()
+}
+
+export async function getCachedHistoricalRates(
+  fromCode: string,
+  toCode: string,
+  fallbackRate = 1
+) {
+  "use cache"
+  cacheLife("hours")
+  cacheTag(`historical-${fromCode}-${toCode}`)
+  return getHistoricalRates(fromCode, toCode, 30, fallbackRate)
 }

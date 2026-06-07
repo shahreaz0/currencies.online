@@ -13,19 +13,28 @@ import {
 } from "recharts"
 import { Card, CardContent } from "@/components/ui/card"
 import { generateHistory } from "@/lib/data"
+import type { HistoryPoint } from "@/lib/historical-rates"
 
 interface CurrencyChartProps {
   baseRate: number
   code: string
+  historyData?: HistoryPoint[]
 }
 
-export function CurrencyChart({ baseRate, code }: CurrencyChartProps) {
+export function CurrencyChart({
+  baseRate,
+  code,
+  historyData,
+}: CurrencyChartProps) {
   const [mounted, setMounted] = useState(false)
 
-  // Generate 30 days historical data deterministically
+  // Use server-fetched real data when available; fall back to deterministic generator
   const chartData = React.useMemo(
-    () => generateHistory(baseRate, 30),
-    [baseRate]
+    () =>
+      historyData && historyData.length > 0
+        ? historyData
+        : generateHistory(baseRate, 30),
+    [historyData, baseRate]
   )
 
   useEffect(() => {

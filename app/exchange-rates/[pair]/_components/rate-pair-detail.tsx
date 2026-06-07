@@ -14,6 +14,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
+import type { HistoryPoint } from "@/lib/historical-rates"
 import { RateChart } from "./rate-chart"
 
 interface RatePairDetailProps {
@@ -22,6 +23,7 @@ interface RatePairDetailProps {
   fromName: string
   toName: string
   rate: number
+  historyData?: HistoryPoint[]
 }
 
 export function RatePairDetail({
@@ -30,6 +32,7 @@ export function RatePairDetail({
   fromName,
   toName,
   rate,
+  historyData,
 }: RatePairDetailProps) {
   const [amount, setAmount] = useState<string>("100")
 
@@ -244,7 +247,12 @@ export function RatePairDetail({
 
         {/* Right Side: Recharts Chart */}
         <div className="lg:col-span-2">
-          <RateChart rate={rate} fromCode={fromCode} toCode={toCode} />
+          <RateChart
+            rate={rate}
+            fromCode={fromCode}
+            toCode={toCode}
+            historyData={historyData}
+          />
         </div>
       </div>
 
