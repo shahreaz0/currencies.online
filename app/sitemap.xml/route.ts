@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server"
-import { blogs, countries, currencies, exchangeRatesMatrix } from "@/lib/data"
+import { blogs, currencies, exchangeRatesMatrix } from "@/lib/data"
+import { getCachedCountries } from "@/lib/data-cache"
 
 const BASE_URL = "https://currencies.online"
 
 export async function GET() {
+  const countries = await getCachedCountries()
   const xmlUrls: string[] = []
 
   // 1. Core pages

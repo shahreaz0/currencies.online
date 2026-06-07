@@ -12,16 +12,19 @@ import {
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { type Country, countries } from "@/lib/data"
+import type { Country } from "@/lib/data"
+import { getCachedCountries } from "@/lib/data-cache"
 
 interface CountryDetailProps {
   country: Country
 }
 
-export function CountryDetail({ country }: CountryDetailProps) {
-  // Find related country details from static database
+export async function CountryDetail({ country }: CountryDetailProps) {
+  const allCountries = await getCachedCountries()
+
+  // Find related country details from dynamic database
   const relatedList = country.relatedCountries
-    .map((id) => countries.find((c) => c.id === id))
+    .map((id) => allCountries.find((c) => c.id === id))
     .filter((c): c is Country => !!c)
 
   const isInflationHigh = country.inflationRate > 5.0
