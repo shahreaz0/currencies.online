@@ -30,14 +30,14 @@ export function BrowseRegions() {
       name: "South America",
       countries: "13 Countries",
       imageUrl:
-        "https://images.unsplash.com/photo-1588668214407-6eb952709190?auto=format&fit=crop&w=600&q=80", // Christ the Redeemer
+        "https://images.unsplash.com/photo-1526392060635-9d6019884377?auto=format&fit=crop&w=600&q=80", // Machu Picchu
       href: "/countries?region=Americas",
     },
     {
       name: "Africa",
       countries: "54 Countries",
       imageUrl:
-        "https://images.unsplash.com/photo-1503177119275-0aa32b31d468?auto=format&fit=crop&w=600&q=80", // Pyramids
+        "https://images.unsplash.com/photo-1539650116574-8efeb43e2750?auto=format&fit=crop&w=600&q=80", // Pyramids
       href: "/countries?region=Africa",
     },
     {
