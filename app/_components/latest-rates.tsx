@@ -1,146 +1,188 @@
-import {
-  ArrowDownRight,
-  ArrowRight,
-  ArrowUpRight,
-  TrendingUp,
-} from "lucide-react"
+import { ArrowDownRight, ArrowRight, ArrowUpRight } from "lucide-react"
 import Link from "next/link"
+import { Card, CardContent } from "@/components/ui/card"
+import { generateHistory } from "@/lib/data"
 import { getCachedExchangeRates } from "@/lib/data-cache"
 import { cn } from "@/lib/utils"
 
-export async function LatestRates() {
-  const exchangeRatesMatrix = await getCachedExchangeRates()
-  // Show a curated selection: first 12 entries gives USD→X pairs + some reverse
-  const rates = exchangeRatesMatrix.slice(0, 12)
+function getFlagByCode(code: string) {
+  if (code === "USD") return "🇺🇸"
+  if (code === "EUR") return "🇪🇺"
+  if (code === "JPY") return "🇯🇵"
+  if (code === "GBP") return "🇬🇧"
+  if (code === "INR") return "🇮🇳"
+  return "🏳️"
+}
+
+// Sparkline component that draws an inline SVG path with gradient filling
+function Sparkline({
+  rate,
+  isUp,
+  from,
+  to,
+}: {
+  rate: number
+  isUp: boolean
+  from: string
+  to: string
+}) {
+  const history = generateHistory(rate, 30)
+  const rates = history.map((h) => h.rate)
+  const min = Math.min(...rates)
+  const max = Math.max(...rates)
+  const range = max - min || 1
+
+  const width = 120
+  const height = 35
+  const padding = 2
+
+  const points = rates.map((r, i) => {
+    const x = (i / (rates.length - 1)) * width
+    const y = padding + (height - 2 * padding) * (1 - (r - min) / range)
+    return { x, y }
+  })
+
+  const pathD = `M ${points.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(" L ")}`
+  const fillD = `${pathD} L ${width},${height} L 0,${height} Z`
+
+  const strokeColor = isUp ? "#10b981" : "#ef4444"
+  const gradientId = `sparkline-grad-${from.toLowerCase()}-${to.toLowerCase()}`
 
   return (
-    <section className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mb-8 flex flex-col justify-between md:flex-row md:items-end">
+    <svg className="h-[35px] w-[120px]" viewBox={`0 0 ${width} ${height}`}>
+      <title>Sparkline rate trend</title>
+      <defs>
+        <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stopColor={strokeColor} stopOpacity="0.25" />
+          <stop offset="100%" stopColor={strokeColor} stopOpacity="0.00" />
+        </linearGradient>
+      </defs>
+      <path d={fillD} fill={`url(#${gradientId})`} />
+      <path
+        d={pathD}
+        fill="none"
+        stroke={strokeColor}
+        strokeWidth="1.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+export async function LatestRates() {
+  const exchangeRatesMatrix = await getCachedExchangeRates()
+
+  const targetPairs = [
+    { from: "USD", to: "EUR" },
+    { from: "USD", to: "JPY" },
+    { from: "USD", to: "GBP" },
+    { from: "USD", to: "INR" },
+    { from: "EUR", to: "USD" },
+    { from: "GBP", to: "USD" },
+  ]
+
+  const rates = targetPairs
+    .map((pair) =>
+      exchangeRatesMatrix.find((r) => r.from === pair.from && r.to === pair.to)
+    )
+    .filter((r): r is NonNullable<typeof r> => !!r)
+
+  return (
+    <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-end">
         <div>
           <h2 className="flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">
-            <TrendingUp className="h-6 w-6 text-primary" />
-            Latest Exchange Rates
+            Live Exchange Rates
+            {/* Blinking Live indicator */}
+            <span className="relative ml-1 flex h-2.5 w-2.5">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
+            </span>
           </h2>
-          <p className="mt-2 max-w-xl text-muted-foreground">
-            Live interbank currency rates versus the US Dollar. Select a pair to
-            view daily trend percentages and deep-dive historical records.
+          <p className="mt-2 text-muted-foreground text-sm">
+            Real-time exchange rates updated every second
           </p>
         </div>
         <Link
           href="/exchange-rates"
-          className="group mt-4 inline-flex items-center gap-1.5 font-semibold text-primary text-sm transition-colors hover:text-primary/80 md:mt-0"
+          className="group mt-4 inline-flex items-center gap-1.5 font-bold text-primary text-xs uppercase tracking-wider sm:mt-0"
         >
-          <span>All Exchange Rates</span>
+          <span>View all rates</span>
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
 
-      {/* Rates Table / List */}
-      <div className="overflow-hidden rounded-none border border-border bg-card shadow-sm">
-        <div className="overflow-x-auto">
-          <table className="w-full border-collapse text-left text-muted-foreground text-sm">
-            <thead>
-              <tr className="border-border border-b bg-muted/30 font-medium text-foreground">
-                <th className="px-6 py-4">Currency Pair</th>
-                <th className="px-6 py-4">Live Rate</th>
-                <th className="px-6 py-4">Daily Change</th>
-                <th className="hidden px-6 py-4 sm:table-cell">
-                  Weekly Change
-                </th>
-                <th className="hidden px-6 py-4 md:table-cell">
-                  Monthly Change
-                </th>
-                <th className="px-6 py-4 text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-border/20">
-              {rates.map((rate) => {
-                const pairSlug = `${rate.from.toLowerCase()}-to-${rate.to.toLowerCase()}`
-                const isDailyUp = rate.dailyChange >= 0
-                const isWeeklyUp = rate.weeklyChange >= 0
-                const isMonthlyUp = rate.monthlyChange >= 0
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-6">
+        {rates.map((rate) => {
+          const pairSlug = `${rate.from.toLowerCase()}-to-${rate.to.toLowerCase()}`
+          const isUp = rate.dailyChange >= 0
+          const fromFlag = getFlagByCode(rate.from)
+          const toFlag = getFlagByCode(rate.to)
 
-                return (
-                  <tr
-                    key={pairSlug}
-                    className="group transition-colors duration-150 hover:bg-accent/25"
-                  >
-                    {/* Pair */}
-                    <td className="px-6 py-4 font-semibold text-foreground">
-                      <div className="flex items-center gap-2">
-                        <span>{rate.from}</span>
-                        <span className="text-muted-foreground/50">/</span>
-                        <span className="text-primary">{rate.to}</span>
-                      </div>
-                    </td>
+          return (
+            <Link
+              key={pairSlug}
+              href={`/exchange-rates/${pairSlug}`}
+              className="group block"
+            >
+              <Card className="h-full border border-border bg-card/40 transition-all duration-300 hover:border-primary/20 hover:bg-card hover:shadow-md">
+                <CardContent className="flex h-full flex-col justify-between gap-4 p-4">
+                  {/* Pair Title & Flags */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <span className="select-none text-sm">{fromFlag}</span>
+                      <span className="font-bold text-muted-foreground/80 text-xs transition-colors group-hover:text-primary">
+                        {rate.from}
+                      </span>
+                      <span className="text-muted-foreground/30 text-xs">
+                        /
+                      </span>
+                      <span className="font-bold text-muted-foreground/80 text-xs transition-colors group-hover:text-primary">
+                        {rate.to}
+                      </span>
+                      <span className="select-none text-sm">{toFlag}</span>
+                    </div>
+                  </div>
 
-                    {/* Rate */}
-                    <td className="px-6 py-4 font-bold font-mono text-foreground">
+                  {/* Rate Value */}
+                  <div className="space-y-1">
+                    <div className="font-extrabold font-mono text-foreground text-lg leading-none tracking-tight">
                       {rate.rate.toFixed(4)}
-                    </td>
-
+                    </div>
                     {/* Daily Change */}
-                    <td className="px-6 py-4">
-                      <span
-                        className={cn(
-                          "inline-flex items-center gap-1 rounded-full px-2 py-0.5 font-medium text-xs",
-                          isDailyUp
-                            ? "bg-emerald-500/10 text-emerald-500"
-                            : "bg-destructive/10 text-destructive"
-                        )}
-                      >
-                        {isDailyUp ? (
-                          <ArrowUpRight className="h-3 w-3" />
-                        ) : (
-                          <ArrowDownRight className="h-3 w-3" />
-                        )}
-                        {isDailyUp ? "+" : ""}
+                    <div
+                      className={cn(
+                        "flex items-center gap-0.5 font-bold text-[10px] uppercase",
+                        isUp ? "text-emerald-500" : "text-destructive"
+                      )}
+                    >
+                      {isUp ? (
+                        <ArrowUpRight className="h-3.5 w-3.5" />
+                      ) : (
+                        <ArrowDownRight className="h-3.5 w-3.5" />
+                      )}
+                      <span>
+                        {isUp ? "+" : ""}
                         {rate.dailyChange}%
                       </span>
-                    </td>
+                    </div>
+                  </div>
 
-                    {/* Weekly Change */}
-                    <td className="hidden px-6 py-4 sm:table-cell">
-                      <span
-                        className={cn(
-                          "inline-flex items-center gap-1 font-medium text-xs",
-                          isWeeklyUp ? "text-emerald-500" : "text-destructive"
-                        )}
-                      >
-                        {isWeeklyUp ? "+" : ""}
-                        {rate.weeklyChange}%
-                      </span>
-                    </td>
-
-                    {/* Monthly Change */}
-                    <td className="hidden px-6 py-4 md:table-cell">
-                      <span
-                        className={cn(
-                          "inline-flex items-center gap-1 font-medium text-xs",
-                          isMonthlyUp ? "text-emerald-500" : "text-destructive"
-                        )}
-                      >
-                        {isMonthlyUp ? "+" : ""}
-                        {rate.monthlyChange}%
-                      </span>
-                    </td>
-
-                    {/* Action */}
-                    <td className="px-6 py-4 text-right">
-                      <Link
-                        href={`/exchange-rates/${pairSlug}`}
-                        className="inline-flex items-center gap-1 font-semibold text-primary text-xs group-hover:underline"
-                      >
-                        <span>Analyze</span>
-                        <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
-                      </Link>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
+                  {/* SVG Sparkline */}
+                  <div className="flex justify-center pt-2">
+                    <Sparkline
+                      rate={rate.rate}
+                      isUp={isUp}
+                      from={rate.from}
+                      to={rate.to}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
+          )
+        })}
       </div>
     </section>
   )

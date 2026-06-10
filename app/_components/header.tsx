@@ -13,6 +13,7 @@ import {
   Sun,
   TrendingUp,
 } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
@@ -38,7 +39,7 @@ const navItems: NavItem[] = [
   { name: "Countries", href: "/countries", icon: Globe },
   { name: "Currencies", href: "/currencies", icon: Coins },
   { name: "Exchange Rates", href: "/exchange-rates", icon: TrendingUp },
-  { name: "Converter", href: "/converter", icon: Calculator },
+  { name: "Currency Converter", href: "/converter", icon: Calculator },
   { name: "Compare", href: "/compare", icon: ArrowLeftRight },
   { name: "Blog", href: "/blog", icon: BookOpen },
 ]
@@ -61,13 +62,15 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-border border-b bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
-        <Link href="/" className="group flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center bg-linear-to-tr from-primary to-emerald-400 text-primary-foreground shadow-lg shadow-primary/20 transition-all duration-300 group-hover:scale-105">
-            <Coins className="h-5 w-5 animate-pulse" />
-          </div>
-          <span className="bg-linear-to-r from-foreground via-foreground/90 to-primary bg-clip-text font-bold font-heading text-lg text-transparent tracking-tight transition-colors duration-200 group-hover:text-primary">
-            Currencies<span className="text-primary">.online</span>
-          </span>
+        <Link href="/" className="group flex items-center">
+          <Image
+            src="/logo-2.png"
+            alt="Currencies.online Logo"
+            width={180}
+            height={40}
+            // className="h-6 w-auto"
+            priority
+          />
         </Link>
 
         {/* Desktop Navigation */}

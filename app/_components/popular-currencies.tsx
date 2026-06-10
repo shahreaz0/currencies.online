@@ -1,5 +1,6 @@
 import { ArrowRight, Coins } from "lucide-react"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { getCachedCountries, getCachedCurrencies } from "@/lib/data-cache"
 
@@ -8,39 +9,72 @@ export async function PopularCurrencies() {
     getCachedCountries(),
     getCachedCurrencies(),
   ])
-  // Get top currencies from our list to make a gorgeous grid
-  const popularList = currencies.slice(0, 30)
+
+  // Mockup order of popular currencies
+  const order = [
+    "USD",
+    "EUR",
+    "JPY",
+    "GBP",
+    "CAD",
+    "AUD",
+    "CHF",
+    "CNY",
+    "INR",
+    "MXN",
+    "BRL",
+    "SGD",
+    "NZD",
+    "HKD",
+    "SEK",
+    "KRW",
+  ]
+
+  // Filter and sort currencies based on order
+  const popularList = order
+    .map((code) => currencies.find((c) => c.code === code))
+    .filter((c): c is NonNullable<typeof c> => !!c)
 
   return (
-    <section className="mx-auto w-full max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mb-8 flex flex-col justify-between md:flex-row md:items-end">
+    <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-end">
         <div>
           <h2 className="flex items-center gap-2 font-bold font-heading text-2xl text-foreground tracking-tight sm:text-3xl">
             <Coins className="h-6 w-6 text-primary" />
             Popular Currencies
           </h2>
-          <p className="mt-2 max-w-xl text-muted-foreground">
-            Browse through the most highly traded currencies. Select any
-            currency to view real-time historical trends, using countries, and
-            converter integrations.
+          <p className="mt-2 text-muted-foreground text-sm">
+            Explore the world's most used currencies.
           </p>
         </div>
         <Link
           href="/currencies"
-          className="group mt-4 inline-flex items-center gap-1.5 font-semibold text-primary text-sm transition-colors hover:text-primary/80 md:mt-0"
+          className="group mt-4 inline-flex items-center gap-1.5 font-bold text-primary text-xs uppercase tracking-wider sm:mt-0"
         >
-          <span>View All Currencies</span>
+          <span>View all currencies</span>
           <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid grid-cols-2 gap-4 sm:grid-cols-4 lg:grid-cols-8">
         {popularList.map((currency) => {
-          // Find country flag using the currency association
+          // Find country flag
           const firstCountry = countries.find(
             (c) => c.currencyCode === currency.code
           )
           const flag = firstCountry ? firstCountry.flag : "🏳️"
+
+          // Format value vs USD: 1 unit of currency = X USD
+          // For USD, value is 1.0000 USD
+          let rateDisplay = ""
+          if (currency.code === "USD") {
+            rateDisplay = "1.0000 USD"
+          } else {
+            const valueVsUsd = 1 / currency.usdRate
+            // Determine decimal places dynamically: e.g. KRW (0.00074) has 5 decimals, others have 4
+            const decimals = valueVsUsd < 0.01 ? 5 : 4
+            rateDisplay = `${valueVsUsd.toFixed(decimals)} USD`
+          }
 
           return (
             <Link
@@ -48,53 +82,50 @@ export async function PopularCurrencies() {
               href={`/currency/${currency.id}`}
               className="group block"
             >
-              <Card className="h-full border border-border transition-all duration-300 hover:border-primary/20 hover:bg-accent/30 hover:shadow-md">
-                <CardContent className="flex h-full flex-col justify-between gap-4 p-5">
-                  {/* Top Row: Name, Flag, Code */}
-                  <div className="flex items-start justify-between">
-                    <div className="flex items-center gap-3">
-                      <span
-                        className="text-3xl leading-none"
-                        role="img"
-                        aria-label="Flag"
-                      >
-                        {flag}
-                      </span>
-                      <div>
-                        <h3 className="font-semibold text-foreground transition-colors group-hover:text-primary">
-                          {currency.name}
-                        </h3>
-                        <p className="text-muted-foreground text-xs">
-                          Official Currency
-                        </p>
-                      </div>
+              <Card className="h-full border border-border bg-card/40 transition-all duration-300 hover:border-primary/20 hover:bg-card hover:shadow-md">
+                <CardContent className="flex h-full flex-col items-center justify-between gap-3 p-4 text-center">
+                  {/* Country Flag */}
+                  <span
+                    className="text-3xl leading-none transition-transform duration-300 group-hover:scale-110"
+                    role="img"
+                    aria-label="Flag"
+                  >
+                    {flag}
+                  </span>
+
+                  {/* Currency Info */}
+                  <div className="space-y-0.5">
+                    <h3 className="max-w-[85px] truncate font-bold text-foreground text-xs transition-colors group-hover:text-primary">
+                      {currency.name}
+                    </h3>
+                    <div className="flex items-center justify-center gap-1 font-semibold text-[10px] text-muted-foreground">
+                      <span>{currency.code}</span>
+                      <span>•</span>
+                      <span className="font-mono">{currency.symbol}</span>
                     </div>
-                    <span className="inline-flex items-center justify-center rounded-none bg-muted px-2.5 py-1 font-bold font-mono text-muted-foreground text-xs transition-colors group-hover:bg-primary/10 group-hover:text-primary">
-                      {currency.code}
-                    </span>
                   </div>
 
-                  {/* Mid Row: Info */}
-                  <p className="line-clamp-2 text-muted-foreground/80 text-xs">
-                    {currency.overview}
-                  </p>
-
-                  {/* Bottom Row: Exchange rate vs USD */}
-                  <div className="flex items-center justify-between border-border border-t pt-3">
-                    <div className="text-muted-foreground text-xs">
-                      Value vs USD
-                    </div>
-                    <div className="font-bold font-mono text-foreground text-sm">
-                      1 USD ={" "}
-                      <span className="text-primary">{currency.usdRate}</span>{" "}
-                      {currency.code}
-                    </div>
+                  {/* Inverse exchange rate vs USD in green pill */}
+                  <div className="w-full select-none rounded-lg bg-emerald-500/10 py-1 text-center font-bold font-mono text-[10px] text-emerald-600 dark:text-emerald-500">
+                    {rateDisplay}
                   </div>
                 </CardContent>
               </Card>
             </Link>
           )
         })}
+      </div>
+
+      <div className="mt-8 flex justify-center">
+        <Link href="/currencies">
+          <Button
+            variant="outline"
+            className="gap-2 border-border px-6 py-5 font-semibold shadow-sm transition-all duration-200 hover:bg-accent hover:text-accent-foreground"
+          >
+            <span>View All 30+ Currencies</span>
+            <ArrowRight className="h-4 w-4" />
+          </Button>
+        </Link>
       </div>
     </section>
   )
