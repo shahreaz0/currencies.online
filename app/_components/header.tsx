@@ -60,21 +60,29 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-border border-b bg-background/80 backdrop-blur-md supports-backdrop-filter:bg-background/60">
-      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
-        <Link href="/" className="group flex items-center">
+        <Link href="/" className="group flex shrink-0 items-center">
           <Image
             src="/logo-2.png"
             alt="Currencies.online Logo"
             width={180}
             height={40}
-            // className="h-6 w-auto"
+            className="block h-9 w-auto shrink-0 object-contain md:hidden xl:block"
+            priority
+          />
+          <Image
+            src="/logo-small.png"
+            alt="Currencies.online Logo"
+            width={40}
+            height={40}
+            className="hidden h-9 w-auto shrink-0 object-contain md:block xl:hidden"
             priority
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden items-center gap-1 md:flex lg:gap-2">
+        <nav className="hidden items-center gap-0.5 md:flex lg:gap-1 xl:gap-2">
           {navItems.map((item) => {
             const isActive =
               pathname === item.href ||
@@ -85,7 +93,7 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                 className={cn(
-                  "relative flex items-center gap-1.5 px-3 py-2 font-medium text-sm transition-all duration-200 hover:bg-accent hover:text-accent-foreground",
+                  "relative flex items-center gap-1 whitespace-nowrap px-1.5 py-1.5 font-medium text-xs transition-all duration-200 hover:bg-accent hover:text-accent-foreground lg:px-2 lg:py-2 lg:text-sm xl:gap-1.5 xl:px-3",
                   isActive
                     ? "bg-primary/5 font-semibold text-primary"
                     : "text-muted-foreground"
@@ -93,13 +101,13 @@ export function Header() {
               >
                 <Icon
                   className={cn(
-                    "h-4 w-4",
+                    "hidden h-4 w-4 xl:block",
                     isActive ? "text-primary" : "text-muted-foreground/80"
                   )}
                 />
                 {item.name}
                 {isActive && (
-                  <span className="absolute right-3 bottom-0 left-3 h-[2px] rounded-full bg-primary" />
+                  <span className="absolute right-1.5 bottom-0 left-1.5 h-[2px] rounded-full bg-primary lg:right-2 lg:left-2 xl:right-3 xl:left-3" />
                 )}
               </Link>
             )
@@ -107,12 +115,12 @@ export function Header() {
         </nav>
 
         {/* Action Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           {/* Theme Switcher */}
           <Button
             variant="ghost"
             size="icon"
-            className="h-9 w-9 text-muted-foreground hover:text-foreground"
+            className="h-9 w-9 shrink-0 text-muted-foreground hover:text-foreground"
             onClick={toggleTheme}
             aria-label="Toggle theme"
           >
@@ -124,7 +132,7 @@ export function Header() {
           </Button>
 
           {/* Quick Converter Shortcut */}
-          <Link href="/converter" className="hidden sm:inline-block">
+          <Link href="/converter" className="hidden shrink-0 lg:inline-block">
             <Button
               size="sm"
               className="gap-1.5 px-4 font-medium shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
