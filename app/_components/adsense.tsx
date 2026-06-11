@@ -21,7 +21,7 @@ export function Adsense({
 
   return (
     <div
-      className={`relative flex select-none items-center justify-center overflow-hidden rounded-none border border-border border-dashed bg-muted/30 backdrop-blur-sm transition-all duration-200 hover:border-primary/20 ${heightClass} ${className || ""}`}
+      className={`relative flex select-none items-center justify-center overflow-hidden rounded-lg border border-border border-dashed bg-muted/30 backdrop-blur-sm transition-all duration-200 hover:border-primary/20 ${heightClass} ${className || ""}`}
     >
       {/* Background design elements to look like a premium ad spot */}
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] bg-size-[16px_16px] opacity-40 dark:bg-[radial-gradient(#1f2937_1px,transparent_1px)]" />

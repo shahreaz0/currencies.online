@@ -63,7 +63,7 @@ export default function FaqsPage() {
           <AccordionItem
             key={faq.question}
             value={`general-faq-${faq.question}`}
-            className="overflow-hidden rounded-none border border-border bg-card px-5 shadow-sm"
+            className="overflow-hidden rounded-lg border border-border bg-card px-5 shadow-sm"
           >
             <AccordionTrigger className="py-4 text-left font-semibold text-foreground text-sm hover:no-underline">
               {faq.question}

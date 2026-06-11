@@ -77,7 +77,7 @@ export function RatesTable({ initialCurrencies }: RatesTableProps) {
   return (
     <div className="space-y-10">
       {/* Base Selector and Search */}
-      <div className="flex flex-col items-stretch justify-between gap-6 border border-border bg-card p-5 lg:flex-row">
+      <div className="flex flex-col items-stretch justify-between gap-6 rounded-lg border border-border bg-card p-5 lg:flex-row">
         {/* Base Currency Select Tabs */}
         <div>
           <span className="mb-2.5 block font-bold text-muted-foreground text-xs uppercase tracking-wider">
@@ -125,7 +125,7 @@ export function RatesTable({ initialCurrencies }: RatesTableProps) {
             Live Currency Pairs (Base: {baseCurrency})
           </h2>
 
-          <div className="overflow-hidden border border-border bg-card shadow-sm">
+          <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-left text-muted-foreground text-sm">
                 <thead>

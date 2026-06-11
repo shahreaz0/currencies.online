@@ -111,7 +111,7 @@ export default function ContactPage() {
                         placeholder="John Doe"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="rounded-none border-border"
+                        className="rounded-md border-border"
                         required
                       />
                     </div>
@@ -129,7 +129,7 @@ export default function ContactPage() {
                         placeholder="john@example.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="rounded-none border-border"
+                        className="rounded-md border-border"
                         required
                       />
                     </div>
@@ -148,7 +148,7 @@ export default function ContactPage() {
                       placeholder="Feedback, Ad enquiry, Database request..."
                       value={subject}
                       onChange={(e) => setSubject(e.target.value)}
-                      className="rounded-none border-border"
+                      className="rounded-md border-border"
                     />
                   </div>
 
@@ -164,14 +164,14 @@ export default function ContactPage() {
                       placeholder="Write your query details here..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="min-h-[120px] rounded-none border-border"
+                      className="min-h-[120px] rounded-md border-border"
                       required
                     />
                   </div>
 
                   <Button
                     type="submit"
-                    className="w-full gap-2 rounded-none px-5 py-4 font-semibold shadow-sm sm:w-auto"
+                    className="w-full gap-2 rounded-md px-5 py-4 font-semibold shadow-sm sm:w-auto"
                   >
                     <Send className="h-4 w-4" />
                     Send Message
@@ -193,7 +193,7 @@ export default function ContactPage() {
                   <Button
                     variant="outline"
                     onClick={() => setSubmitted(false)}
-                    className="rounded-none border-border"
+                    className="rounded-md border-border"
                   >
                     Send Another Message
                   </Button>

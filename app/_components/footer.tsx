@@ -110,7 +110,7 @@ export function Footer() {
           <div className="space-y-6 lg:col-span-2">
             <Link href="/" className="inline-block">
               <Image
-                src="/logo.png"
+                src="/logo-2.png"
                 alt="Currencies.online Logo"
                 width={180}
                 height={40}

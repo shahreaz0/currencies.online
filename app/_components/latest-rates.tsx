@@ -1,32 +1,26 @@
 import { ArrowDownRight, ArrowRight, ArrowUpRight } from "lucide-react"
 import Link from "next/link"
 import { Card, CardContent } from "@/components/ui/card"
-import { generateHistory } from "@/lib/data"
-import { getCachedExchangeRates } from "@/lib/data-cache"
+import {
+  getCachedCountries,
+  getCachedExchangeRates,
+  getCachedHistoricalRates,
+} from "@/lib/data-cache"
+import type { HistoryPoint } from "@/lib/historical-rates"
 import { cn } from "@/lib/utils"
 
-function getFlagByCode(code: string) {
-  if (code === "USD") return "🇺🇸"
-  if (code === "EUR") return "🇪🇺"
-  if (code === "JPY") return "🇯🇵"
-  if (code === "GBP") return "🇬🇧"
-  if (code === "INR") return "🇮🇳"
-  return "🏳️"
-}
-
-// Sparkline component that draws an inline SVG path with gradient filling
+// Sparkline component that draws an inline SVG path with gradient filling using real historical data
 function Sparkline({
-  rate,
+  history,
   isUp,
   from,
   to,
 }: {
-  rate: number
+  history: HistoryPoint[]
   isUp: boolean
   from: string
   to: string
 }) {
-  const history = generateHistory(rate, 30)
   const rates = history.map((h) => h.rate)
   const min = Math.min(...rates)
   const max = Math.max(...rates)
@@ -49,7 +43,11 @@ function Sparkline({
   const gradientId = `sparkline-grad-${from.toLowerCase()}-${to.toLowerCase()}`
 
   return (
-    <svg className="h-[35px] w-[120px]" viewBox={`0 0 ${width} ${height}`}>
+    <svg
+      className="h-[35px] w-full"
+      viewBox={`0 0 ${width} ${height}`}
+      preserveAspectRatio="none"
+    >
       <title>Sparkline rate trend</title>
       <defs>
         <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
@@ -71,7 +69,10 @@ function Sparkline({
 }
 
 export async function LatestRates() {
-  const exchangeRatesMatrix = await getCachedExchangeRates()
+  const [exchangeRatesMatrix, countries] = await Promise.all([
+    getCachedExchangeRates(),
+    getCachedCountries(),
+  ])
 
   const targetPairs = [
     { from: "USD", to: "EUR" },
@@ -87,6 +88,28 @@ export async function LatestRates() {
       exchangeRatesMatrix.find((r) => r.from === pair.from && r.to === pair.to)
     )
     .filter((r): r is NonNullable<typeof r> => !!r)
+
+  // Fetch real 30-day history for each pair in parallel
+  const ratesWithHistory = await Promise.all(
+    rates.map(async (rate) => {
+      const history = await getCachedHistoricalRates(
+        rate.from,
+        rate.to,
+        rate.rate
+      )
+      return {
+        ...rate,
+        history,
+      }
+    })
+  )
+
+  const getFlag = (code: string) => {
+    const country = countries.find(
+      (c) => c.currencyCode.toUpperCase() === code.toUpperCase()
+    )
+    return country ? country.flag : "🏳️"
+  }
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
@@ -114,11 +137,11 @@ export async function LatestRates() {
       </div>
 
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-6">
-        {rates.map((rate) => {
+        {ratesWithHistory.map((rate) => {
           const pairSlug = `${rate.from.toLowerCase()}-to-${rate.to.toLowerCase()}`
           const isUp = rate.dailyChange >= 0
-          const fromFlag = getFlagByCode(rate.from)
-          const toFlag = getFlagByCode(rate.to)
+          const fromFlag = getFlag(rate.from)
+          const toFlag = getFlag(rate.to)
 
           return (
             <Link
@@ -126,7 +149,7 @@ export async function LatestRates() {
               href={`/exchange-rates/${pairSlug}`}
               className="group block"
             >
-              <Card className="h-full border border-border bg-card/40 transition-all duration-300 hover:border-primary/20 hover:bg-card hover:shadow-md">
+              <Card className="h-full overflow-hidden border border-border bg-card/40 transition-all duration-300 hover:border-primary/20 hover:bg-card hover:shadow-md">
                 <CardContent className="flex h-full flex-col justify-between gap-4 p-4">
                   {/* Pair Title & Flags */}
                   <div className="flex items-center justify-between">
@@ -170,9 +193,9 @@ export async function LatestRates() {
                   </div>
 
                   {/* SVG Sparkline */}
-                  <div className="flex justify-center pt-2">
+                  <div className="-mx-4 -mb-4 pt-2">
                     <Sparkline
-                      rate={rate.rate}
+                      history={rate.history}
                       isUp={isUp}
                       from={rate.from}
                       to={rate.to}

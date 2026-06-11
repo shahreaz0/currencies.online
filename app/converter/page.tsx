@@ -47,7 +47,7 @@ export default async function ConverterPage() {
       {/* Converter Widget with Suspense wrap for SearchParams */}
       <Suspense
         fallback={
-          <div className="flex h-[200px] w-full items-center justify-center rounded-none border border-border bg-card">
+          <div className="flex h-[200px] w-full items-center justify-center rounded-lg border border-border bg-card">
             <div className="animate-pulse text-muted-foreground text-sm">
               Initializing Converter Engine...
             </div>

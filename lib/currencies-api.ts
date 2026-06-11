@@ -154,7 +154,7 @@ export async function getCurrenciesFromApi(): Promise<Currency[]> {
       return a.name.localeCompare(b.name)
     })
   } catch (error) {
-    console.error("Failed to construct dynamic currencies:", error)
+    console.warn("Failed to construct dynamic currencies:", error)
     return staticCurrencies
   }
 }
@@ -274,7 +274,7 @@ export async function getExchangeRatesMatrixFromApi() {
 
     return matrix.length > 0 ? matrix : staticMatrix
   } catch (error) {
-    console.error(
+    console.warn(
       "Failed to fetch dynamic exchange rates, using static data:",
       error
     )

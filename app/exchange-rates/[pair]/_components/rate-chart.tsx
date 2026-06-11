@@ -68,7 +68,7 @@ export function RateChart({
 
   if (!mounted) {
     return (
-      <div className="flex h-[300px] w-full items-center justify-center rounded-none border border-border bg-muted/20">
+      <div className="flex h-[300px] w-full items-center justify-center rounded-lg border border-border bg-muted/20">
         <div className="animate-pulse text-muted-foreground text-sm">
           Loading Historical Chart...
         </div>
@@ -78,7 +78,7 @@ export function RateChart({
 
   if (isFetching && !fetchedData) {
     return (
-      <div className="flex h-[300px] w-full items-center justify-center rounded-none border border-border bg-muted/20">
+      <div className="flex h-[300px] w-full items-center justify-center rounded-lg border border-border bg-muted/20">
         <div className="animate-pulse text-muted-foreground text-sm">
           Fetching Historical Data...
         </div>
@@ -111,7 +111,7 @@ export function RateChart({
 
           <div className="flex items-center gap-2">
             <span
-              className={`inline-flex items-center gap-1 rounded-none px-2.5 py-1 font-semibold text-xs ${isUp ? "bg-emerald-500/10 text-emerald-500" : "bg-destructive/10 text-destructive"}`}
+              className={`inline-flex items-center gap-1 rounded-md px-2.5 py-1 font-semibold text-xs ${isUp ? "bg-emerald-500/10 text-emerald-500" : "bg-destructive/10 text-destructive"}`}
             >
               {isUp ? (
                 <ArrowUpRight className="h-3.5 w-3.5" />
@@ -177,7 +177,7 @@ export function RateChart({
                   if (active && payload?.length) {
                     const data = payload[0].payload
                     return (
-                      <div className="rounded-none border border-border bg-popover p-3 shadow-xl backdrop-blur-md">
+                      <div className="rounded-lg border border-border bg-popover p-3 shadow-xl backdrop-blur-md">
                         <p className="font-bold text-[10px] text-muted-foreground uppercase">
                           {data.date}
                         </p>

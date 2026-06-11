@@ -68,7 +68,7 @@ export function Header() {
             alt="Currencies.online Logo"
             width={180}
             height={40}
-            className="block h-9 w-auto shrink-0 object-contain md:hidden xl:block"
+            className="block h-9 w-auto shrink-0 object-contain md:hidden xl:block dark:brightness-0 dark:invert"
             priority
           />
           <Image
@@ -76,7 +76,7 @@ export function Header() {
             alt="Currencies.online Logo"
             width={40}
             height={40}
-            className="hidden h-9 w-auto shrink-0 object-contain md:block xl:hidden"
+            className="hidden h-9 w-auto shrink-0 object-contain md:block xl:hidden dark:brightness-0 dark:invert"
             priority
           />
         </Link>
@@ -135,7 +135,7 @@ export function Header() {
           <Link href="/converter" className="hidden shrink-0 lg:inline-block">
             <Button
               size="sm"
-              className="gap-1.5 px-4 font-medium shadow-md transition-all duration-300 hover:shadow-lg hover:shadow-primary/20"
+              className="h-8 gap-1.5 px-4 font-medium shadow-sm"
             >
               <Sparkles className="h-3.5 w-3.5" />
               Convert Now

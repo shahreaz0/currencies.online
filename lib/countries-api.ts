@@ -62,30 +62,92 @@ export async function getLiveRates(): Promise<Record<string, number>> {
   return {}
 }
 
+interface RawApiCountry {
+  names?: {
+    common?: string
+    official?: string
+  }
+  codes?: {
+    alpha_3?: string
+  }
+  capitals?: {
+    name?: string
+  }[]
+  flag?: {
+    emoji?: string
+  }
+  population?: number
+  currencies?: {
+    code?: string
+    name?: string
+    symbol?: string
+  }[]
+  region?: string
+  subregion?: string
+  borders?: string[]
+}
+
 export async function getCountriesFromApi(): Promise<Country[]> {
   try {
     // 1. Fetch live exchange rates from Open Exchange Rates API
     const rates = await getLiveRates()
 
-    // 2. Fetch countries from REST Countries API
-    // Requesting specific fields to minimize payload size and improve speed
-    const fields =
-      "name,cca3,flag,flags,capital,population,currencies,region,subregion,borders"
-    const countriesResponse = await fetchWithTimeout(
-      `https://restcountries.com/v3.1/all?fields=${fields}`,
-      {},
-      15000
-    )
-
-    if (!countriesResponse.ok) {
-      throw new Error(
-        `REST Countries API responded with status ${countriesResponse.status}`
+    // 2. Fetch countries from REST Countries API v5 with pagination
+    const apiKey = process.env.REST_COUNTRIES_API_KEY
+    if (!apiKey) {
+      console.warn(
+        "REST_COUNTRIES_API_KEY environment variable is not defined. Falling back to static data."
       )
+      return staticCountries
     }
 
-    const rawCountries = await countriesResponse.json()
-    if (!Array.isArray(rawCountries) || rawCountries.length === 0) {
-      throw new Error("Invalid response format from REST Countries API")
+    const rawCountries: RawApiCountry[] = []
+    let offset = 0
+    const limit = 100
+    let hasMore = true
+    const fields =
+      "names.common,names.official,codes.alpha_3,flag.emoji,capitals,population,currencies,region,subregion,borders"
+
+    while (hasMore) {
+      const url = `https://api.restcountries.com/countries/v5?limit=${limit}&offset=${offset}&response_fields=${fields}`
+      const countriesResponse = await fetchWithTimeout(
+        url,
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
+        },
+        15000
+      )
+
+      if (!countriesResponse.ok) {
+        console.warn(
+          `REST Countries API v5 responded with status ${countriesResponse.status}. Falling back to static data.`
+        )
+        return staticCountries
+      }
+
+      const resJson = await countriesResponse.json()
+      const pageObjects = resJson?.data?.objects
+      if (!Array.isArray(pageObjects) || pageObjects.length === 0) {
+        if (rawCountries.length === 0) {
+          console.warn(
+            "Invalid response format or empty objects from REST Countries API v5. Falling back to static data."
+          )
+          return staticCountries
+        }
+        break
+      }
+
+      rawCountries.push(...pageObjects)
+
+      const meta = resJson?.data?.meta
+      if (meta && typeof meta.more === "boolean") {
+        hasMore = meta.more
+      } else {
+        hasMore = pageObjects.length === limit
+      }
+      offset += limit
     }
 
     // Create a lookup map for static countries for metadata matching
@@ -94,21 +156,21 @@ export async function getCountriesFromApi(): Promise<Country[]> {
       staticMap.set(c.id, c)
     }
 
-    // Create a lookup map of cca3 to country slugs for resolving related countries (borders)
+    // Create a lookup map of codes.alpha_3 to country slugs for resolving related countries (borders)
     const cca3ToIdMap = new Map<string, string>()
     for (const raw of rawCountries) {
-      if (raw.name?.common) {
-        cca3ToIdMap.set(raw.cca3, slugify(raw.name.common))
+      if (raw.names?.common && raw.codes?.alpha_3) {
+        cca3ToIdMap.set(raw.codes.alpha_3, slugify(raw.names.common))
       }
     }
 
     const mappedCountries: Country[] = rawCountries.map((raw) => {
-      const name = raw.name?.common || ""
+      const name = raw.names?.common || ""
       const id = slugify(name)
       const staticCountry = staticMap.get(id)
 
-      const flag = raw.flag || staticCountry?.flag || "🏳️"
-      const capital = raw.capital?.[0] || staticCountry?.capital || "N/A"
+      const flag = raw.flag?.emoji || staticCountry?.flag || "🏳️"
+      const capital = raw.capitals?.[0]?.name || staticCountry?.capital || "N/A"
       const population = raw.population
         ? formatPopulation(raw.population)
         : staticCountry?.population || "0"
@@ -118,14 +180,11 @@ export async function getCountriesFromApi(): Promise<Country[]> {
       let currencyName = ""
       let currencySymbol = ""
 
-      if (raw.currencies && typeof raw.currencies === "object") {
-        const codes = Object.keys(raw.currencies)
-        if (codes.length > 0) {
-          currencyCode = codes[0]
-          const curObj = raw.currencies[currencyCode]
-          currencyName = curObj.name || ""
-          currencySymbol = curObj.symbol || currencyCode
-        }
+      if (Array.isArray(raw.currencies) && raw.currencies.length > 0) {
+        const curObj = raw.currencies[0]
+        currencyCode = curObj.code || ""
+        currencyName = curObj.name || ""
+        currencySymbol = curObj.symbol || currencyCode
       }
 
       if (!currencyCode && staticCountry) {
@@ -162,13 +221,15 @@ export async function getCountriesFromApi(): Promise<Country[]> {
           .filter(
             (other) =>
               other.region === region &&
-              other.cca3 !== raw.cca3 &&
-              !relatedCountries.includes(cca3ToIdMap.get(other.cca3) || "")
+              other.codes?.alpha_3 !== raw.codes?.alpha_3 &&
+              !relatedCountries.includes(
+                cca3ToIdMap.get(other.codes?.alpha_3 || "") || ""
+              )
           )
           .slice(0, 4 - relatedCountries.length)
 
         for (const other of sameRegion) {
-          const mappedId = cca3ToIdMap.get(other.cca3)
+          const mappedId = cca3ToIdMap.get(other.codes?.alpha_3 || "")
           if (mappedId) {
             relatedCountries.push(mappedId)
           }
@@ -205,7 +266,7 @@ export async function getCountriesFromApi(): Promise<Country[]> {
     // Sort alphabetically by name
     return mappedCountries.sort((a, b) => a.name.localeCompare(b.name))
   } catch (error) {
-    console.error(
+    console.warn(
       "Failed to fetch dynamic country details, using static data:",
       error
     )

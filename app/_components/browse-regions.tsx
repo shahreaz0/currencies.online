@@ -77,7 +77,7 @@ export function BrowseRegions() {
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
             {/* Gradient Overlay */}
-            <div className="absolute inset-0 z-10 bg-gradient-to-t from-[#051124]/90 via-[#051124]/40 to-transparent" />
+            <div className="absolute inset-0 z-10 bg-linear-to-t from-[#051124]/90 via-[#051124]/40 to-transparent" />
 
             {/* Content overlay */}
             <div className="absolute right-0 bottom-0 left-0 z-20 flex h-full flex-col justify-end p-4 text-white">

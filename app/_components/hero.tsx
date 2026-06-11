@@ -268,7 +268,7 @@ export function Hero({ initialCountries, initialCurrencies }: HeroProps) {
 
   return (
     <section
-      className="relative overflow-hidden px-4 py-10"
+      className="relative px-4 py-10"
       style={{
         background: "var(--hero-bg)",
       }}

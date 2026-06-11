@@ -35,6 +35,20 @@ export async function PopularCurrencies() {
     .map((code) => currencies.find((c) => c.code === code))
     .filter((c): c is NonNullable<typeof c> => !!c)
 
+  // Ensure we have exactly 16 items to align perfectly on all grid layouts
+  // (2 columns on mobile, 4 columns on tablet, 8 columns on desktop)
+  const targetCount = 16
+  if (popularList.length < targetCount) {
+    const remainingCurrencies = currencies.filter(
+      (c) => !popularList.some((p) => p.code === c.code)
+    )
+    popularList.push(
+      ...remainingCurrencies.slice(0, targetCount - popularList.length)
+    )
+  } else if (popularList.length > targetCount) {
+    popularList.splice(targetCount)
+  }
+
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <div className="mb-8 flex flex-col justify-between sm:flex-row sm:items-end">

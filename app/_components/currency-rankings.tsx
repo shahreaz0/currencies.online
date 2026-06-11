@@ -40,7 +40,7 @@ export async function CurrencyRankings() {
             Top 10 Strongest Currencies
           </h3>
 
-          <div className="overflow-hidden rounded-none border border-border bg-card shadow-sm">
+          <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-left text-xs">
                 <thead>
@@ -94,7 +94,7 @@ export async function CurrencyRankings() {
             Top 10 Purchasing Power Index
           </h3>
 
-          <div className="overflow-hidden rounded-none border border-border bg-card shadow-sm">
+          <div className="overflow-hidden rounded-lg border border-border bg-card shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full border-collapse text-left text-xs">
                 <thead>
