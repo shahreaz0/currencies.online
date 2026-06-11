@@ -1,3 +1,4 @@
+import countriesData from "./countries-data.json"
 import { type Country, countries as staticCountries } from "./data"
 
 function slugify(name: string) {
@@ -92,7 +93,11 @@ export async function getCountriesFromApi(): Promise<Country[]> {
     // 1. Fetch live exchange rates from Open Exchange Rates API
     const rates = await getLiveRates()
 
-    // 2. Fetch countries from REST Countries API v5 with pagination
+    // 2. Load countries from local snapshot data
+    const rawCountries = countriesData as RawApiCountry[]
+
+    /*
+    // Legacy REST Countries API v5 pagination fetch - commented out as backup
     const apiKey = process.env.REST_COUNTRIES_API_KEY
     if (!apiKey) {
       console.warn(
@@ -101,7 +106,7 @@ export async function getCountriesFromApi(): Promise<Country[]> {
       return staticCountries
     }
 
-    const rawCountries: RawApiCountry[] = []
+    const rawCountriesApi: RawApiCountry[] = []
     let offset = 0
     const limit = 100
     let hasMore = true
@@ -130,7 +135,7 @@ export async function getCountriesFromApi(): Promise<Country[]> {
       const resJson = await countriesResponse.json()
       const pageObjects = resJson?.data?.objects
       if (!Array.isArray(pageObjects) || pageObjects.length === 0) {
-        if (rawCountries.length === 0) {
+        if (rawCountriesApi.length === 0) {
           console.warn(
             "Invalid response format or empty objects from REST Countries API v5. Falling back to static data."
           )
@@ -139,7 +144,7 @@ export async function getCountriesFromApi(): Promise<Country[]> {
         break
       }
 
-      rawCountries.push(...pageObjects)
+      rawCountriesApi.push(...pageObjects)
 
       const meta = resJson?.data?.meta
       if (meta && typeof meta.more === "boolean") {
@@ -149,6 +154,7 @@ export async function getCountriesFromApi(): Promise<Country[]> {
       }
       offset += limit
     }
+    */
 
     // Create a lookup map for static countries for metadata matching
     const staticMap = new Map<string, Country>()

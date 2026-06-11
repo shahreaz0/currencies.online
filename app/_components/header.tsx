@@ -135,7 +135,7 @@ export function Header() {
           <Link href="/converter" className="hidden shrink-0 lg:inline-block">
             <Button
               size="sm"
-              className="h-8 gap-1.5 px-4 font-medium shadow-sm"
+              className="flex h-8 items-center gap-1.5 px-4 font-medium shadow-sm"
             >
               <Sparkles className="h-3.5 w-3.5" />
               Convert Now
